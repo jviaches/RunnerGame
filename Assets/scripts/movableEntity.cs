@@ -35,13 +35,13 @@ public class movableEntity : MonoBehaviour
         else
             rb.velocity = new Vector3(0f, rb.velocity.y > 0 ? 0 : rb.velocity.y, speed);
 
-        //detectFreeFall();
+        detectFreeFall();
         detectBonus();
 
         coinText.text = "Coins: " + coinsAmount.ToString();
     }
 
-    private bool detectFreeFall()
+    public bool detectFreeFall()
     {
         RaycastHit hit;
 
