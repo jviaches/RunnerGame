@@ -1,23 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class movableEntity : MonoBehaviour
 {
+    public event EventHandler CollectedCoins;   // raise each time when this object "touched" coin
+
     private Rigidbody rb;
     private float speed = 5f;
 
-    private int coinsAmount = 0;
-    public Text coinText;
-
     private bool isMovingRight = true;
 
-    // Use this for initialization
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        coinText.text = "Coins: " + coinsAmount.ToString();
     }
 
     void changeDirection()
@@ -37,8 +35,6 @@ public class movableEntity : MonoBehaviour
 
         detectFreeFall();
         detectBonus();
-
-        coinText.text = "Coins: " + coinsAmount.ToString();
     }
 
     public bool detectFreeFall()
@@ -56,26 +52,32 @@ public class movableEntity : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            coinsAmount++;
+            OnCollectedCoins();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.back, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            coinsAmount++;
+            OnCollectedCoins();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            coinsAmount++;
+            OnCollectedCoins();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.left, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            coinsAmount++;
+            OnCollectedCoins();
             Destroy(hit.transform.gameObject);
         }
+    }
+
+    private void OnCollectedCoins()
+    {
+        if (CollectedCoins != null)
+            CollectedCoins(this, new EventArgs());
     }
 }

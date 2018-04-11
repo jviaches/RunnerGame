@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -11,18 +12,23 @@ public class WorldManager : MonoBehaviour
     public GameObject coin;                 // prefab representing coins
     public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
     public int CoinsScore = 0;              // How many coins picked up in whole levels
+    public Text coinText;                   // Update coins amount on game screen
 
     #endregion
-
     private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
     private Queue<GameObject> RoadBlockPool;       // for reuse GameObjects (memory, preformance and etc)
-
-    private float timer;                // [Countdown], limits time to pass current level  
-    private bool playing = false;       // if user is currently playing on current level
+    
+    private float timer;                            // [Countdown], limits time to pass current level  
+    private bool playing = false;                   // if user is currently playing on current level
+    private movableEntity PlayerMovingObjectScript; // script of PlayerMovingObject
 
     public void Start()
     {
         RoadBlockPool = new Queue<GameObject>(20);
+        coinText.text = "Coins: " + CoinsScore.ToString();
+
+        PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
+        PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
 
         for (int i = 0; i < 20; i++)
         {
@@ -37,6 +43,11 @@ public class WorldManager : MonoBehaviour
 
         Level = ScenesManager.Instance.CurrentLevel;
         playing = true;
+    }
+
+    private void PlayerMovingObjectScript_CollectedCoins(object sender, System.EventArgs e)
+    {
+        CoinsScore++;
     }
 
     void SpawnPlatform()
@@ -70,6 +81,7 @@ public class WorldManager : MonoBehaviour
 
     public void Update()
     {
+        coinText.text = "Coins: " + CoinsScore.ToString();
         // randomize next roadblock for X or Z axis (depending on level)
         // & reuse roadblock from RoadBlockPool
 
@@ -86,7 +98,7 @@ public class WorldManager : MonoBehaviour
     // checking if user failed to pass level
     private void GameOverCheck()
     {
-        if (timer > 0f)// || PlayerMovingObject.detectFreeFall())
+        if (timer > 0f || PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
 
@@ -99,7 +111,7 @@ public class WorldManager : MonoBehaviour
     // checking if user Succeded to pass level
     private void LevelCompleteCheck()
     {
-        if (timer == 0f)// && !PlayerMovingObject.IsOut())
+        if (timer == 0f && !PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
 
