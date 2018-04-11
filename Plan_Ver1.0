@@ -1,7 +1,7 @@
 
-Complete list of features for Phase 1 (fully playable game):
+##Complete list of features for Phase 1 (fully playable game):
 
-Description* Player able to complete 40 levels (I am thinking to limit infinite amount of levels) generated 
+**Description** Player able to complete 40 levels (I am thinking to limit infinite amount of levels) generated 
 randomaly with limited amount of time (countdown)
 - Android application (apk). atleast for our 2 devices it is scalable as it should be.
 - Higher game level, more frequent change of wall direction
