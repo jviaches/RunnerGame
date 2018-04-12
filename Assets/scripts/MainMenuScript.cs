@@ -9,7 +9,6 @@ public class MainMenuScript : MonoBehaviour {
 
     public Button StartMenuBtnButton;               // Start Game button in main menu
 
-    // Use this for initialization
     void Start () {
 
         Button btn = StartMenuBtnButton.GetComponent<Button>();
