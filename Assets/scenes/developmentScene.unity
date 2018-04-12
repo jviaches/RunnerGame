@@ -431,11 +431,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadBlock: {fileID: 1602922852574102, guid: c48c3bba643cacf4aa5d443930264d75, type: 2}
   PlayerMovingObject: {fileID: 1669676802}
-  coin: {fileID: 1462806983398410, guid: 52ea8a4806342594a892d9e387254fab, type: 2}
   Level: 1
+  coin: {fileID: 1462806983398410, guid: 52ea8a4806342594a892d9e387254fab, type: 2}
   CoinsScore: 10
   coinText: {fileID: 1054526185}
-  LevelTimer: 120
+  LevelTimer: 10
   LevelTimeText: {fileID: 2004310009}
 --- !u!1001 &905098235
 Prefab:

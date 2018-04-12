@@ -98,12 +98,12 @@ public class WorldManager : MonoBehaviour
         }
 
         LevelTimer -= Time.deltaTime;
-        LevelTimeText.text = "Time: " + LevelTimer;
         if (LevelTimer <= 0)
         {
             LevelTimer = 0;
             GameOverCheck();
         }
+        LevelTimeText.text = "Time: " + LevelTimer;
     }
 
 
