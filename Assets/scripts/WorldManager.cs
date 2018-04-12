@@ -16,14 +16,13 @@ public class WorldManager : MonoBehaviour
     public int CoinsScore = 0;              // How many coins picked up in whole levels
     public Text coinText;                   // Update coins amount on game screen
 
-    public int LevelTimer = 120;            // Default time to complete level (if not fall from wall)
+    public float LevelTimer = 120;            // Default time to complete level (if not fall from wall)
     public Text LevelTimeText;              // Updatable Timer in UI
 
     #endregion
     private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
     private Queue<GameObject> RoadBlockPool;       // for reuse GameObjects (memory, preformance and etc)
     
-    private float timer;                            // [Countdown], limits time to pass current level  
     private bool playing = false;                   // if user is currently playing on current level
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
 
@@ -97,13 +96,21 @@ public class WorldManager : MonoBehaviour
             GameOverCheck();
             LevelCompleteCheck();
         }
+
+        LevelTimer -= Time.deltaTime;
+        LevelTimeText.text = "Time: " + LevelTimer;
+        if (LevelTimer <= 0)
+        {
+            LevelTimer = 0;
+            GameOverCheck();
+        }
     }
 
 
     // checking if user failed to pass level
     private void GameOverCheck()
     {
-        if (timer > 0f || PlayerMovingObjectScript.detectFreeFall())
+        if (LevelTimer == 0f || PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
 
@@ -116,7 +123,7 @@ public class WorldManager : MonoBehaviour
     // checking if user Succeded to pass level
     private void LevelCompleteCheck()
     {
-        if (timer == 0f && !PlayerMovingObjectScript.detectFreeFall())
+        if (LevelTimer == 0f && !PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
 
