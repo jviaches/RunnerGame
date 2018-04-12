@@ -7,12 +7,17 @@ public class WorldManager : MonoBehaviour
 {
     #region assign from editor
 
-    public GameObject RoadBlock;            // surface on which moving player's object
-    public GameObject PlayerMovingObject;   // actual player's object
-    public GameObject coin;                 // prefab representing coins
+    public GameObject RoadBlock;            // Surface on which moving player's object
+    public GameObject PlayerMovingObject;   // Actual player's object
+    
     public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
+
+    public GameObject coin;                 // Prefab representing coins
     public int CoinsScore = 0;              // How many coins picked up in whole levels
     public Text coinText;                   // Update coins amount on game screen
+
+    public int LevelTimer = 120;            // Default time to complete level (if not fall from wall)
+    public Text LevelTimeText;              // Updatable Timer in UI
 
     #endregion
     private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
@@ -20,12 +25,13 @@ public class WorldManager : MonoBehaviour
     
     private float timer;                            // [Countdown], limits time to pass current level  
     private bool playing = false;                   // if user is currently playing on current level
-    private movableEntity PlayerMovingObjectScript; // script of PlayerMovingObject
+    private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
 
     public void Start()
     {
         RoadBlockPool = new Queue<GameObject>(20);
         coinText.text = "Coins: " + CoinsScore.ToString();
+        LevelTimeText.text = "Timer: " + LevelTimer.ToString();
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
         PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
@@ -61,7 +67,6 @@ public class WorldManager : MonoBehaviour
             _platform = RoadBlockPool.Dequeue();
             _platform.transform.position = lastRoadBlockpos + new Vector3(1f, 0f, 0f); // set on X
             lastRoadBlockpos = _platform.transform.position;
-
         }
         else
         {
