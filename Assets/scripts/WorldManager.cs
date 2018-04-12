@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
@@ -60,7 +62,7 @@ public class WorldManager : MonoBehaviour
         GameObject _platform;
         GameObject _coin;
 
-        int random = Random.Range(0, 2);
+        int random = UnityEngine.Random.Range(0, 2);
         if (random == 0)
         {
             _platform = RoadBlockPool.Dequeue();
@@ -74,7 +76,7 @@ public class WorldManager : MonoBehaviour
             lastRoadBlockpos = _platform.transform.position;
         }
 
-        if (Random.value > 0.5) //%5
+        if (UnityEngine.Random.value > 0.5) //%5
         {
             _coin = Instantiate(coin) as GameObject;
             _coin.transform.position = lastRoadBlockpos + new Vector3(0f, 1f, 0f);

@@ -37,6 +37,7 @@ public class ScenesManager
     private int higestCompletedLevel = 1; // higest completed level
 
 
+
     public void LoadLevel(int level)
     {
         // check if user already completed this level
@@ -50,6 +51,7 @@ public class ScenesManager
         CurrentLevel = level;
 
         // Load level
+        
     }
 
     public void LoadNextLevel()
