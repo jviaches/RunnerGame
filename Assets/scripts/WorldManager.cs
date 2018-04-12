@@ -48,7 +48,6 @@ public class WorldManager : MonoBehaviour
 
         InvokeRepeating("SpawnPlatform", 2f, 0.2f);
 
-        Level = ScenesManager.Instance.CurrentLevel;
         playing = true;
     }
 
@@ -128,8 +127,6 @@ public class WorldManager : MonoBehaviour
         if (LevelTimer == 0f && !PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
-
-            ScenesManager.Instance.LoadNextLevel();
         }
     }
 }
