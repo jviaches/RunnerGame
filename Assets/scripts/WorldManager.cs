@@ -2,30 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
+using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
     #region assign from editor
 
-    public GameObject RoadBlock;            // surface on which moving player's object
-    public GameObject PlayerMovingObject;   // actual player's object
-    public GameObject coin;                 // prefab representing coins
+    public GameObject RoadBlock;            // Surface on which moving player's object
+    public GameObject PlayerMovingObject;   // Actual player's object
+    
     public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
+
+    public GameObject coin;                 // Prefab representing coins
     public int CoinsScore = 0;              // How many coins picked up in whole levels
     public Text coinText;                   // Update coins amount on game screen
+
+    public float LevelTimer = 120;            // Default time to complete level (if not fall from wall)
+    public Text LevelTimeText;              // Updatable Timer in UI
 
     #endregion
     private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
     private Queue<GameObject> RoadBlockPool;       // for reuse GameObjects (memory, preformance and etc)
     
-    private float timer;                            // [Countdown], limits time to pass current level  
     private bool playing = false;                   // if user is currently playing on current level
-    private movableEntity PlayerMovingObjectScript; // script of PlayerMovingObject
+    private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
 
     public void Start()
     {
         RoadBlockPool = new Queue<GameObject>(20);
         coinText.text = "Coins: " + CoinsScore.ToString();
+        LevelTimeText.text = "Timer: " + LevelTimer.ToString();
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
         PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
@@ -41,7 +48,6 @@ public class WorldManager : MonoBehaviour
 
         InvokeRepeating("SpawnPlatform", 2f, 0.2f);
 
-        Level = ScenesManager.Instance.CurrentLevel;
         playing = true;
     }
 
@@ -55,13 +61,12 @@ public class WorldManager : MonoBehaviour
         GameObject _platform;
         GameObject _coin;
 
-        int random = Random.Range(0, 2);
+        int random = UnityEngine.Random.Range(0, 2);
         if (random == 0)
         {
             _platform = RoadBlockPool.Dequeue();
             _platform.transform.position = lastRoadBlockpos + new Vector3(1f, 0f, 0f); // set on X
             lastRoadBlockpos = _platform.transform.position;
-
         }
         else
         {
@@ -70,7 +75,7 @@ public class WorldManager : MonoBehaviour
             lastRoadBlockpos = _platform.transform.position;
         }
 
-        if (Random.value > 0.5) //%5
+        if (UnityEngine.Random.value > 0.5) //%5
         {
             _coin = Instantiate(coin) as GameObject;
             _coin.transform.position = lastRoadBlockpos + new Vector3(0f, 1f, 0f);
@@ -92,13 +97,21 @@ public class WorldManager : MonoBehaviour
             GameOverCheck();
             LevelCompleteCheck();
         }
+
+        LevelTimer -= Time.deltaTime;
+        if (LevelTimer <= 0)
+        {
+            LevelTimer = 0;
+            GameOverCheck();
+        }
+        LevelTimeText.text = "Time: " + LevelTimer;
     }
 
 
     // checking if user failed to pass level
     private void GameOverCheck()
     {
-        if (timer > 0f || PlayerMovingObjectScript.detectFreeFall())
+        if (LevelTimer == 0f || PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
 
@@ -111,11 +124,9 @@ public class WorldManager : MonoBehaviour
     // checking if user Succeded to pass level
     private void LevelCompleteCheck()
     {
-        if (timer == 0f && !PlayerMovingObjectScript.detectFreeFall())
+        if (LevelTimer == 0f && !PlayerMovingObjectScript.detectFreeFall())
         {
             playing = !playing;     // stop timer
-
-            ScenesManager.Instance.LoadNextLevel();
         }
     }
 }
