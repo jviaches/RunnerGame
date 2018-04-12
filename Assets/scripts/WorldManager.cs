@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using System;
-using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
@@ -11,25 +10,33 @@ public class WorldManager : MonoBehaviour
 
     public GameObject RoadBlock;            // Surface on which moving player's object
     public GameObject PlayerMovingObject;   // Actual player's object
-    
+
+    public GameObject ModelPanel;           // Modal Dialog
+    public Text ModalText;                  // Caption of modal dialog
+    public Button ModalOkButton;            // OK button in modal dialog
+
     public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
 
     public GameObject coin;                 // Prefab representing coins
     public int CoinsScore = 0;              // How many coins picked up in whole levels
     public Text coinText;                   // Update coins amount on game screen
 
-    public float LevelTimer = 120;            // Default time to complete level (if not fall from wall)
+    public float LevelTimer = 120;          // Default time to complete level (if not fall from wall)
     public Text LevelTimeText;              // Updatable Timer in UI
 
     #endregion
     private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
-    private Queue<GameObject> RoadBlockPool;       // for reuse GameObjects (memory, preformance and etc)
-    
+    private Queue<GameObject> RoadBlockPool;        // for reuse GameObjects (memory, preformance and etc)
+
     private bool playing = false;                   // if user is currently playing on current level
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
 
     public void Start()
     {
+        ModalOkButton.GetComponent<Button>().onClick.AddListener(HideModalDialog);
+
+        HideModalDialog();
+
         RoadBlockPool = new Queue<GameObject>(20);
         coinText.text = "Coins: " + CoinsScore.ToString();
         LevelTimeText.text = "Timer: " + LevelTimer.ToString();
@@ -97,6 +104,12 @@ public class WorldManager : MonoBehaviour
             GameOverCheck();
             LevelCompleteCheck();
         }
+        else
+        {
+            LevelTimer = 0;
+            Time.timeScale = 0;
+            ShowModalLevelCompletedDialog();
+        }
 
         LevelTimer -= Time.deltaTime;
         if (LevelTimer <= 0)
@@ -128,6 +141,25 @@ public class WorldManager : MonoBehaviour
         {
             playing = !playing;     // stop timer
         }
+    }
+
+    private void HideModalDialog()
+    {
+        ModelPanel.SetActive(false);
+    }
+
+    private void ShowModalDialog()
+    {
+        ModelPanel.SetActive(true);
+        //public Text ModalText;                
+        //public Button ModalOkButton;
+    }
+
+    private void ShowModalLevelCompletedDialog()
+    {
+        ModelPanel.SetActive(true);
+        ModalText.text = "Level " + Level + " comlpleted !";
+        playing = false;
     }
 }
 
