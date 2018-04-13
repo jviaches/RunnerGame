@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 120f;         // Default time to complete level
+    private const float LEVEL_TIMER = 4f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
@@ -17,10 +17,15 @@ public class WorldManager : MonoBehaviour
     public GameObject PlayerMovingObject;           // Actual player's object
     public Button PlayerDirectionChangeButton;      // TEMPORARY button to change user direction
 
-    public GameObject SuccessModelPanel;            // Modal Dialog when user successfully completed level
+    public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
     public Text SuccessModalTitle;                  // Caption of modal dialog
     public Button SuccessModalOkButton;             // OK button in Success modal dialog
     public Button SuccessModalNextLvlButton;        // Next level button in Success modal dialog
+
+    public GameObject FailModalPanel;               // Modal Dialog when user Fail to complete level
+    public Text FailModalTitle;                     // Caption of modal dialog
+    public Button FailModalOkButton;                // OK button in Fail modal dialog
+    public Button FailModalRepeatLvlButton;           // repeat level button in Fail modal dialog
 
     public int Level = 1;                           // higher level will affect on RoadBlock direction change frequency
 
@@ -39,6 +44,9 @@ public class WorldManager : MonoBehaviour
     {
         SuccessModalNextLvlButton.GetComponent<Button>().onClick.AddListener(loadNextLevelModalDialog);
         SuccessModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+
+        FailModalRepeatLvlButton.GetComponent<Button>().onClick.AddListener(repeatLevelFailModalDialog);
+        FailModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
 
         PlayerDirectionChangeButton.GetComponent<Button>().onClick.AddListener(playerDirectionChange);
 
@@ -64,13 +72,11 @@ public class WorldManager : MonoBehaviour
 
     private void startLevel()
     {
-        //Level++;
-
         restartLevelTimer();
 
-        restartRoadBlocks();
-
         restartPlayer();
+
+        restartRoadBlocks();
 
         levelInProgress = true;
     }
@@ -124,13 +130,13 @@ public class WorldManager : MonoBehaviour
 
     private void checkLevelConditions()
     {
-        //if (PlayerMovingObjectScript.detectFreeFall())
-        //{
-        //    LevelTimer = 0;
-        //    //ShowModalFailLevelCompletedDialog();
+        if (PlayerMovingObjectScript.detectFreeFall())
+        {
+            LevelTimer = 0;
+            showModalFailLevelDialog();
 
-        //    return;
-        //}
+            return;
+        }
 
         if (LevelTimer <= 0)
         {
@@ -158,19 +164,38 @@ public class WorldManager : MonoBehaviour
 
         PlayerMovingObjectScript.SetSpeed(0);
 
-        SuccessModelPanel.SetActive(true);
+        SuccessModalPanel.SetActive(true);
         SuccessModalTitle.text = "Level " + Level + " completed !";
 
         Level++;
         
     }
 
+    private void showModalFailLevelDialog()
+    {
+        levelInProgress = false;
+        CancelInvoke("spawnPlatform");
+
+        PlayerMovingObjectScript.SetSpeed(0);
+        PlayerMovingObjectScript.SetMovingDirection(true);
+
+        FailModalPanel.SetActive(true);
+        FailModalTitle.text = "Level " + Level + " Failed !";
+    }
+
     private void loadNextLevelModalDialog()
     {
-        //Time.timeScale = 1; // resume scene from pause
+        SuccessModalPanel.SetActive(false);
+        FailModalPanel.SetActive(false);
 
-        SuccessModelPanel.SetActive(false);
-        
+        startLevel();
+    }
+
+    private void repeatLevelFailModalDialog()
+    {
+        FailModalPanel.SetActive(false);
+        SuccessModalPanel.SetActive(false);
+
         startLevel();
     }
 

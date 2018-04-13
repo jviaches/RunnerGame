@@ -25,9 +25,6 @@ public class movableEntity : MonoBehaviour
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //    changeDirection();
-
         if (isMovingRight)
             rb.velocity = new Vector3(speed, rb.velocity.y > 0 ? 0: rb.velocity.y, 0f);
         else
@@ -84,5 +81,10 @@ public class movableEntity : MonoBehaviour
     public void SetSpeed(float newSpeed)
     {
         speed = newSpeed;
+    }
+
+    public void SetMovingDirection(bool right)
+    {
+        isMovingRight = right;
     }
 }
