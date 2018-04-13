@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class movableEntity : MonoBehaviour
 {
-    public event EventHandler CollectedCoin;   // raise each time when this object "touched" coin
+    //public event EventHandler CollectedCoin;   // raise each time when this object "touched" coin
 
     private Rigidbody rb;
     private float speed = 5f;
@@ -34,7 +34,7 @@ public class movableEntity : MonoBehaviour
             rb.velocity = new Vector3(0f, rb.velocity.y > 0 ? 0 : rb.velocity.y, speed);
 
         detectFreeFall();
-        detectBonus();
+        //detectBonus();
     }
 
     public bool detectFreeFall()
@@ -47,39 +47,39 @@ public class movableEntity : MonoBehaviour
             return true;
     }
 
-    private void detectBonus()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1f) && hit.transform.gameObject.tag == "coin")
-        {
-            OnCollectedCoin();
-            Destroy(hit.transform.gameObject);
-        }
+    //private void detectBonus()
+    //{
+    //    RaycastHit hit;
+    //    if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1f) && hit.transform.gameObject.tag == "coin")
+    //    {
+    //        OnCollectedCoin();
+    //        Destroy(hit.transform.gameObject);
+    //    }
 
-        if (Physics.Raycast(transform.position, Vector3.back, out hit, 1f) && hit.transform.gameObject.tag == "coin")
-        {
-            OnCollectedCoin();
-            Destroy(hit.transform.gameObject);
-        }
+    //    if (Physics.Raycast(transform.position, Vector3.back, out hit, 1f) && hit.transform.gameObject.tag == "coin")
+    //    {
+    //        OnCollectedCoin();
+    //        Destroy(hit.transform.gameObject);
+    //    }
 
-        if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f) && hit.transform.gameObject.tag == "coin")
-        {
-            OnCollectedCoin();
-            Destroy(hit.transform.gameObject);
-        }
+    //    if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f) && hit.transform.gameObject.tag == "coin")
+    //    {
+    //        OnCollectedCoin();
+    //        Destroy(hit.transform.gameObject);
+    //    }
 
-        if (Physics.Raycast(transform.position, Vector3.left, out hit, 1f) && hit.transform.gameObject.tag == "coin")
-        {
-            OnCollectedCoin();
-            Destroy(hit.transform.gameObject);
-        }
-    }
+    //    if (Physics.Raycast(transform.position, Vector3.left, out hit, 1f) && hit.transform.gameObject.tag == "coin")
+    //    {
+    //        OnCollectedCoin();
+    //        Destroy(hit.transform.gameObject);
+    //    }
+    //}
 
-    private void OnCollectedCoin()
-    {
-        if (CollectedCoin != null)
-            CollectedCoin(this, new EventArgs());
-    }
+    //private void OnCollectedCoin()
+    //{
+    //    if (CollectedCoin != null)
+    //        CollectedCoin(this, new EventArgs());
+    //}
     
     public void SetSpeed(float newSpeed)
     {

@@ -18,7 +18,7 @@ public class MainMenuScript : MonoBehaviour {
 
     private void StartMenuButtonClick()
     {
-        SceneManager.LoadScene("developmentScene");
+        SceneManager.LoadScene("LevelScene");
         Debug.Log("StartMenuButtonClick()");
     }
 
