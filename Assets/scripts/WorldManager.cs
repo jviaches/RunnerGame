@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 4f;         // Default time to complete level
+    private const float LEVEL_TIMER = 120f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
@@ -25,7 +25,7 @@ public class WorldManager : MonoBehaviour
     public GameObject FailModalPanel;               // Modal Dialog when user Fail to complete level
     public Text FailModalTitle;                     // Caption of modal dialog
     public Button FailModalOkButton;                // OK button in Fail modal dialog
-    public Button FailModalRepeatLvlButton;           // repeat level button in Fail modal dialog
+    public Button FailModalRepeatLvlButton;         // repeat level button in Fail modal dialog
 
     public int Level = 1;                           // higher level will affect on RoadBlock direction change frequency
 
@@ -152,7 +152,6 @@ public class WorldManager : MonoBehaviour
 
     private void playerDirectionChange()
     {
-        //if (Input.GetMouseButtonDown(0))
         PlayerMovingObjectScript.ChangeDirection();
     }
 
@@ -168,7 +167,6 @@ public class WorldManager : MonoBehaviour
         SuccessModalTitle.text = "Level " + Level + " completed !";
 
         Level++;
-        
     }
 
     private void showModalFailLevelDialog()
@@ -201,7 +199,6 @@ public class WorldManager : MonoBehaviour
 
     private void loadMainMenuModalDialog()
     {
-        //Time.timeScale = 1; // resume scene from pause
         SceneManager.LoadScene(0);
     }
     #endregion
