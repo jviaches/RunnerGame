@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 120f;         // Default time to complete level
+    private const float LEVEL_TIMER = 4f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
@@ -17,6 +17,7 @@ public class WorldManager : MonoBehaviour
     public GameObject PlayerMovingObject;           // Actual player's object
     public Button PlayerDirectionChangeButton;      // TEMPORARY button to change user direction
 
+    public GameObject MainModalPanel;               // ..
     public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
     public Text SuccessModalTitle;                  // Caption of modal dialog
     public Button SuccessModalOkButton;             // OK button in Success modal dialog
@@ -163,6 +164,7 @@ public class WorldManager : MonoBehaviour
 
         PlayerMovingObjectScript.SetSpeed(0);
 
+        SuccessModalPanel.transform.position = MainModalPanel.transform.position;
         SuccessModalPanel.SetActive(true);
         SuccessModalTitle.text = "Level " + Level + " completed !";
 
@@ -177,6 +179,7 @@ public class WorldManager : MonoBehaviour
         PlayerMovingObjectScript.SetSpeed(0);
         PlayerMovingObjectScript.SetMovingDirection(true);
 
+        FailModalPanel.transform.position = MainModalPanel.transform.position;
         FailModalPanel.SetActive(true);
         FailModalTitle.text = "Level " + Level + " Failed !";
     }
