@@ -7,127 +7,202 @@ using UnityEngine.SceneManagement;
 
 public class WorldManager : MonoBehaviour
 {
+    // Defaults
+    private const float LEVEL_TIMER = 4f;         // Default time to complete level
+    private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
+
     #region assign from editor
 
-    public GameObject RoadBlock;            // Surface on which moving player's object
-    public GameObject PlayerMovingObject;   // Actual player's object
-    
-    public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
+    public GameObject RoadBlock;                    // Surface on which moving player's object
+    public GameObject PlayerMovingObject;           // Actual player's object
+    public Button PlayerDirectionChangeButton;      // TEMPORARY button to change user direction
 
-    public GameObject coin;                 // Prefab representing coins
-    public int CoinsScore = 0;              // How many coins picked up in whole levels
-    public Text coinText;                   // Update coins amount on game screen
+    public GameObject MainModalPanel;               // ..
+    public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
+    public Text SuccessModalTitle;                  // Caption of modal dialog
+    public Button SuccessModalOkButton;             // OK button in Success modal dialog
+    public Button SuccessModalNextLvlButton;        // Next level button in Success modal dialog
 
-    public float LevelTimer = 120;            // Default time to complete level (if not fall from wall)
-    public Text LevelTimeText;              // Updatable Timer in UI
+    public GameObject FailModalPanel;               // Modal Dialog when user Fail to complete level
+    public Text FailModalTitle;                     // Caption of modal dialog
+    public Button FailModalOkButton;                // OK button in Fail modal dialog
+    public Button FailModalRepeatLvlButton;         // repeat level button in Fail modal dialog
+
+    public int Level = 1;                           // higher level will affect on RoadBlock direction change frequency
+
+    public float LevelTimer = LEVEL_TIMER;          // Time to complete level (if not fall from wall)
+    public Text LevelTimeText;                      // Updatable Timer in UI (upper bar)
 
     #endregion
-    private Vector3 lastRoadBlockpos = new Vector3(0f, 0f, 0f);
-    private Queue<GameObject> RoadBlockPool;       // for reuse GameObjects (memory, preformance and etc)
-    
-    private bool playing = false;                   // if user is currently playing on current level
+
+    private Vector3 lastRoadBlockPos = new Vector3(0f, 0f, 0f); // position of last built roadBlock
+    private Queue<GameObject> RoadBlockPool;        // for reuse GameObjects (memory, preformance and etc)
+
+    private bool levelInProgress = false;           // if user is currently playing on current level
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
 
     public void Start()
     {
-        RoadBlockPool = new Queue<GameObject>(20);
-        coinText.text = "Coins: " + CoinsScore.ToString();
-        LevelTimeText.text = "Timer: " + LevelTimer.ToString();
+        SuccessModalNextLvlButton.GetComponent<Button>().onClick.AddListener(loadNextLevelModalDialog);
+        SuccessModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+
+        FailModalRepeatLvlButton.GetComponent<Button>().onClick.AddListener(repeatLevelFailModalDialog);
+        FailModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+
+        PlayerDirectionChangeButton.GetComponent<Button>().onClick.AddListener(playerDirectionChange);
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
-        PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
 
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject _platform = Instantiate(RoadBlock) as GameObject;
-            _platform.transform.position = lastRoadBlockpos + new Vector3(1f, 0f, 0f);
-            lastRoadBlockpos = _platform.transform.position;
+        RoadBlockPool = new Queue<GameObject>(ROADBLOCK_POOLSIZE);
 
-            RoadBlockPool.Enqueue(_platform);
-        }
-
-        InvokeRepeating("SpawnPlatform", 2f, 0.2f);
-
-        playing = true;
-    }
-
-    private void PlayerMovingObjectScript_CollectedCoins(object sender, System.EventArgs e)
-    {
-        CoinsScore++;
-    }
-
-    void SpawnPlatform()
-    {
-        GameObject _platform;
-        GameObject _coin;
-
-        int random = UnityEngine.Random.Range(0, 2);
-        if (random == 0)
-        {
-            _platform = RoadBlockPool.Dequeue();
-            _platform.transform.position = lastRoadBlockpos + new Vector3(1f, 0f, 0f); // set on X
-            lastRoadBlockpos = _platform.transform.position;
-        }
-        else
-        {
-            _platform = RoadBlockPool.Dequeue();
-            _platform.transform.position = lastRoadBlockpos + new Vector3(0f, 0f, 1f); // set on Z
-            lastRoadBlockpos = _platform.transform.position;
-        }
-
-        if (UnityEngine.Random.value > 0.5) //%5
-        {
-            _coin = Instantiate(coin) as GameObject;
-            _coin.transform.position = lastRoadBlockpos + new Vector3(0f, 1f, 0f);
-        }
-
-        RoadBlockPool.Enqueue(_platform);
+        loadNextLevelModalDialog();
     }
 
     public void Update()
     {
-        coinText.text = "Coins: " + CoinsScore.ToString();
-        // randomize next roadblock for X or Z axis (depending on level)
-        // & reuse roadblock from RoadBlockPool
-
-        if (playing)
+        if (levelInProgress)
         {
-            // run countdown
+            LevelTimer -= Time.deltaTime;
+            LevelTimeText.text = "Time: " + LevelTimer.ToString();
 
-            GameOverCheck();
-            LevelCompleteCheck();
+            Debug.Log(LevelTimer);
         }
 
-        LevelTimer -= Time.deltaTime;
+        checkLevelConditions();
+    }
+
+    private void startLevel()
+    {
+        restartLevelTimer();
+
+        restartPlayer();
+
+        restartRoadBlocks();
+
+        levelInProgress = true;
+    }
+
+    private void restartLevelTimer()
+    {
+        LevelTimer = LEVEL_TIMER;
+        LevelTimeText.text = "Timer: " + LevelTimer.ToString();
+    }
+
+    private void restartRoadBlocks()
+    {
+        lastRoadBlockPos = new Vector3(0f, 0f, 0f);
+
+        foreach (GameObject roadBlock in RoadBlockPool.ToArray())
+            Destroy(roadBlock);
+
+        RoadBlockPool.Clear();
+
+        for (int i = 0; i < ROADBLOCK_POOLSIZE; i++)
+        {
+            GameObject _platform = Instantiate(RoadBlock) as GameObject;
+            _platform.transform.position = lastRoadBlockPos + new Vector3(1f, 0f, 0f);
+            lastRoadBlockPos = _platform.transform.position;
+
+            RoadBlockPool.Enqueue(_platform);
+        }
+
+        InvokeRepeating("spawnPlatform", 2f, 0.2f);
+    }
+
+    private void spawnPlatform()
+    {
+        int random = UnityEngine.Random.Range(0, 2);
+        GameObject _platform = RoadBlockPool.Dequeue();
+
+        if (random == 0)
+            _platform.transform.position = lastRoadBlockPos + new Vector3(1f, 0f, 0f); // set on X
+        else
+            _platform.transform.position = lastRoadBlockPos + new Vector3(0f, 0f, 1f); // set on Z
+
+        lastRoadBlockPos = _platform.transform.position;
+        RoadBlockPool.Enqueue(_platform);
+    }
+
+    private void restartPlayer()
+    {
+        PlayerMovingObject.transform.position = new Vector3(0f, 1f, 0f);
+        PlayerMovingObjectScript.SetSpeed(5f);
+    }
+
+    private void checkLevelConditions()
+    {
+        if (PlayerMovingObjectScript.detectFreeFall())
+        {
+            LevelTimer = 0;
+            showModalFailLevelDialog();
+
+            return;
+        }
+
         if (LevelTimer <= 0)
         {
             LevelTimer = 0;
-            GameOverCheck();
+
+            // avoid repetitive call to showModalSuccessLevelCompletedDialog()
+            if (false == levelInProgress)
+                return;
+
+            showModalSuccessLevelCompletedDialog();
         }
-        LevelTimeText.text = "Time: " + LevelTimer;
     }
 
-
-    // checking if user failed to pass level
-    private void GameOverCheck()
+    private void playerDirectionChange()
     {
-        if (LevelTimer == 0f || PlayerMovingObjectScript.detectFreeFall())
-        {
-            playing = !playing;     // stop timer
-
-            /* update UI
-             ...
-             move user to the the score screen  */
-        }
+        PlayerMovingObjectScript.ChangeDirection();
     }
 
-    // checking if user Succeded to pass level
-    private void LevelCompleteCheck()
+    #region Dialogs
+    private void showModalSuccessLevelCompletedDialog()
     {
-        if (LevelTimer == 0f && !PlayerMovingObjectScript.detectFreeFall())
-        {
-            playing = !playing;     // stop timer
-        }
+        levelInProgress = false;
+        CancelInvoke("spawnPlatform");
+
+        PlayerMovingObjectScript.SetSpeed(0);
+
+        SuccessModalPanel.transform.position = MainModalPanel.transform.position;
+        SuccessModalPanel.SetActive(true);
+        SuccessModalTitle.text = "Level " + Level + " completed !";
+
+        Level++;
     }
+
+    private void showModalFailLevelDialog()
+    {
+        levelInProgress = false;
+        CancelInvoke("spawnPlatform");
+
+        PlayerMovingObjectScript.SetSpeed(0);
+        PlayerMovingObjectScript.SetMovingDirection(true);
+
+        FailModalPanel.transform.position = MainModalPanel.transform.position;
+        FailModalPanel.SetActive(true);
+        FailModalTitle.text = "Level " + Level + " Failed !";
+    }
+
+    private void loadNextLevelModalDialog()
+    {
+        SuccessModalPanel.SetActive(false);
+        FailModalPanel.SetActive(false);
+
+        startLevel();
+    }
+
+    private void repeatLevelFailModalDialog()
+    {
+        FailModalPanel.SetActive(false);
+        SuccessModalPanel.SetActive(false);
+
+        startLevel();
+    }
+
+    private void loadMainMenuModalDialog()
+    {
+        SceneManager.LoadScene(0);
+    }
+    #endregion
 }
-
