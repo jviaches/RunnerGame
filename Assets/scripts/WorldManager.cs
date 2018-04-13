@@ -15,13 +15,13 @@ public class WorldManager : MonoBehaviour
     public Text ModalText;                  // Caption of modal dialog
     public Button ModalOkButton;            // OK button in modal dialog
 
-    public int Level = 1;                   // higher level will affect on RoadBlock direction change frequency
+    public int Level = 0;                   // higher level will affect on RoadBlock direction change frequency
 
     public GameObject coin;                 // Prefab representing coins
     public int CoinsScore = 0;              // How many coins picked up in whole levels
     public Text coinText;                   // Update coins amount on game screen
 
-    public float LevelTimer = 120;          // Default time to complete level (if not fall from wall)
+    public float LevelTimer = 4;          // Default time to complete level (if not fall from wall)
     public Text LevelTimeText;              // Updatable Timer in UI
 
     #endregion
@@ -35,14 +35,28 @@ public class WorldManager : MonoBehaviour
     {
         ModalOkButton.GetComponent<Button>().onClick.AddListener(HideModalDialog);
 
-        HideModalDialog();
+        PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
+        PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
 
         RoadBlockPool = new Queue<GameObject>(20);
+
+        HideModalDialog();
+    }
+
+    private void StartLevel()
+    {
+        foreach (GameObject roadBlock in RoadBlockPool.ToArray())
+            Destroy(roadBlock);
+
+        Level++;
+        
         coinText.text = "Coins: " + CoinsScore.ToString();
         LevelTimeText.text = "Timer: " + LevelTimer.ToString();
 
-        PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
-        PlayerMovingObjectScript.CollectedCoins += PlayerMovingObjectScript_CollectedCoins;
+        lastRoadBlockpos = new Vector3(0f, 0f, 0f);
+        PlayerMovingObject.transform.position = new Vector3(0f, 1f, 0f);
+
+        RoadBlockPool.Clear();
 
         for (int i = 0; i < 20; i++)
         {
@@ -55,7 +69,10 @@ public class WorldManager : MonoBehaviour
 
         InvokeRepeating("SpawnPlatform", 2f, 0.2f);
 
+        PlayerMovingObjectScript.SetSpeed(5f);
+
         playing = true;
+        LevelTimer = 4;
     }
 
     private void PlayerMovingObjectScript_CollectedCoins(object sender, System.EventArgs e)
@@ -82,7 +99,7 @@ public class WorldManager : MonoBehaviour
             lastRoadBlockpos = _platform.transform.position;
         }
 
-        if (UnityEngine.Random.value > 0.5) //%5
+        if (UnityEngine.Random.value > 0.85) //15%
         {
             _coin = Instantiate(coin) as GameObject;
             _coin.transform.position = lastRoadBlockpos + new Vector3(0f, 1f, 0f);
@@ -93,21 +110,14 @@ public class WorldManager : MonoBehaviour
 
     public void Update()
     {
-        coinText.text = "Coins: " + CoinsScore.ToString();
-        // randomize next roadblock for X or Z axis (depending on level)
-        // & reuse roadblock from RoadBlockPool
-
         if (playing)
         {
-            // run countdown
-
-            GameOverCheck();
-            LevelCompleteCheck();
+            coinText.text = "Coins: " + CoinsScore.ToString();
+            LevelTimeText.text = "Time: " + LevelTimer;
         }
         else
         {
             LevelTimer = 0;
-            Time.timeScale = 0;
             ShowModalLevelCompletedDialog();
         }
 
@@ -115,51 +125,30 @@ public class WorldManager : MonoBehaviour
         if (LevelTimer <= 0)
         {
             LevelTimer = 0;
-            GameOverCheck();
-        }
-        LevelTimeText.text = "Time: " + LevelTimer;
-    }
-
-
-    // checking if user failed to pass level
-    private void GameOverCheck()
-    {
-        if (LevelTimer == 0f || PlayerMovingObjectScript.detectFreeFall())
-        {
-            playing = !playing;     // stop timer
-
-            /* update UI
-             ...
-             move user to the the score screen  */
-        }
-    }
-
-    // checking if user Succeded to pass level
-    private void LevelCompleteCheck()
-    {
-        if (LevelTimer == 0f && !PlayerMovingObjectScript.detectFreeFall())
-        {
-            playing = !playing;     // stop timer
-        }
+            PlayerMovingObject.transform.position = PlayerMovingObject.transform.position;
+            playing = false;
+        }     
     }
 
     private void HideModalDialog()
     {
         ModelPanel.SetActive(false);
+        StartLevel();
     }
 
     private void ShowModalDialog()
     {
         ModelPanel.SetActive(true);
-        //public Text ModalText;                
-        //public Button ModalOkButton;
     }
 
     private void ShowModalLevelCompletedDialog()
     {
-        ModelPanel.SetActive(true);
-        ModalText.text = "Level " + Level + " comlpleted !";
+        CancelInvoke("SpawnPlatform");
+        PlayerMovingObjectScript.SetSpeed(0);
         playing = false;
+
+        ModelPanel.SetActive(true);
+        ModalText.text = "Level " + Level + " completed !";
     }
 }
 

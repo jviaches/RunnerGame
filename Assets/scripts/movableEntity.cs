@@ -6,11 +6,11 @@ using UnityEngine.UI;
 
 public class movableEntity : MonoBehaviour
 {
-    public event EventHandler CollectedCoins;   // raise each time when this object "touched" coin
+    public event EventHandler CollectedCoin;   // raise each time when this object "touched" coin
 
     private Rigidbody rb;
     private float speed = 5f;
-
+    
     private bool isMovingRight = true;
 
     void Start()
@@ -20,7 +20,7 @@ public class movableEntity : MonoBehaviour
 
     void changeDirection()
     {
-        isMovingRight = !isMovingRight;
+        //isMovingRight = !isMovingRight;
     }
 
     void Update()
@@ -52,32 +52,37 @@ public class movableEntity : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.forward, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            OnCollectedCoins();
+            OnCollectedCoin();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.back, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            OnCollectedCoins();
+            OnCollectedCoin();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.right, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            OnCollectedCoins();
+            OnCollectedCoin();
             Destroy(hit.transform.gameObject);
         }
 
         if (Physics.Raycast(transform.position, Vector3.left, out hit, 1f) && hit.transform.gameObject.tag == "coin")
         {
-            OnCollectedCoins();
+            OnCollectedCoin();
             Destroy(hit.transform.gameObject);
         }
     }
 
-    private void OnCollectedCoins()
+    private void OnCollectedCoin()
     {
-        if (CollectedCoins != null)
-            CollectedCoins(this, new EventArgs());
+        if (CollectedCoin != null)
+            CollectedCoin(this, new EventArgs());
+    }
+    
+    public void SetSpeed(float newSpeed)
+    {
+        speed = newSpeed;
     }
 }
