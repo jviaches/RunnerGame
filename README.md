@@ -12,7 +12,7 @@ User controls running object by clicking/taping on the screen. Any click or tap 
 **Description** Player able to complete 40 levels (I am thinking to limit infinite amount of levels) generated 
 randomaly with limited amount of time (countdown)
 - Android application (apk). atleast for our 2 devices it is scalable as it should be.
-- Higher game level, more frequent change of wall direction
+- The higher game level, more frequent change of wall direction
 - Main screen (background image + 3 buttons)
   - Start game
   - Settings
@@ -34,4 +34,4 @@ randomaly with limited amount of time (countdown)
   - Level failed
   - Coin collection sound
   
-  This is the bare minimum till March 30.
+  This is the bare minimum till May 30.
