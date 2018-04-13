@@ -15,6 +15,7 @@ public class WorldManager : MonoBehaviour
 
     public GameObject RoadBlock;                    // Surface on which moving player's object
     public GameObject PlayerMovingObject;           // Actual player's object
+    public Button PlayerDirectionChangeButton;      // TEMPORARY button to change user direction
 
     public GameObject SuccessModelPanel;            // Modal Dialog when user successfully completed level
     public Text SuccessModalTitle;                  // Caption of modal dialog
@@ -38,6 +39,8 @@ public class WorldManager : MonoBehaviour
     {
         SuccessModalNextLvlButton.GetComponent<Button>().onClick.AddListener(loadNextLevelModalDialog);
         SuccessModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+
+        PlayerDirectionChangeButton.GetComponent<Button>().onClick.AddListener(playerDirectionChange);
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
 
@@ -139,6 +142,12 @@ public class WorldManager : MonoBehaviour
 
             showModalSuccessLevelCompletedDialog();
         }
+    }
+
+    private void playerDirectionChange()
+    {
+        //if (Input.GetMouseButtonDown(0))
+        PlayerMovingObjectScript.ChangeDirection();
     }
 
     #region Dialogs

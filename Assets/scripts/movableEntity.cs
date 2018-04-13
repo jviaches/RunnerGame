@@ -18,15 +18,15 @@ public class movableEntity : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    void changeDirection()
+    public void ChangeDirection()
     {
-        //isMovingRight = !isMovingRight;
+        isMovingRight = !isMovingRight;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-            changeDirection();
+        //if (Input.GetMouseButtonDown(0))
+        //    changeDirection();
 
         if (isMovingRight)
             rb.velocity = new Vector3(speed, rb.velocity.y > 0 ? 0: rb.velocity.y, 0f);
