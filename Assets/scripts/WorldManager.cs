@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 4f;         // Default time to complete level
+    private const float LEVEL_TIMER = 400f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
@@ -56,6 +56,8 @@ public class WorldManager : MonoBehaviour
         RoadBlockPool = new Queue<GameObject>(ROADBLOCK_POOLSIZE);
 
         loadNextLevelModalDialog();
+
+        InvokeRepeating("spawnPlatform", 2f, 0.3f);
     }
 
     public void Update()
@@ -106,7 +108,7 @@ public class WorldManager : MonoBehaviour
             RoadBlockPool.Enqueue(_platform);
         }
 
-        InvokeRepeating("spawnPlatform", 2f, 0.2f);
+        
     }
 
     private void spawnPlatform()
@@ -125,19 +127,19 @@ public class WorldManager : MonoBehaviour
 
     private void restartPlayer()
     {
-        PlayerMovingObject.transform.position = new Vector3(0f, 1f, 0f);
+        PlayerMovingObject.transform.position = new Vector3(0f, 0.5f, 0f);
         PlayerMovingObjectScript.SetSpeed(5f);
     }
 
     private void checkLevelConditions()
     {
-        if (PlayerMovingObjectScript.detectFreeFall())
-        {
-            LevelTimer = 0;
-            showModalFailLevelDialog();
+        //if (PlayerMovingObjectScript.detectFreeFall())
+        //{
+        //    LevelTimer = 0;
+        //    showModalFailLevelDialog();
 
-            return;
-        }
+        //    return;
+        //}
 
         if (LevelTimer <= 0)
         {
