@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 4f;         // Default time to complete level
+    private const float LEVEL_TIMER = 120f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
