@@ -77,7 +77,7 @@ public class WorldManager : MonoBehaviour
 
         restartPlayer();
 
-        restartRoadBlocks();
+        //restartRoadBlocks();
 
         levelInProgress = true;
     }
