@@ -36,7 +36,20 @@ User controls car by clicking/taping on the screen. Any click or tap will change
   - Level failed screen (background + buttons)
   - Moving object (model/prefab) 
   - Walls 
-  - Surface beneath the wall
+  - Level environment (surrounding)
+  - Bonuses
+    - increase countdown time for 5 seconds 
+      - ICON
+      - 3D object (prefab)
+    - increase countdown time for 10 seconds ICON
+      - ICON
+      - 3D object (prefab)
+    - increase temporary speed for 5 seconds ICON
+      - ICON
+      - 3D object (prefab)
+    - increase temporary speed for 10 seconds ICON
+      - ICON
+      - 3D object (prefab)
 - Sound
   - Background sounds(when playing level)
   - Button pressed sound (any button same sound)
