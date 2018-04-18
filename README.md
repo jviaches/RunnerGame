@@ -4,6 +4,7 @@ Runner where player must espace from skull island. Main character steal a Jeep a
 Player able to pick up (located on road) 2 types of (randomly generated) bonuses: increase countdown time for X seconds and temporary speed increase for X seconds.
 When car is being hitted by some object, it looses its speed. When car is out of the road, it is "roll over" (immidiately game over).
 
+Automatically last level saving: Last passed level is remembered. User succesefully completed level and exited, next timme will start from a new one.
 Game mechanics:
 User controls car by clicking/taping on the screen. Any click or tap will change running object direction: left or right.
 
@@ -57,5 +58,7 @@ User controls car by clicking/taping on the screen. Any click or tap will change
   - Level completed succesfully
   - Level failed
   - Coin collection sound
+- Automatically Saving
+  - Last passed level is remembered. User succesefully completed level and exited, next timme will start from a new one.
   
   This is the bare minimum till May 30.
