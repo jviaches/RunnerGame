@@ -125,7 +125,7 @@ public class WorldManager : MonoBehaviour
 
     private void restartPlayer()
     {
-        PlayerMovingObject.transform.position = new Vector3(0f, 1f, 0f);
+        PlayerMovingObject.transform.position = new Vector3(38.96f, 0.43f, 112.5f);
         PlayerMovingObjectScript.SetSpeed(5f);
     }
 
