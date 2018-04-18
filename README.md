@@ -37,6 +37,7 @@ User controls car by clicking/taping on the screen. Any click or tap will change
   - Moving object (model/prefab) 
   - Walls 
   - Level environment (surrounding)
+  - 10 Designed levels
   - Bonuses
     - increase countdown time for 5 seconds 
       - ICON
