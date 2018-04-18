@@ -30,8 +30,7 @@ User controls car by clicking/taping on the screen. Any click or tap will change
   - Player's car touched by enemy vechicle leads to fail to pass level.
 - Main screen (background image + 3 buttons)
   - Start game
-  - Settings
-    - Background music ON/OFF
+  - Sound ON/OFF
   - Exit
 - Level completed screen (when user able to succseffuly complete level) with time result and next level button.
 - Level failed screen (when user failed to complete level) with time result and retry button.
