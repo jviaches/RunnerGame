@@ -1,3 +1,7 @@
+# Complimentary
+[Project Management](https://trello.com/b/kXCPCoAB/runner-game)
+
+
 # RunnerGame
 Runner where player must espace from skull island. Main character steal a Jeep and runaway with it. Player can control car onlyin  2 directions (left and right). Road can go right left or streight. Player runs away through the desert (10 levels) and each level he is being followed by car trying to capture him (enemy car touch is enoigh). Besides avoiding enemi's touch, in order to succesfully pass level, player also must not exceed level time (countdown) which is might be different from level to level.
 
