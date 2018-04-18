@@ -41,13 +41,13 @@ User controls car by clicking/taping on the screen. Any click or tap will change
     - increase countdown time for 5 seconds 
       - ICON
       - 3D object (prefab)
-    - increase countdown time for 10 seconds ICON
+    - increase countdown time for 10 seconds
       - ICON
       - 3D object (prefab)
-    - increase temporary speed for 5 seconds ICON
+    - increase temporary speed for 5 seconds
       - ICON
       - 3D object (prefab)
-    - increase temporary speed for 10 seconds ICON
+    - increase temporary speed for 10 seconds
       - ICON
       - 3D object (prefab)
 - Sound
