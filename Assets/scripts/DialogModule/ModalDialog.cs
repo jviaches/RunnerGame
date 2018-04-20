@@ -10,12 +10,12 @@ namespace Assets.scripts.DialogModule
 {
     public class ModalDialog
     {
-        private string _title;
+        private Text _title;
         private GameObject _modalPanel;
         private Dictionary<Button, UnityAction> _buttonsAndMethods;
         private GameObject _parentModalPanel;
 
-        public ModalDialog(string title, GameObject modalPanel, Dictionary<Button, UnityAction> buttonsAndMethods, GameObject parentModalPanel)
+        public ModalDialog(Text title, GameObject modalPanel, Dictionary<Button, UnityAction> buttonsAndMethods, GameObject parentModalPanel)
         {
             _title = title;
             _modalPanel = modalPanel;
@@ -26,7 +26,7 @@ namespace Assets.scripts.DialogModule
                 buttonsAndMethods.ElementAt(i).Key.onClick.AddListener(buttonsAndMethods.ElementAt(i).Value);
         }
 
-        public string Title { get { return _title; } }
+        public Text Title { get { return _title; } }
         public GameObject ModalPanel { get { return _modalPanel; } }
         public GameObject ParentModalPanel { get { return _parentModalPanel; } }
     }

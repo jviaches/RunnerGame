@@ -4,6 +4,8 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Assets.scripts.DialogModule;
+using UnityEngine.Events;
 
 public class WorldManager : MonoBehaviour
 {
@@ -40,18 +42,30 @@ public class WorldManager : MonoBehaviour
 
     private bool levelInProgress = false;           // if user is currently playing on current level
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
+    private DialogManager dialogManager;
 
     public void Start()
     {
-        SuccessModalNextLvlButton.GetComponent<Button>().onClick.AddListener(loadNextLevelModalDialog);
-        SuccessModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+        dialogManager = new DialogManager();
 
-        FailModalRepeatLvlButton.GetComponent<Button>().onClick.AddListener(repeatLevelFailModalDialog);
-        FailModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+        Dictionary<Button, UnityAction> successModalDictionary = new Dictionary<Button, UnityAction>();
+        successModalDictionary.Add(SuccessModalNextLvlButton, loadNextLevelModalDialog);
+        successModalDictionary.Add(SuccessModalOkButton, loadMainMenuModalDialog);
+
+        ModalDialog successModalDialog = new ModalDialog(SuccessModalTitle, SuccessModalPanel, successModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(successModalDialog);
+
+        Dictionary<Button, UnityAction> failModalDictionary = new Dictionary<Button, UnityAction>();
+        failModalDictionary.Add(FailModalRepeatLvlButton, repeatLevelFailModalDialog);
+        failModalDictionary.Add(FailModalOkButton, loadMainMenuModalDialog);
+
+        ModalDialog failModalDialog = new ModalDialog(FailModalTitle, FailModalPanel, failModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(failModalDialog);
 
         PlayerDirectionChangeButton.GetComponent<Button>().onClick.AddListener(playerDirectionChange);
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
+        Debug.Log(PlayerMovingObjectScript);
 
         RoadBlockPool = new Queue<GameObject>(ROADBLOCK_POOLSIZE);
 
@@ -131,6 +145,7 @@ public class WorldManager : MonoBehaviour
 
     private void checkLevelConditions()
     {
+
         if (PlayerMovingObjectScript.detectFreeFall())
         {
             LevelTimer = 0;
@@ -179,23 +194,20 @@ public class WorldManager : MonoBehaviour
         PlayerMovingObjectScript.SetSpeed(0);
         PlayerMovingObjectScript.SetMovingDirection(true);
 
-        FailModalPanel.transform.position = MainModalPanel.transform.position;
-        FailModalPanel.SetActive(true);
+        dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
         FailModalTitle.text = "Level " + Level + " Failed !";
     }
 
     private void loadNextLevelModalDialog()
     {
-        SuccessModalPanel.SetActive(false);
-        FailModalPanel.SetActive(false);
+        dialogManager.CloseAllOpenedModalDialogs();
 
         startLevel();
     }
 
     private void repeatLevelFailModalDialog()
     {
-        FailModalPanel.SetActive(false);
-        SuccessModalPanel.SetActive(false);
+        dialogManager.CloseAllOpenedModalDialogs();
 
         startLevel();
     }
