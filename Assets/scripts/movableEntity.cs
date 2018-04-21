@@ -15,7 +15,7 @@ public class movableEntity : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();       
     }
 
     public void ChangeDirection()
