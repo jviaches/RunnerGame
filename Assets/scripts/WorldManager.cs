@@ -44,8 +44,14 @@ public class WorldManager : MonoBehaviour
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
     private DialogManager dialogManager;
 
+    private Quaternion playerOriginalRotation;
+    private Vector3 playerOriginalPosition;
+
     public void Start()
     {
+        playerOriginalRotation = PlayerMovingObject.transform.rotation;
+        playerOriginalPosition = PlayerMovingObject.transform.position;
+
         dialogManager = new DialogManager();
 
         Dictionary<Button, UnityAction> successModalDictionary = new Dictionary<Button, UnityAction>();
@@ -139,8 +145,11 @@ public class WorldManager : MonoBehaviour
 
     private void restartPlayer()
     {
-        PlayerMovingObject.transform.position = new Vector3(38.96f, 0.43f, 112.5f);
+        PlayerMovingObject.transform.position = new Vector3(38.96f, 0.43f, 112.5f);        
         PlayerMovingObjectScript.SetSpeed(5f);
+
+        PlayerMovingObject.transform.rotation = playerOriginalRotation;
+        PlayerMovingObject.transform.position = playerOriginalPosition;
     }
 
     private void checkLevelConditions()

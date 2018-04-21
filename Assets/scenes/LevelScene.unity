@@ -4029,6 +4029,16 @@ Prefab:
       propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 54255574748015510, guid: 435758e1dcf89e04dbb30e6b59d0b91e,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 54255574748015510, guid: 435758e1dcf89e04dbb30e6b59d0b91e,
+        type: 2}
+      propertyPath: m_Constraints
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 435758e1dcf89e04dbb30e6b59d0b91e, type: 2}
   m_IsPrefabParent: 0
