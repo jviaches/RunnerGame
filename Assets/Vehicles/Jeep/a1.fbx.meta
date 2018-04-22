@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 56bc88f249914524e8e36f05963c9aa0
-timeCreated: 1524303837
+timeCreated: 1524321292
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -23,62 +23,40 @@ ModelImporter:
     100030: Group20
     100032: Group21
     100034: Group22
-    100036: Group23
-    100038: Group24
-    100040: Group25
-    100042: Group26
-    100044: Group27
-    100046: Group28
-    100048: Group29
-    100050: Group3
-    100052: Group30
-    100054: Group31
-    100056: Group32
-    100058: Group33
-    100060: Group34
-    100062: Group4
-    100064: Group5
-    100066: Group6
-    100068: Group7
-    100070: Group8
-    100072: Group9
-    100074: Mesh1
-    100076: Mesh10
-    100078: Mesh11
-    100080: Mesh12
-    100082: Mesh13
-    100084: Mesh14
-    100086: Mesh15
-    100088: Mesh16
-    100090: Mesh17
-    100092: Mesh18
-    100094: Mesh19
-    100096: Mesh2
-    100098: Mesh20
-    100100: Mesh21
-    100102: Mesh22
-    100104: Mesh23
-    100106: Mesh24
-    100108: Mesh25
-    100110: Mesh26
-    100112: Mesh27
-    100114: Mesh28
-    100116: Mesh29
-    100118: Mesh3
-    100120: Mesh30
-    100122: Mesh31
-    100124: Mesh32
-    100126: Mesh33
-    100128: Mesh34
-    100130: Mesh35
-    100132: Mesh36
-    100134: Mesh37
-    100136: Mesh4
-    100138: Mesh5
-    100140: Mesh6
-    100142: Mesh7
-    100144: Mesh8
-    100146: Mesh9
+    100036: Group3
+    100038: Group4
+    100040: Group5
+    100042: Group6
+    100044: Group7
+    100046: Group8
+    100048: Group9
+    100050: Group_60_1
+    100052: Group_60_2
+    100054: Mesh1
+    100056: Mesh10
+    100058: Mesh11
+    100060: Mesh12
+    100062: Mesh13
+    100064: Mesh14
+    100066: Mesh15
+    100068: Mesh16
+    100070: Mesh17
+    100072: Mesh18
+    100074: Mesh19
+    100076: Mesh2
+    100078: Mesh20
+    100080: Mesh21
+    100082: Mesh22
+    100084: Mesh23
+    100086: Mesh24
+    100088: Mesh25
+    100090: Mesh3
+    100092: Mesh4
+    100094: Mesh5
+    100096: Mesh6
+    100098: Mesh7
+    100100: Mesh8
+    100102: Mesh9
     400000: //RootNode
     400002: Component_116_1
     400004: Component_116_2
@@ -97,102 +75,70 @@ ModelImporter:
     400030: Group20
     400032: Group21
     400034: Group22
-    400036: Group23
-    400038: Group24
-    400040: Group25
-    400042: Group26
-    400044: Group27
-    400046: Group28
-    400048: Group29
-    400050: Group3
-    400052: Group30
-    400054: Group31
-    400056: Group32
-    400058: Group33
-    400060: Group34
-    400062: Group4
-    400064: Group5
-    400066: Group6
-    400068: Group7
-    400070: Group8
-    400072: Group9
-    400074: Mesh1
-    400076: Mesh10
-    400078: Mesh11
-    400080: Mesh12
-    400082: Mesh13
-    400084: Mesh14
-    400086: Mesh15
-    400088: Mesh16
-    400090: Mesh17
-    400092: Mesh18
-    400094: Mesh19
-    400096: Mesh2
-    400098: Mesh20
-    400100: Mesh21
-    400102: Mesh22
-    400104: Mesh23
-    400106: Mesh24
-    400108: Mesh25
-    400110: Mesh26
-    400112: Mesh27
-    400114: Mesh28
-    400116: Mesh29
-    400118: Mesh3
-    400120: Mesh30
-    400122: Mesh31
-    400124: Mesh32
-    400126: Mesh33
-    400128: Mesh34
-    400130: Mesh35
-    400132: Mesh36
-    400134: Mesh37
-    400136: Mesh4
-    400138: Mesh5
-    400140: Mesh6
-    400142: Mesh7
-    400144: Mesh8
-    400146: Mesh9
+    400036: Group3
+    400038: Group4
+    400040: Group5
+    400042: Group6
+    400044: Group7
+    400046: Group8
+    400048: Group9
+    400050: Group_60_1
+    400052: Group_60_2
+    400054: Mesh1
+    400056: Mesh10
+    400058: Mesh11
+    400060: Mesh12
+    400062: Mesh13
+    400064: Mesh14
+    400066: Mesh15
+    400068: Mesh16
+    400070: Mesh17
+    400072: Mesh18
+    400074: Mesh19
+    400076: Mesh2
+    400078: Mesh20
+    400080: Mesh21
+    400082: Mesh22
+    400084: Mesh23
+    400086: Mesh24
+    400088: Mesh25
+    400090: Mesh3
+    400092: Mesh4
+    400094: Mesh5
+    400096: Mesh6
+    400098: Mesh7
+    400100: Mesh8
+    400102: Mesh9
     2100000: Color_008
     2100002: FrontColor
     2100004: Color_007
     2100006: Metal_Corrogated_Shiny
     2100008: Color_D03
-    2100010: Translucent_Glass_Block_Dark
-    2100012: Color_006
+    2100010: Color_E05
+    2100012: Color_M07
     2100014: Color_001
-    2100016: Translucent_Glass_Safety
-    2100018: Tile_Hexagon_Beige1
-    2100020: Tile_Hexagon_Beige2
-    2100022: Tile_Hexagon_Beige
+    2100016: Tile_Hexagon_Beige1
+    2100018: Tile_Hexagon_Beige2
+    2100020: Tile_Hexagon_Beige
+    2100022: Color_006
     2100024: Metal_Steel_Textured_White
     2100026: Translucent_Glass_Orange1
-    2100028: Fahrwerk_Antrazit
-    2100030: Wei__Leuchten_und_Spiegel
-    2100032: METAL_ALUM
-    2100034: PAINT_ENAMEL_FIRE_RED
-    2100036: PLASTIC_BLACK
-    2100038: _28
-    2100040: Color_004
-    2100042: Essuies_glace1
-    2100044: _2
+    2100028: Color_M09
+    2100030: _28
+    2100032: Color_004
+    2100034: _2
+    2100036: Essuies_glace1
+    2100038: Steel_Brushed_Stainless
+    2100040: Color_003
+    2100042: patriot86body1
+    2100044: M_0134_DimGray
     2100046: Carpet_Plush_LtGray
-    2100048: _Charcoal_
-    2100050: Material_2
-    2100052: Material_6
-    2100054: _Red_
-    2100056: Color_D02
-    2100058: M_0134_DimGray
-    2100060: patriot86body1
-    2100062: Color_003
-    2100064: _Color_002_1
-    2100066: Carpet_Plush_Tan
-    2100068: Color_C01
-    2100070: Fencing_Diamond_Mesh
-    2100072: Translucent_Glass_Orange
-    2100074: Fencing_Construction
-    2100076: Material_4
-    2100078: Translucent_Glass_Gray
+    2100048: Carpet_Plush_Tan
+    2100050: Color_C01
+    2100052: Translucent_Glass_Orange
+    2100054: _4
+    2100056: _Metal_Corrogated_Shiny_2
+    2100058: _Charcoal_
     2300000: Mesh1
     2300002: Mesh10
     2300004: Mesh11
@@ -211,25 +157,13 @@ ModelImporter:
     2300030: Mesh23
     2300032: Mesh24
     2300034: Mesh25
-    2300036: Mesh26
-    2300038: Mesh27
-    2300040: Mesh28
-    2300042: Mesh29
-    2300044: Mesh3
-    2300046: Mesh30
-    2300048: Mesh31
-    2300050: Mesh32
-    2300052: Mesh33
-    2300054: Mesh34
-    2300056: Mesh35
-    2300058: Mesh36
-    2300060: Mesh37
-    2300062: Mesh4
-    2300064: Mesh5
-    2300066: Mesh6
-    2300068: Mesh7
-    2300070: Mesh8
-    2300072: Mesh9
+    2300036: Mesh3
+    2300038: Mesh4
+    2300040: Mesh5
+    2300042: Mesh6
+    2300044: Mesh7
+    2300046: Mesh8
+    2300048: Mesh9
     3300000: Mesh1
     3300002: Mesh10
     3300004: Mesh11
@@ -248,25 +182,13 @@ ModelImporter:
     3300030: Mesh23
     3300032: Mesh24
     3300034: Mesh25
-    3300036: Mesh26
-    3300038: Mesh27
-    3300040: Mesh28
-    3300042: Mesh29
-    3300044: Mesh3
-    3300046: Mesh30
-    3300048: Mesh31
-    3300050: Mesh32
-    3300052: Mesh33
-    3300054: Mesh34
-    3300056: Mesh35
-    3300058: Mesh36
-    3300060: Mesh37
-    3300062: Mesh4
-    3300064: Mesh5
-    3300066: Mesh6
-    3300068: Mesh7
-    3300070: Mesh8
-    3300072: Mesh9
+    3300036: Mesh3
+    3300038: Mesh4
+    3300040: Mesh5
+    3300042: Mesh6
+    3300044: Mesh7
+    3300046: Mesh8
+    3300048: Mesh9
     4300000: Mesh1
     4300002: Mesh2
     4300004: Mesh3
@@ -292,18 +214,6 @@ ModelImporter:
     4300044: Mesh23
     4300046: Mesh24
     4300048: Mesh25
-    4300050: Mesh26
-    4300052: Mesh27
-    4300054: Mesh28
-    4300056: Mesh29
-    4300058: Mesh30
-    4300060: Mesh31
-    4300062: Mesh32
-    4300064: Mesh33
-    4300066: Mesh34
-    4300068: Mesh35
-    4300070: Mesh36
-    4300072: Mesh37
   externalObjects: {}
   materials:
     importMaterials: 1
