@@ -4,11 +4,13 @@ using UnityEngine.UI;
 using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
+using Assets.scripts.DialogModule;
+using UnityEngine.Events;
 
 public class WorldManager : MonoBehaviour
 {
     // Defaults
-    private const float LEVEL_TIMER = 4f;         // Default time to complete level
+    private const float LEVEL_TIMER = 120f;         // Default time to complete level
     private const int ROADBLOCK_POOLSIZE = 20;      // Default value for amount of roadblocks on scene
 
     #region assign from editor
@@ -40,18 +42,36 @@ public class WorldManager : MonoBehaviour
 
     private bool levelInProgress = false;           // if user is currently playing on current level
     private movableEntity PlayerMovingObjectScript; // Script of PlayerMovingObject
+    private DialogManager dialogManager;
+
+    private Quaternion playerOriginalRotation;
+    private Vector3 playerOriginalPosition;
 
     public void Start()
     {
-        SuccessModalNextLvlButton.GetComponent<Button>().onClick.AddListener(loadNextLevelModalDialog);
-        SuccessModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+        playerOriginalRotation = PlayerMovingObject.transform.rotation;
+        playerOriginalPosition = PlayerMovingObject.transform.position;
 
-        FailModalRepeatLvlButton.GetComponent<Button>().onClick.AddListener(repeatLevelFailModalDialog);
-        FailModalOkButton.GetComponent<Button>().onClick.AddListener(loadMainMenuModalDialog);
+        dialogManager = new DialogManager();
+
+        Dictionary<Button, UnityAction> successModalDictionary = new Dictionary<Button, UnityAction>();
+        successModalDictionary.Add(SuccessModalNextLvlButton, loadNextLevelModalDialog);
+        successModalDictionary.Add(SuccessModalOkButton, loadMainMenuModalDialog);
+
+        ModalDialog successModalDialog = new ModalDialog(SuccessModalTitle, SuccessModalPanel, successModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(successModalDialog);
+
+        Dictionary<Button, UnityAction> failModalDictionary = new Dictionary<Button, UnityAction>();
+        failModalDictionary.Add(FailModalRepeatLvlButton, repeatLevelFailModalDialog);
+        failModalDictionary.Add(FailModalOkButton, loadMainMenuModalDialog);
+
+        ModalDialog failModalDialog = new ModalDialog(FailModalTitle, FailModalPanel, failModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(failModalDialog);
 
         PlayerDirectionChangeButton.GetComponent<Button>().onClick.AddListener(playerDirectionChange);
 
         PlayerMovingObjectScript = PlayerMovingObject.GetComponent<movableEntity>();
+        Debug.Log(PlayerMovingObjectScript);
 
         RoadBlockPool = new Queue<GameObject>(ROADBLOCK_POOLSIZE);
 
@@ -77,7 +97,7 @@ public class WorldManager : MonoBehaviour
 
         restartPlayer();
 
-        restartRoadBlocks();
+        //restartRoadBlocks();
 
         levelInProgress = true;
     }
@@ -125,12 +145,16 @@ public class WorldManager : MonoBehaviour
 
     private void restartPlayer()
     {
-        PlayerMovingObject.transform.position = new Vector3(0f, 1f, 0f);
+        PlayerMovingObject.transform.position = new Vector3(38.96f, 0.43f, 112.5f);        
         PlayerMovingObjectScript.SetSpeed(5f);
+
+        PlayerMovingObject.transform.rotation = playerOriginalRotation;
+        PlayerMovingObject.transform.position = playerOriginalPosition;
     }
 
     private void checkLevelConditions()
     {
+
         if (PlayerMovingObjectScript.detectFreeFall())
         {
             LevelTimer = 0;
@@ -179,23 +203,20 @@ public class WorldManager : MonoBehaviour
         PlayerMovingObjectScript.SetSpeed(0);
         PlayerMovingObjectScript.SetMovingDirection(true);
 
-        FailModalPanel.transform.position = MainModalPanel.transform.position;
-        FailModalPanel.SetActive(true);
+        dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
         FailModalTitle.text = "Level " + Level + " Failed !";
     }
 
     private void loadNextLevelModalDialog()
     {
-        SuccessModalPanel.SetActive(false);
-        FailModalPanel.SetActive(false);
+        dialogManager.CloseAllOpenedModalDialogs();
 
         startLevel();
     }
 
     private void repeatLevelFailModalDialog()
     {
-        FailModalPanel.SetActive(false);
-        SuccessModalPanel.SetActive(false);
+        dialogManager.CloseAllOpenedModalDialogs();
 
         startLevel();
     }

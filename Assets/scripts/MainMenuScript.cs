@@ -1,19 +1,51 @@
-﻿using System;
+﻿using Assets.scripts.DialogModule;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MainMenuScript : MonoBehaviour {
 
-    public Button StartMenuBtnButton;               // Start Game button in main menu
-    public Button ExitMenuBtnButton;               // Start Game button in main menu
+    #region Unity Editor
+    public Button StartMenuButton;               // Start Game button in main menu
+    public Button SoundMenuButton;
+    public Button ExitMenuButton;               // Start Game button in main menu
+
+    public GameObject MainModalPanel;
+    public GameObject SoundModalPanel;
+    public Button OkButton;
+    public Text SoundDialogTitle;
+    #endregion
+
+    private DialogManager dialogManager;
 
     void Start () {
 
-        StartMenuBtnButton.GetComponent<Button>().onClick.AddListener(StartMenuButtonClick);
-        ExitMenuBtnButton.GetComponent<Button>().onClick.AddListener(ExitMenuButtonClick);
+        StartMenuButton.GetComponent<Button>().onClick.AddListener(StartMenuButtonClick);
+        SoundMenuButton.GetComponent<Button>().onClick.AddListener(SoundMenuButtonClick);
+        ExitMenuButton.GetComponent<Button>().onClick.AddListener(ExitMenuButtonClick);
+
+        dialogManager = new DialogManager();
+
+        Dictionary<Button, UnityAction> soundModalDictionary = new Dictionary<Button, UnityAction>();
+        soundModalDictionary.Add(OkButton, setSound);
+
+        SoundDialogTitle.text = "Sound Settings";
+        ModalDialog successModalDialog = new ModalDialog(SoundDialogTitle, SoundModalPanel, soundModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(successModalDialog);
+    }
+
+    private void SoundMenuButtonClick()
+    {
+        dialogManager.ShowModalDialog(SoundModalPanel, MainModalPanel);
+    }
+
+    private void setSound()
+    {
+        dialogManager.CloseAllOpenedModalDialogs();
     }
 
     private void StartMenuButtonClick()
@@ -29,9 +61,4 @@ public class MainMenuScript : MonoBehaviour {
         Application.Quit();
         Debug.Log("ExitMenuButtonClick()");
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
