@@ -19,36 +19,34 @@ User controls car by clicking/taping on the screen. Any click or tap will change
 
 ###########################   Road Map for Ver 1.0    ###########################
 
-1. Menu screen
+1 Menu screen
   - Main menu
   - Settings (sound)
   - Map level
   - Failed level
   - Success level
 
-2. Game runs on Android and PC
-3. Player able
+2 Game runs on Android and PC
+3 Player able
   - Collect (randomly generated) crystals
   - Collect (randomly generated) bonuses
     - increase countdown time for 5 seconds
     - increase countdown time for 10 seconds
     - increase temporary speed for 5 seconds
     - increase temporary speed for 10 seconds    
-4. Ten (10) randomly generated levels
-5. Sound
+4 Ten (10) randomly generated levels
+5 Sound
   - Background sounds(when playing level)
   - Button pressed sound (any button same sound)
   - Level completed succesfully
   - Level failed
   - Coin collection sound
 
-6. Automatically Saving
+6 Automatically Saving
   - Last passed level is remembered. User succesefully completed level and exited, next timme will start from a new one
 
 7 Player hit:
   - On road obsticle hit reduces speed to complete stop
 
-
-
-  
-  This is the bare minimum till May 30.
+ 
+## Deadline: May 30.
