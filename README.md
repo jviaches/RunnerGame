@@ -34,7 +34,9 @@ User controls car by clicking/taping on the screen. Any click or tap will change
     - increase countdown time for 10 seconds
     - increase temporary speed for 5 seconds
     - increase temporary speed for 10 seconds    
+    
 4 Ten (10) randomly generated levels
+
 5 Sound
   - Background sounds(when playing level)
   - Button pressed sound (any button same sound)
