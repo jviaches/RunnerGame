@@ -13,7 +13,10 @@ Game mechanics:
 User controls car by clicking/taping on the screen. Any click or tap will change running object direction: left or right.
 
 
-![GitHub Logo](/media/mafia_image.PNG)
+![GitHub Logo](/media/MainMenu.png)
+![GitHub Logo](/media/Settings.PNG)
+![GitHub Logo](/media/LevelMap.PNG)
+![GitHub Logo](/media/LevelFailed.PNG)
 
 ###########################   Road Map for Ver 1.0    ###########################
 
