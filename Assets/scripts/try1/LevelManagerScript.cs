@@ -6,6 +6,11 @@ public class LevelManagerScript : MonoBehaviour {
 
 	public GameObject RoadManager;
 	public int directionChangingFrequency =3; // Random 0 =  change direction
+	public float droneRedrawSpeed = 60f;
+	public GameObject Drone;
+
+	public float roadTileCreationSpeed=1;//tile per second
+
 
 	private RoadGenerationScript roadScript;
 	private int amountOfDirections;
@@ -18,7 +23,14 @@ public class LevelManagerScript : MonoBehaviour {
 		}
 		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.Direction)).Length;
 		roadScript.InitRoad ();
+		DroneMovement ();
 		AdvancingRoad ();
+	}
+	private void DroneMovement (){
+		Vector3 currentLocation = Drone.transform.position;
+		Drone.transform.position = currentLocation + (roadScript.newTileLocation+ new Vector3(0,5,0) - currentLocation)*roadTileCreationSpeed  / droneRedrawSpeed ;
+		Drone.transform.Rotate (roadScript.newTileRotation*roadTileCreationSpeed  / droneRedrawSpeed );
+		Invoke ("DroneMovement", 1 / droneRedrawSpeed);
 	}
 
 	private void AdvancingRoad(){
@@ -27,7 +39,7 @@ public class LevelManagerScript : MonoBehaviour {
 			roadScript.currentDirection = GetNewDirection ();
 		}
 
-		Invoke ("AdvancingRoad", 1);
+		Invoke ("AdvancingRoad", 1/roadTileCreationSpeed);
 	}
 
 	/*

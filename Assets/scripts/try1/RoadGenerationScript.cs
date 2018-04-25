@@ -14,8 +14,8 @@ public class RoadGenerationScript : MonoBehaviour {
 	public Direction currentDirection= Direction.Up;
 	private Direction previousDirection =Direction.Up;
 
-	private Vector3 newTileLocation;
-	private Vector3 newTileRotation;
+	public Vector3 newTileLocation;
+	public Vector3 newTileRotation;
 
 	public int SimmultaniousRoadTileAmount = 30;
 
@@ -41,6 +41,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	private GameObject InstanciateObject(string resourcePath,Vector3 location,Vector3 rotation){
 		GameObject result = Instantiate ((GameObject)Resources.Load (resourcePath), location, Quaternion.LookRotation (new Vector3(0,0,0)));
 		AddMeshCollider (result);
+
 		result.transform.Rotate (rotation);
 		return result;
 	}
@@ -48,6 +49,9 @@ public class RoadGenerationScript : MonoBehaviour {
 	private void AddMeshCollider(GameObject obj){
 		if (IsAMesh (obj)) {
 			obj.AddComponent<MeshCollider> ();
+			obj.AddComponent<Rigidbody> ();
+			obj.GetComponent<Rigidbody> ().isKinematic = true;
+			obj.GetComponent<Rigidbody> ().useGravity = false;
 		}
 		for (int i = 0; i < obj.transform.childCount; i++) {
 			AddMeshCollider (obj.transform.GetChild (i).gameObject);
@@ -76,18 +80,19 @@ public class RoadGenerationScript : MonoBehaviour {
 				newTileLocation = newTileLocation + new Vector3 (2*tileSize, 0, -tileSize);
 				Road.Enqueue (newTile);
 				newTile =InstanciateObject ("Road/left/turn_left" + Random.Range (1, turnLeftRoadAmount+1), newTileLocation, new Vector3(0,0,0));
-				newTileRotation = new Vector3 (0,-90,0);
+
 				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, 2*tileSize);
 				Road.Enqueue (newTile);
 				break;
 
-			default: //direction up
+			default: //direction was up
 				newTile =InstanciateObject ("Road/left/turn_left" + Random.Range (1, turnLeftRoadAmount+1), newTileLocation, new Vector3(0,0,0));
-				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, tileSize);
-				newTileRotation = new Vector3 (0,-90,0);
+				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, 2*tileSize);
+
 				Road.Enqueue (newTile);
 				break;
 			}
+			newTileRotation = new Vector3 (0,-90,0);
 			break;
 
 		case Direction.Right:
@@ -98,7 +103,7 @@ public class RoadGenerationScript : MonoBehaviour {
 				Road.Enqueue (newTile);
 				newTile =InstanciateObject ("Road/right/turn_right" + Random.Range (1, turnRightRoadAmount+1), newTileLocation,new Vector3(0,0,0));
 				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, -2*tileSize);
-				newTileRotation = new Vector3 (0,90,0);
+
 				Road.Enqueue (newTile);
 				break;
 
@@ -110,11 +115,12 @@ public class RoadGenerationScript : MonoBehaviour {
 
 			default: //direction WAS up
 				newTile =InstanciateObject ("Road/right/turn_right" + Random.Range (1, turnRightRoadAmount+1), newTileLocation,new Vector3(0,0,0));
-				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, -tileSize);
-				newTileRotation = new Vector3 (0,90,0);
+				newTileLocation = newTileLocation + new Vector3 (tileSize, 0, -2*tileSize);
+
 				Road.Enqueue (newTile);
 				break;
 			}
+			newTileRotation = new Vector3 (0,90,0);
 			break;
 
 		default: //direction up
@@ -139,6 +145,7 @@ public class RoadGenerationScript : MonoBehaviour {
 				Road.Enqueue (newTile);
 				break;
 			}
+			newTileRotation = new Vector3 (0,0,0);
 			break;
 		}
 
