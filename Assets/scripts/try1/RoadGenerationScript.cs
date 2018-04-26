@@ -5,19 +5,17 @@ using UnityEngine;
 public class RoadGenerationScript : MonoBehaviour {
 
 	public enum DirectionFromTo {UpUp, UpLeft,UpRight,LeftUp,LeftLeft,LeftRight,RightUp, RightLeft , RightRight}
-	public enum WallDirection {TurningLeft,GoingStraight,TurningRight}
 
+	private Vector3 rotationVector_HorizontalLeft =  new Vector3 (0, 90, 0);
+	private Vector3 rotationVector_HorizontalRight = new  Vector3 (0 - 90, 0);
 
-	public int turnRightRoadAmount = 2;
-	public int turnLeftRoadAmount=2;
 
 	public int leftWallAmount =4;
 	public int rightWallAmount = 4;
 
 	public int tileSize = 10;
 
-	public DirectionFromTo currentDirection= DirectionFromTo.Up;
-	private DirectionFromTo previousDirection =DirectionFromTo.Up;
+
 
 	private Quaternion _originalElementRotation;
 	private Vector3 frontWallRotationVector;
@@ -28,6 +26,8 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	private string straighRoadSegmentPath =  "Road/straight/";
 	private string straightRoadPrefix = "straight";
+	private string turnRoadSegmentPath = "Road/left/";
+	private string turnRoadSegmentPrefix="turnLeft";
 	private string leftWallSegmentPath = "walls/left/";
 	private string leftWallSegmentPrefix =  "left";
 	private string rightWallSegmentPath = "walls/right/";
@@ -38,7 +38,9 @@ public class RoadGenerationScript : MonoBehaviour {
 	private string rightInnerTurnWall = "walls/RightTurnin";
 	private string rightOuterTurnWall = "walls/RightTurnOut";
 
+	private string tag_fronWall = "front_wal";
 	private string tag_roadTile = "road_tile";
+	private string tag_roadTurnTile = "road_turn_tile";
 	private string tag_rightStraightWall = "right_straight_wall_segment";
 	private string tag_leftStraightWall = "left_straight_wall_segment";
 	private string tag_leftInnterTurnWall = "left_inner_turnWall_segment";
@@ -59,6 +61,7 @@ public class RoadGenerationScript : MonoBehaviour {
 
 
 	private ArrayList pool_roadElements;
+	private ArrayList pool_roadTurnElements;
 	private ArrayList pool_leftWallStraightElemets;
 	private ArrayList pool_rightWallStraightElements;
 	private ArrayList pool_leftTurnInnerWall;
@@ -89,6 +92,7 @@ public class RoadGenerationScript : MonoBehaviour {
 		for (int i = 0; i < SimmultaniousRoadTileAmount; i++) {
 			//loading elements without veriety
 			pool_roadElements.Add(InstanciateObject(straighRoadSegmentPath+straightRoadPrefix,_startingObjectLocation , Vector3.zero,tag_roadTile));
+			pool_roadTurnElements.Add(InstanciateObject(turnRoadSegmentPath+turnRoadSegmentPrefix,_startingObjectLocation , Vector3.zero,tag_roadTurnTile));
 			pool_leftTurnInnerWall.Add (InstanciateObject (leftInnerTurnWall, _startingObjectLocation, Vector3.zero,tag_leftInnterTurnWall));
 			pool_leftTurnOuterWall.Add (InstanciateObject (leftOuterTurnWall, _startingObjectLocation, Vector3.zero,tag_leftOuterTurnWall));
 			pool_rightTurnInnerWall.Add (InstanciateObject (rightInnerTurnWall,_startingObjectLocation, Vector3.zero,tag_righttInnterTurnWall));
@@ -105,13 +109,20 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	}
 
+	private GameObject ConvertLeftTurnToRightTurnROAD(GameObject obj){
+		if (obj == null)
+			return null;
+		obj.transform.Rotate(rotationVector_HorizontalRight);
+		return obj;
+	}
+
 	private void InintStartingPoint(){
 		
 	}
 
 	public void InitRoad(){
 		
-		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero);
+		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero,tag_fronWall);
 		//backWall = InstanciateObject ("______________", new Vector3 (tileSize, 0, 0), Vector3.zero);
 		_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
 
@@ -119,9 +130,7 @@ public class RoadGenerationScript : MonoBehaviour {
 		InintStartingPoint ();
 
 
-		newTileLocation = new Vector3 (tileSize, 0, 0);
-
-
+	
 	}
 
 	private void AddNextRoadSegment(DirectionFromTo direction){
@@ -142,7 +151,8 @@ public class RoadGenerationScript : MonoBehaviour {
 
 			break;
 		case DirectionFromTo.LeftLeft:
-
+			frontWall.transform.position = newLocation + new Vector3 (0, tileSize, 0);
+			GenerateStraightRoadSegmentAt (newLocation, rotationVector_HorizontalLeft);
 			break;
 		case DirectionFromTo.LeftRight:
 
@@ -154,7 +164,8 @@ public class RoadGenerationScript : MonoBehaviour {
 
 			break;
 		case DirectionFromTo.RightRight:
-
+			frontWall.transform.position = newLocation + new Vector3 (0, -1*tileSize, 0);
+			GenerateStraightRoadSegmentAt (newLocation, rotationVector_HorizontalRight);
 			break;
 		}
 	}
@@ -185,30 +196,28 @@ public class RoadGenerationScript : MonoBehaviour {
 		//we will not reset object on deque - we will do it befor enqueue because of initial position
 		GameObject tempObject;
 		tempObject = q_leftSide.Dequeue ();
-		switch (tempObject.tag) {
-		case tag_leftInnterTurnWall:
+		if (tempObject.tag== tag_leftInnterTurnWall)
 			pool_leftTurnInnerWall.Add (tempObject);
-			break;
-		case tag_leftOuterTurnWall:
+
+		else if (tempObject.tag== tag_leftOuterTurnWall)
 			pool_leftTurnOuterWall.Add (tempObject);
-			break;
-		case tag_leftStraightWall:
+
+		else if (tempObject.tag== tag_leftStraightWall)
 			pool_leftWallStraightElemets.Add (tempObject);
-			break;
-		}
+
+
 
 		tempObject = q_rightSide.Dequeue ();
-		switch (tempObject.tag) {
-		case tag_righttInnterTurnWall:
+
+		if (tempObject.tag== tag_righttInnterTurnWall)
 			pool_rightTurnInnerWall.Add (tempObject);
-			break;
-		case tag_rightOuterTurnWall:
+
+		else if (tempObject.tag== tag_rightOuterTurnWall)
 			pool_rightTurnOuterWall.Add (tempObject);
-			break;
-		case tag_rightStraightWall:
+		
+		else if (tempObject.tag== tag_rightStraightWall)
 			pool_rightWallStraightElements.Add (tempObject);
-			break;
-		}
+
 		pool_roadElements.Add (q_road.Dequeue ());
 			/* TODO
 			backWall.transform.position = ((Vector3) tileLocations[0]);
@@ -219,7 +228,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	}
 	private GameObject ResetGameObject(GameObject obj){
 		if (obj != null) {
-			obj.transform.poistion = Vector3.zero;
+			obj.transform.position = Vector3.zero;
 			obj.transform.rotation = _originalElementRotation;
 		}
 		return obj;
