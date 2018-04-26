@@ -84,8 +84,6 @@ public class WorldManager : MonoBehaviour
         {
             LevelTimer -= Time.deltaTime;
             LevelTimeText.text = "Time: " + LevelTimer.ToString();
-
-            Debug.Log(LevelTimer);
         }
 
         checkLevelConditions();
@@ -177,7 +175,9 @@ public class WorldManager : MonoBehaviour
 
     private void playerDirectionChange()
     {
+        Debug.Log("playerDirectionChange");
         PlayerMovingObjectScript.ChangeDirection();
+
     }
 
     #region Dialogs
