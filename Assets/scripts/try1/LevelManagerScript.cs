@@ -21,7 +21,7 @@ public class LevelManagerScript : MonoBehaviour {
 			Debug.Log ("Failed to load roads script. Exiting");
 			return;
 		}
-		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.Direction)).Length;
+		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.DirectionFromTo)).Length;
 		roadScript.InitRoad ();
 		DroneMovement ();
 		AdvancingRoad ();
@@ -52,10 +52,10 @@ public class LevelManagerScript : MonoBehaviour {
 		return Random.Range (0, directionChangingFrequency + 1) == 0;
 	}
 
-	private RoadGenerationScript.Direction GetNewDirection(){
-		RoadGenerationScript.Direction result;
+	private RoadGenerationScript.DirectionFromTo GetNewDirection(){
+		RoadGenerationScript.DirectionFromTo result;
 		do {
-			result = (RoadGenerationScript.Direction)Random.Range (0, amountOfDirections);
+			result = (RoadGenerationScript.DirectionFromTo)Random.Range (0, amountOfDirections);
 		} while (result == roadScript.currentDirection);
 		return result;
 	}
