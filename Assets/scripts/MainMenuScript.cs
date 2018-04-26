@@ -10,48 +10,24 @@ using UnityEngine.UI;
 public class MainMenuScript : MonoBehaviour {
 
     #region Unity Editor
-    public Button StartMenuButton;               // Start Game button in main menu
-    public Button SoundMenuButton;
-    public Button ExitMenuButton;               // Start Game button in main menu
-
-    public GameObject MainModalPanel;
-    public GameObject SoundModalPanel;
-    public Button OkButton;
-    public Text SoundDialogTitle;
+    public Button MapMenuButton;               // Start Game button in main menu
+    public Button SettingsMenuButton;
     #endregion
-
-    private DialogManager dialogManager;
 
     void Start () {
 
-        StartMenuButton.GetComponent<Button>().onClick.AddListener(StartMenuButtonClick);
-        SoundMenuButton.GetComponent<Button>().onClick.AddListener(SoundMenuButtonClick);
-        ExitMenuButton.GetComponent<Button>().onClick.AddListener(ExitMenuButtonClick);
-
-        dialogManager = new DialogManager();
-
-        Dictionary<Button, UnityAction> soundModalDictionary = new Dictionary<Button, UnityAction>();
-        soundModalDictionary.Add(OkButton, setSound);
-
-        SoundDialogTitle.text = "Sound Settings";
-        ModalDialog successModalDialog = new ModalDialog(SoundDialogTitle, SoundModalPanel, soundModalDictionary, MainModalPanel);
-        dialogManager.AddDialog(successModalDialog);
+        MapMenuButton.GetComponent<Button>().onClick.AddListener(MapMenuButtonClick);
+        SettingsMenuButton.GetComponent<Button>().onClick.AddListener(SettingsMenuButtonClick);
     }
 
-    private void SoundMenuButtonClick()
+    private void SettingsMenuButtonClick()
     {
-        dialogManager.ShowModalDialog(SoundModalPanel, MainModalPanel);
+        SceneManager.LoadScene("Settings");
     }
 
-    private void setSound()
+    private void MapMenuButtonClick()
     {
-        dialogManager.CloseAllOpenedModalDialogs();
-    }
-
-    private void StartMenuButtonClick()
-    {
-        SceneManager.LoadScene("LevelScene");
-        Debug.Log("StartMenuButtonClick()");
+        SceneManager.LoadScene("LevelMap");
     }
 
     private void ExitMenuButtonClick()
@@ -59,6 +35,5 @@ public class MainMenuScript : MonoBehaviour {
         // Quit is ignored in the editor
         // https://docs.unity3d.com/ScriptReference/Application.Quit.html for reference
         Application.Quit();
-        Debug.Log("ExitMenuButtonClick()");
     }
 }
