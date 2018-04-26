@@ -19,6 +19,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	public Direction currentDirection= Direction.Up;
 	private Direction previousDirection =Direction.Up;
 
+	private Vector3 frontWallRotationVector;
 	public Vector3 newTileLocation;
 	public Vector3 newTileRotation;
 
@@ -27,6 +28,8 @@ public class RoadGenerationScript : MonoBehaviour {
 	private Queue<GameObject> Road;
 	private Queue<GameObject> leftSide;
 	private Queue<GameObject> rightSide;
+
+	private GameObject frontWall;
 
 
 	// Use this for initialization
@@ -41,12 +44,16 @@ public class RoadGenerationScript : MonoBehaviour {
 		Road.Enqueue(InstanciateObject("Road/start",new Vector3(0,0,0) , new Vector3(0,0,0)));
 		leftSide.Enqueue (InstanciateObject("walls/start/left",new Vector3(0,0,10) , new Vector3(0,0,0)));
 		rightSide.Enqueue (InstanciateObject("walls/start/right",new Vector3(0,0,-10) , new Vector3(0,0,0)));
+		frontWall = InstanciateObject ("Road/deadWall", new Vector3 (tileSize, 0, 0), new Vector3 (0, 0, 0));
 		newTileLocation = new Vector3 (tileSize, 0, 0);
+		frontWallRotationVector = newTileRotation;
 		newTileRotation = new Vector3 (0, 0, 0);
 	}
 
 	public void RemoveTile(){
 		Road.Dequeue ();
+		leftSide.Dequeue ();
+		rightSide.Dequeue ();
 	}
 
 	private GameObject InstanciateObject(string resourcePath,Vector3 location,Vector3 rotation){
@@ -178,8 +185,15 @@ public class RoadGenerationScript : MonoBehaviour {
 			break;
 		}
 
-	
 
+		frontWall.transform.position = newTileLocation;
+
+		if (newTileRotation != frontWallRotationVector) {
+
+			frontWall.transform.Rotate (-1*frontWallRotationVector);
+			frontWallRotationVector = newTileRotation;
+			frontWall.transform.Rotate (newTileRotation);
+		}
 		previousDirection = currentDirection;
 
 	}
