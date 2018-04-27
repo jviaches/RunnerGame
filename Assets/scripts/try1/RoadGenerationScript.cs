@@ -12,8 +12,8 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	public int leftWallAmount =4;
 	public int rightWallAmount = 4;
-
 	public int tileSize = 10;
+	public int turnsPerTwoSegments=5;//basicaly - frequency of turns
 
 
 
@@ -57,7 +57,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	private GameObject backWall;
 
 	private int currentRoadLenght =0;
-
+	private DirectionFromTo _previousDirection;
 
 
 	private ArrayList pool_roadElements;
@@ -70,7 +70,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	private ArrayList pool_rightTurnInnerWall;
 
 	// Use this for initialization
-	void Start () {
+0	void Start () {
 		InitializeCollections ();	
 	}
 
@@ -121,7 +121,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	}
 
 	public void InitRoad(){
-		
+		_previousDirection = DirectionFromTo.UpUp;
 		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero,tag_fronWall);
 		//backWall = InstanciateObject ("______________", new Vector3 (tileSize, 0, 0), Vector3.zero);
 		_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
@@ -132,7 +132,13 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	
 	}
-	//test commit
+
+	private DirectionFromTo ChoosingNewDirection(){
+		int new_direction = Random.Range (0, 3);
+		return (DirectionFromTo)((int)_previousDirection % 3 + new_direction * 3);
+	}
+
+
 	private void AddNextRoadSegment(DirectionFromTo direction){
 		Vector3 newLocation = frontWall.transform.position;
 		RemoveLastRoadSegment ();
