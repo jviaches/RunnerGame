@@ -22,9 +22,9 @@ public class LevelManagerScript : MonoBehaviour {
 			return;
 		}
 		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.DirectionFromTo)).Length;
-
-		DroneMovement ();
 		AdvancingRoad ();
+		DroneMovement ();
+
 	}
 	private void DroneMovement (){
 		Vector3 currentLocation = Drone.transform.position;
@@ -34,9 +34,8 @@ public class LevelManagerScript : MonoBehaviour {
 	}
 
 	private void AdvancingRoad(){
+		roadScript.ForceStart ();
 		roadScript.AdvanceRoad ();
-
-
 		Invoke ("AdvancingRoad", 1/roadTileCreationSpeed);
 	}
 
