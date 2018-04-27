@@ -132,7 +132,7 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	
 	}
-
+	//test commit
 	private void AddNextRoadSegment(DirectionFromTo direction){
 		Vector3 newLocation = frontWall.transform.position;
 		RemoveLastRoadSegment ();
