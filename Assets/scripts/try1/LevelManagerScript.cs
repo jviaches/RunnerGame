@@ -22,22 +22,20 @@ public class LevelManagerScript : MonoBehaviour {
 			return;
 		}
 		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.DirectionFromTo)).Length;
-		roadScript.InitRoad ();
+
 		DroneMovement ();
 		AdvancingRoad ();
 	}
 	private void DroneMovement (){
 		Vector3 currentLocation = Drone.transform.position;
-		Drone.transform.position = currentLocation + (roadScript.newTileLocation+ new Vector3(0,5,0) - currentLocation)*roadTileCreationSpeed  / droneRedrawSpeed ;
+		Drone.transform.position = currentLocation + (roadScript.frontWall.transform.position+ new Vector3(0,5,0) - currentLocation)*roadTileCreationSpeed  / droneRedrawSpeed ;
 		Drone.transform.Rotate (roadScript.newTileRotation*roadTileCreationSpeed  / droneRedrawSpeed );
 		Invoke ("DroneMovement", 1 / droneRedrawSpeed);
 	}
 
 	private void AdvancingRoad(){
-		roadScript.AddTile ();
-		if (IsNextTileAnObsticle ()) {
-			roadScript.currentDirection = GetNewDirection ();
-		}
+		roadScript.AdvanceRoad ();
+
 
 		Invoke ("AdvancingRoad", 1/roadTileCreationSpeed);
 	}
@@ -52,12 +50,7 @@ public class LevelManagerScript : MonoBehaviour {
 		return Random.Range (0, directionChangingFrequency + 1) == 0;
 	}
 
-	private RoadGenerationScript.DirectionFromTo GetNewDirection(){
-		RoadGenerationScript.DirectionFromTo result;
-		do {
-			result = (RoadGenerationScript.DirectionFromTo)Random.Range (0, amountOfDirections);
-		} while (result == roadScript.currentDirection);
-		return result;
+
 	}
 
-}
+
