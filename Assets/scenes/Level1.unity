@@ -574,7 +574,7 @@ MonoBehaviour:
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
-  roadTileCreationSpeed: 1
+  roadTileCreationSpeed: 0.1
 --- !u!4 &651764411
 Transform:
   m_ObjectHideFlags: 0
@@ -858,6 +858,10 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -20
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 561d47d1d4a4b3c42be2d0edb3875ae3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 561d47d1d4a4b3c42be2d0edb3875ae3, type: 3}
   m_IsPrefabParent: 0
@@ -939,16 +943,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087d5f782eb58ce43af43902b36f342d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  straightRoadAmount: 3
-  turnRightRoadAmount: 2
-  turnLeftRoadAmount: 2
   leftWallAmount: 4
   rightWallAmount: 4
   tileSize: 10
-  currentDirection: 1
-  newTileLocation: {x: 0, y: 0, z: 0}
+  turnsPerTwoSegments: 5
   newTileRotation: {x: 0, y: 0, z: 0}
   SimmultaniousRoadTileAmount: 30
+  frontWall: {fileID: 0}
 --- !u!4 &1791863117
 Transform:
   m_ObjectHideFlags: 0
@@ -1068,9 +1069,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2044649012}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.0000038485973, y: 2, z: 0.00000028240788}
-  m_LocalScale: {x: 1, y: 0.2, z: 2}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 549556413}
   - {fileID: 229527657}
@@ -1079,7 +1080,7 @@ Transform:
   - {fileID: 2013666125}
   m_Father: {fileID: 1637762381}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &2044649014
 Rigidbody:
   m_ObjectHideFlags: 0
