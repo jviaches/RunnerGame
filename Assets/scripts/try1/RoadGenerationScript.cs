@@ -148,6 +148,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	}
 
 	private DirectionFromTo ChoosingNewDirection(){
+		return DirectionFromTo.UpUp;
 		int new_direction = Random.Range (0, 3);
 		return (DirectionFromTo)(((int)_previousDirection % 3)*3 + new_direction );
 	}
@@ -262,9 +263,12 @@ public class RoadGenerationScript : MonoBehaviour {
 				_currentRoadLenght = _currentRoadLenght - 1;
 			}
 		}
+		Debug.Log (direction);
 		switch(direction){
 		case DirectionFromTo.UpUp:
+			frontWall = ResetGameObject (frontWall);
 			frontWall.transform.position = newLocation + new Vector3 (tileSize, 0, 0);
+
 			GenerateStraightRoadSegmentAt (newLocation, Vector3.zero);
 			q_tileLocations.Add (newLocation);
 
@@ -272,7 +276,7 @@ public class RoadGenerationScript : MonoBehaviour {
 		case DirectionFromTo.UpLeft:
 			frontWall = ResetGameObject (frontWall);
 			frontWall.transform.position = newLocation + new Vector3 (tileSize, 0, 2 * tileSize);
-			frontWall.transform.Rotate (rotationVector_HorizontalLeft);
+			frontWall.transform.Rotate (-1*rotationVector_HorizontalLeft);
 			newLocation = newLocation + new Vector3 (tileSize, 0, 0);
 			GenerateLeftTurnRoadSegment(DirectionFromTo.UpLeft,newLocation);
 			q_tileLocations.Add (newLocation);
@@ -280,26 +284,27 @@ public class RoadGenerationScript : MonoBehaviour {
 		case DirectionFromTo.UpRight:
 			frontWall = ResetGameObject (frontWall);
 			frontWall.transform.position = newLocation + new Vector3 (tileSize, 0, -2 * tileSize);
-			frontWall.transform.Rotate (new Vector3(0,180,0));
+			frontWall.transform.Rotate (new Vector3(0,90,0));
 			newLocation = newLocation + new Vector3 (tileSize, 0, 0);
 			GenerateRightTurnRoadSegment(DirectionFromTo.UpRight,newLocation);
 			q_tileLocations.Add (newLocation);
 			break;
 		case DirectionFromTo.LeftUp:
 			frontWall = ResetGameObject (frontWall);
-			frontWall.transform.position = newLocation + new Vector3 (2*tileSize, 0, tileSize);
+			frontWall.transform.position = newLocation + new Vector3 (2 * tileSize, 0, tileSize);
+			//frontWall.transform.Rotate (new Vector3 (0, -90, 0));
 			newLocation = newLocation + new Vector3 (0, 0, tileSize);
 			GenerateRightTurnRoadSegment(DirectionFromTo.LeftUp,newLocation);
 			q_tileLocations.Add (newLocation);
 			break;
 		case DirectionFromTo.LeftLeft:
 			frontWall.transform.position = newLocation + new Vector3 (0, 0, tileSize);
-			GenerateStraightRoadSegmentAt (newLocation, -rotationVector_HorizontalLeft);
+			GenerateStraightRoadSegmentAt (newLocation, rotationVector_HorizontalLeft);
 			q_tileLocations.Add (newLocation);
 			break;
 		case DirectionFromTo.LeftRight:
 			frontWall = ResetGameObject (frontWall);
-			frontWall.transform.position = newLocation + new Vector3 (4 * tileSize, 0, -1 * tileSize);
+			frontWall.transform.position = newLocation + new Vector3 (3 * tileSize, 0, -1 * tileSize);
 			frontWall.transform.Rotate (new Vector3(0,180,0));
 
 			newLocation = newLocation + new Vector3 (0, 0, tileSize);
@@ -319,26 +324,25 @@ public class RoadGenerationScript : MonoBehaviour {
 			q_tileLocations.Add (newLocation);
 			break;
 		case DirectionFromTo.RightLeft:
-			//right->up
+
 			frontWall = ResetGameObject (frontWall);
-			frontWall.transform.position = newLocation + new Vector3 (2 * tileSize, 0, -1 * tileSize);
+			frontWall.transform.position = newLocation + new Vector3 (3*tileSize, 0, tileSize);
+			frontWall.transform.Rotate (-1*rotationVector_HorizontalLeft);
+			//right->up
 			newLocation = newLocation + new Vector3 (0, 0, -1 * tileSize);
 			GenerateLeftTurnRoadSegment (DirectionFromTo.RightUp, newLocation);
 			q_tileLocations.Add (newLocation);
-			newLocation = frontWall.transform.position;
 			_currentRoadLenght = _currentRoadLenght + 1;
 			//up-> left
-			frontWall = ResetGameObject (frontWall);
-			frontWall.transform.position = newLocation + new Vector3 (tileSize, 0, 2 * tileSize);
-			frontWall.transform.Rotate (rotationVector_HorizontalLeft);
-			newLocation = newLocation + new Vector3 (tileSize, 0, 0);
+
+			newLocation = newLocation + new Vector3 (3*tileSize, 0, 0);
 			GenerateLeftTurnRoadSegment (DirectionFromTo.UpLeft, newLocation);
 			q_tileLocations.Add (newLocation);
 			direction = DirectionFromTo.LeftLeft;
 			break;
 		case DirectionFromTo.RightRight:
 			frontWall.transform.position = newLocation + new Vector3 (0,0, -1*tileSize);
-			GenerateStraightRoadSegmentAt (newLocation, new Vector3(0,180,0));
+			GenerateStraightRoadSegmentAt (newLocation, rotationVector_HorizontalRight);
 			q_tileLocations.Add (newLocation);
 			break;
 		}
@@ -350,22 +354,29 @@ public class RoadGenerationScript : MonoBehaviour {
 		//must reset object position with ResetGameObject()
 		Vector3 leftOffset = new Vector3(0,0,tileSize);
 		Vector3 rightOffset = new Vector3(0,0,-1*tileSize);
-		if (rotation.y > 0) {
-			leftOffset = new Vector3 (-1*tileSize,0,0);
-			rightOffset = new Vector3 (tileSize,0,0);
-		}
-		if (rotation.y < 0) {
-			leftOffset = new Vector3 (tileSize,0,0);
-			rightOffset = new Vector3 (-1*tileSize,0,0);
-		}
-
 
 		// add road element 
 		AddElelementFromPoolToQueue(pool_roadElements,q_road,location,rotation,true);
-		// add left wall  element   
-		AddElelementFromPoolToQueue(pool_leftWallStraightElemets,q_leftSide,location+leftOffset,rotation,true);
-		// add right walll leent 
-		AddElelementFromPoolToQueue(pool_rightWallStraightElements,q_rightSide,location+rightOffset,rotation,true);
+
+		if (rotation.y > 0) { // left orientatin
+			
+			// add left wall  element   
+			AddElelementFromPoolToQueue (pool_leftWallStraightElemets, q_leftSide, location + new Vector3(-1*tileSize,0,0), -1*rotation, true);
+			// add right walll leent 
+			AddElelementFromPoolToQueue (pool_rightWallStraightElements, q_rightSide, location +  new Vector3(tileSize,0,0), -1*rotation, true);
+		} else if (rotation.y < 0) { // right orientation
+			
+			// add left wall  element   
+			AddElelementFromPoolToQueue (pool_leftWallStraightElemets, q_leftSide, location + new Vector3(tileSize,0,0), -1*rotation, true);
+			// add right walll leent 
+			AddElelementFromPoolToQueue (pool_rightWallStraightElements, q_rightSide, location + new Vector3(-1*tileSize,0,0), -1*rotation, true);
+		} else { //goig straight
+
+			// add left wall  element   
+			AddElelementFromPoolToQueue (pool_leftWallStraightElemets, q_leftSide, location + leftOffset, rotation, true);
+			// add right walll leent 
+			AddElelementFromPoolToQueue (pool_rightWallStraightElements, q_rightSide, location + rightOffset, rotation, true);
+		}
 
 		q_tileLocations.Add (location);
 	}
@@ -373,6 +384,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	private void AddElelementFromPoolToQueue(ArrayList pool, Queue<GameObject> q ,Vector3 location, Vector3 rotation , bool needsReset){
 		GameObject temp;
 		temp = (GameObject)pool[0];
+		pool.RemoveAt (0);
 		if (needsReset)
 			temp = ResetGameObject (temp);
 		temp.transform.position = location;
