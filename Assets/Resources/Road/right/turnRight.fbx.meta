@@ -12,6 +12,8 @@ ModelImporter:
     400002: Mesh1
     400004: //RootNode
     2100000: Color_C03
+    2100002: FrontColor
+    2100004: Stone_Brushed_Khaki
     2300000: Mesh1
     3300000: Mesh1
     4300000: Mesh1

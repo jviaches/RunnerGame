@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ceb0db87d3bdb4249a607d28a9d5d05f
-timeCreated: 1524732887
+timeCreated: 1525002213
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -10,14 +10,18 @@ ModelImporter:
     100004: Mesh2
     100006: //RootNode
     100008: skp59B9_1
+    100010: Group1
     400000: Mesh1
     400002: mesh1_1
     400004: Mesh2
     400006: //RootNode
     400008: skp59B9_1
+    400010: Group1
     2100000: m0
     2100002: Stone_Vein_Gray
     2100004: Color_C03
+    2100006: Stone_Brushed_Khaki
+    2100008: _Stone_Brushed_Khaki_1
     2300000: Mesh1
     2300002: Mesh2
     3300000: Mesh1
