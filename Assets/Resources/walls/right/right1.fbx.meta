@@ -22,6 +22,9 @@ ModelImporter:
     2100004: Color_C03
     2100006: Stone_Brushed_Khaki
     2100008: _Stone_Brushed_Khaki_1
+    2100010: FrontColor
+    2100012: Color_M09
+    2100014: M_0065_Lime
     2300000: Mesh1
     2300002: Mesh2
     3300000: Mesh1
