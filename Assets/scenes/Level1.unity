@@ -574,7 +574,7 @@ MonoBehaviour:
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
-  roadTileCreationSpeed: 0.8
+  roadTileCreationSpeed: 0.2
 --- !u!4 &651764411
 Transform:
   m_ObjectHideFlags: 0
@@ -946,7 +946,9 @@ MonoBehaviour:
   leftWallAmount: 1
   rightWallAmount: 1
   tileSize: 10
-  turnsPerTwoSegments: 5
+  turnsPerTwoSegments: 10
+  RoadMaterial: {fileID: 2100000, guid: 1842f053636056244ae7f40fa51d0d76, type: 2}
+  WallMaterial: {fileID: 2100000, guid: 01ae62f9948008540a5291e8b48f0fdd, type: 2}
   newTileRotation: {x: 0, y: 0, z: 0}
   SimmultaniousRoadTileAmount: 5
   frontWall: {fileID: 0}
