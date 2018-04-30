@@ -1,17 +1,19 @@
 fileFormatVersion: 2
 guid: 788298d3a0f8d564fb22b1b083cd7d24
-timeCreated: 1524748440
+timeCreated: 1525007343
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: Group1
-    100002: Mesh1
-    100004: //RootNode
-    400000: Group1
-    400002: Mesh1
-    400004: //RootNode
-    2100000: Stone_Vein_Gray
+    100000: Mesh1
+    100002: //RootNode
+    100004: Group1
+    400000: Mesh1
+    400002: //RootNode
+    400004: Group1
+    2100000: Stone_Brushed_Khaki
+    2100002: FrontColor
+    2100004: M_0065_Lime
     2300000: Mesh1
     3300000: Mesh1
     4300000: Mesh1

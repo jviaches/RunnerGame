@@ -20,9 +20,12 @@ public class PlayerControllerScript : MonoBehaviour {
 	private float _moveZ;
 
 
+	private LevelManagerScript lmScript;
+	public bool GameOver = false;
+
 	void Start () {
 
-
+		lmScript =  GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
 		movementDirection = new Vector3 (1, 0, 0);
 
 
@@ -30,17 +33,32 @@ public class PlayerControllerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float v = Input.GetAxis ("Vertical") * EngineForce;
-		float h = Input.GetAxis ("Horizontal") * SteeringForce;
+		if (GameObject.Find("PlayerBody").transform.position.y < -1) {
+			lmScript.FinishLevel (true);
+		}
+		if (!GameOver) {
+			float v = Input.GetAxis ("Vertical") * EngineForce;
+			float h = Input.GetAxis ("Horizontal") * SteeringForce;
 
-		RighBacktW.motorTorque = v;
-		LeftBackW.motorTorque = v;
+			RighBacktW.motorTorque = v;
+			LeftBackW.motorTorque = v;
 
-		RighFrontW.steerAngle = h;
-		LeftFrontW.steerAngle = h;
+			RighFrontW.steerAngle = h;
+			LeftFrontW.steerAngle = h;
 
-		//RighFrontW.motorTorque = v;
-		//LeftFrontW.motorTorque = v;
+			//RighFrontW.motorTorque = v;
+			//LeftFrontW.motorTorque = v;
+
+		} else {
+			RighBacktW.brakeTorque=Mathf.Infinity;
+			LeftBackW.brakeTorque=Mathf.Infinity;
+
+			GameObject.Find ("PlayerBody").GetComponent<Rigidbody> ().isKinematic = true;
+
+		}
 	}
+
+
+
 
 }
