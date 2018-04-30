@@ -49,6 +49,12 @@ public class LevelManagerScript : MonoBehaviour {
 		return Random.Range (0, directionChangingFrequency + 1) == 0;
 	}
 
+	void OnParticleCollision(GameObject other) {
+		if (other.name == "Player")
+			Debug.Log ("Game Over");
+	}
+
+
 
 	}
 

@@ -273,7 +273,7 @@ public class RoadGenerationScript : MonoBehaviour {
 				_currentRoadLenght = _currentRoadLenght - 1;
 			}
 		}
-		Debug.Log (direction);
+		//Debug.Log (direction);
 		switch(direction){
 		case DirectionFromTo.UpUp:
 			frontWall = ResetGameObject (frontWall);
@@ -396,7 +396,7 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	private void AddElelementFromPoolToQueue(ArrayList pool, Queue<GameObject> q ,Vector3 location, Vector3 rotation , bool needsReset){
 		GameObject temp;
-		Debug.Log ("Adding element from pool amount of objects in pool"+pool.Count+" to queue with amount "+q.Count);
+		//Debug.Log ("Adding element from pool amount of objects in pool"+pool.Count+" to queue with amount "+q.Count);
 		temp = (GameObject)pool[0];
 		pool.RemoveAt (0);
 		if (needsReset)

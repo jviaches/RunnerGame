@@ -43,4 +43,10 @@ public class PlayerControllerScript : MonoBehaviour {
 		//LeftFrontW.motorTorque = v;
 	}
 
+
+	void OnParticleCollision(GameObject other) {
+
+			Debug.Log ("Game Over");
+	}
+
 }
