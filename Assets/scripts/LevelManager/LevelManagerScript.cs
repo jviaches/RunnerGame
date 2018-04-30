@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManagerScript : MonoBehaviour {
 
@@ -11,6 +12,9 @@ public class LevelManagerScript : MonoBehaviour {
 	private bool GameOver = false;
 	public PlayerControllerScript playerScript;
 	public GameObject GameOverPanel;
+	public Text EndLevelMessageText;
+
+	private Timer timerScript;
 
 	public void FinishLevel(bool playerLost){
 		if (playerLost) {
@@ -18,6 +22,12 @@ public class LevelManagerScript : MonoBehaviour {
 			playerScript.GameOver = true;
 			GameOverPanel.SetActive (true);
 			Debug.Log ("Player has lost. GameOver.");
+		} else {
+			GameOver = true;
+			playerScript.GameOver = true;
+			EndLevelMessageText.text = "Level Completed !";
+			GameOverPanel.SetActive (true);
+			Debug.Log ("Player has Won. GameOver.");
 		}
 	}
 
@@ -26,16 +36,17 @@ public class LevelManagerScript : MonoBehaviour {
 
 
 	private RoadGenerationScript roadScript;
-	private int amountOfDirections;
+
 
 	void Start () {
 		GameOverPanel.SetActive (false);
+		timerScript =this.GetComponent<Timer>();
 		roadScript = (RoadGenerationScript)RoadManager.GetComponent<RoadGenerationScript> ();
 		if(roadScript==null){
 			Debug.Log ("Failed to load roads script. Exiting");
 			return;
 		}
-		amountOfDirections = System.Enum.GetValues (typeof(RoadGenerationScript.DirectionFromTo)).Length;
+		timerScript.StartTimer ();
 		AdvancingRoad ();
 		DroneMovement ();
 
