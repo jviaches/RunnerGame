@@ -10,11 +10,11 @@ FBXHeaderExtension:  {
 		Version: 1000
 		Year: 2018
 		Month: 4
-		Day: 29
-		Hour: 23
-		Minute: 58
-		Second: 20
-		Millisecond: 177
+		Day: 30
+		Hour: 12
+		Minute: 12
+		Second: 35
+		Millisecond: 570
 	}
 	Creator: "FBX SDK/FBX Plugins version 2016.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -30,8 +30,8 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\strea\AppData\Local\Temp\4B51.tmp.fbx"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\strea\AppData\Local\Temp\4B51.tmp.fbx"
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\julian\AppData\Local\Temp\2028.tmp.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\julian\AppData\Local\Temp\2028.tmp.fbx"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", ""
 			P: "Original|ApplicationName", "KString", "", "", ""
@@ -77,7 +77,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 2104147842176, "", "Scene" {
+	Document: 2080744724656, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", ""
@@ -97,7 +97,7 @@ References:  {
 
 Definitions:  {
 	Version: 100
-	Count: 6
+	Count: 5
 	ObjectType: "GlobalSettings" {
 		Count: 1
 	}
@@ -193,7 +193,7 @@ Definitions:  {
 		}
 	}
 	ObjectType: "Material" {
-		Count: 2
+		Count: 1
 		PropertyTemplate: "FbxSurfacePhong" {
 			Properties70:  {
 				P: "ShadingModel", "KString", "", "", "Phong"
@@ -227,7 +227,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 2104154908688, "Geometry::", "Mesh" {
+	Geometry: 2080742898704, "Geometry::", "Mesh" {
 		Vertices: *204 {
 			a: 500,0,-500,500,42.3049068926914,-365.776831824301,500,98.514911393637,-236.757455696818,500,168.004409595056,-114.377826419572,500,250,3.60955709766131e-13,500,345.99014900174,107.522560428313,500,453.020744549929,204.060953428386,500,569.842241428088,288.488126622699,500,695.090789030152,359.818421939696,500,827.304153844988,417.219082831149,500,964.938790527334,460.019976417089,500,1106.38786225631,487.721417055596,500,1250,500,500,-40,500,500,-40,-500,-500,42.3049068926914,-365.776831824301,-500,0,-500,-500,-40,-500,-500,-40,500,-500,1250,500,-500,1106.38786225631,487.721417055596,-500,964.938790527334,460.019976417089,-500,827.304153844988,417.219082831149,-500,695.090789030152,359.818421939696,-500,569.842241428088,288.488126622699,-500,453.020744549929,204.060953428386,-500,345.99014900174,107.522560428313,-500,250,3.60955709766131e-13,-500,168.004409595056,-114.377826419572,-500,98.514911393637,-236.757455696818,500,42.3049068926914,-365.776831824301,500,0,-500,-500,0,-500,-500,42.3049068926914,-365.776831824301,500,0,-500,500,-40,-500,-500,-40,-500,-500,0,-500,500,-40,-500,500,-40,500,-500,-40,500,-500,-40,-500,500,-40,500,500,1250,500,-500,1250,500,-500,-40,500,500,1250,500,500,1106.38786225631,487.721417055596,-500,1106.38786225631,487.721417055596,-500,1250,500,500,964.938790527334,460.019976417089,-500,964.938790527334,460.019976417089,500,827.304153844988,417.219082831149,-500,827.304153844988,417.219082831149,500,695.090789030152,359.818421939696,-500,695.090789030152,359.818421939696,500,569.842241428088,288.488126622699,-500,569.842241428088,288.488126622699,500,453.020744549929,204.060953428386,-500,453.020744549929,204.060953428386,500,345.99014900174,107.522560428313,-500,345.99014900174,107.522560428313,500,250,3.60955709766131e-13,-500,250,3.60955709766131e-13,500,168.004409595056,-114.377826419572,-500,168.004409595056,-114.377826419572,500,98.514911393637,-236.757455696818,-500,98.514911393637,-236.757455696818
 		} 
@@ -266,7 +266,7 @@ Objects:  {
 			MappingInformationType: "ByPolygon"
 			ReferenceInformationType: "IndexToDirect"
 			Materials: *17 {
-				a: 0,0,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1
+				a: 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 			} 
 		}
 		Layer: 0 {
@@ -289,7 +289,7 @@ Objects:  {
 			}
 		}
 	}
-	Model: 2103804651616, "Model::Model", "Null" {
+	Model: 2080439168672, "Model::Model", "Null" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -297,7 +297,7 @@ Objects:  {
 		Shading: Y
 		Culling: "CullingOff"
 	}
-	Model: 2104149321488, "Model::Mesh1", "Mesh" {
+	Model: 2080439174672, "Model::Mesh1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
@@ -306,26 +306,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 2103973058064, "Material::FrontColor", "" {
-		Version: 102
-		ShadingModel: "phong"
-		MultiLayer: 0
-		Properties70:  {
-			P: "AmbientColor", "Color", "", "A",0,0,0
-			P: "DiffuseColor", "Color", "", "A",1,1,1
-			P: "TransparentColor", "Color", "", "A",1,1,1
-			P: "SpecularColor", "Color", "", "A",0.33,0.33,0.33
-			P: "ReflectionFactor", "Number", "", "A",0
-			P: "Emissive", "Vector3D", "Vector", "",0,0,0
-			P: "Ambient", "Vector3D", "Vector", "",0,0,0
-			P: "Diffuse", "Vector3D", "Vector", "",1,1,1
-			P: "Specular", "Vector3D", "Vector", "",0.33,0.33,0.33
-			P: "Shininess", "double", "Number", "",20
-			P: "Opacity", "double", "Number", "",1
-			P: "Reflectivity", "double", "Number", "",0
-		}
-	}
-	Material: 2103973057104, "Material::M_0065_Lime", "" {
+	Material: 2080743499632, "Material::M_0065_Lime", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -352,19 +333,16 @@ Objects:  {
 Connections:  {
 	
 	;Model::Model, Model::RootNode
-	C: "OO",2103804651616,0
+	C: "OO",2080439168672,0
 	
 	;Model::Mesh1, Model::Model
-	C: "OO",2104149321488,2103804651616
+	C: "OO",2080439174672,2080439168672
 	
 	;Geometry::, Model::Mesh1
-	C: "OO",2104154908688,2104149321488
-	
-	;Material::FrontColor, Model::Mesh1
-	C: "OO",2103973058064,2104149321488
+	C: "OO",2080742898704,2080439174672
 	
 	;Material::M_0065_Lime, Model::Mesh1
-	C: "OO",2103973057104,2104149321488
+	C: "OO",2080743499632,2080439174672
 }
 ;Takes section
 ;----------------------------------------------------

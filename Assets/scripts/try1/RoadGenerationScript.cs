@@ -15,6 +15,8 @@ public class RoadGenerationScript : MonoBehaviour {
 	public int tileSize = 10;
 	public int turnsPerTwoSegments=5;//basicaly - frequency of turns
 
+	public Material RoadMaterial;
+	public Material WallMaterial;
 
 
 	private Quaternion _originalElementRotation;
@@ -102,18 +104,18 @@ public class RoadGenerationScript : MonoBehaviour {
 
 		for (int i = 0; i < SimmultaniousRoadTileAmount+10; i++) {
 			//loading elements without veriety
-			pool_roadElements.Add(InstanciateObject(straighRoadSegmentPath+straightRoadPrefix,_startingObjectLocation , Vector3.zero,tag_roadTile));
-			pool_roadTurnElements.Add(InstanciateObject(turnRoadSegmentPath+turnRoadSegmentPrefix,_startingObjectLocation , Vector3.zero,tag_roadTurnTile));
-			pool_leftTurnInnerWall.Add (InstanciateObject (leftInnerTurnWall, _startingObjectLocation, Vector3.zero,tag_leftInnterTurnWall));
-			pool_leftTurnOuterWall.Add (InstanciateObject (leftOuterTurnWall, _startingObjectLocation, Vector3.zero,tag_leftOuterTurnWall));
-			pool_rightTurnInnerWall.Add (InstanciateObject (rightInnerTurnWall,_startingObjectLocation, Vector3.zero,tag_righttInnterTurnWall));
-			pool_rightTurnOuterWall.Add (InstanciateObject (rightOuterTurnWall, _startingObjectLocation, Vector3.zero,tag_rightOuterTurnWall));
+			pool_roadElements.Add(InstanciateObject(straighRoadSegmentPath+straightRoadPrefix,_startingObjectLocation , Vector3.zero,tag_roadTile,RoadMaterial));
+			pool_roadTurnElements.Add(InstanciateObject(turnRoadSegmentPath+turnRoadSegmentPrefix,_startingObjectLocation , Vector3.zero,tag_roadTurnTile,RoadMaterial));
+			pool_leftTurnInnerWall.Add (InstanciateObject (leftInnerTurnWall, _startingObjectLocation, Vector3.zero,tag_leftInnterTurnWall,WallMaterial));
+			pool_leftTurnOuterWall.Add (InstanciateObject (leftOuterTurnWall, _startingObjectLocation, Vector3.zero,tag_leftOuterTurnWall,WallMaterial));
+			pool_rightTurnInnerWall.Add (InstanciateObject (rightInnerTurnWall,_startingObjectLocation, Vector3.zero,tag_righttInnterTurnWall,WallMaterial));
+			pool_rightTurnOuterWall.Add (InstanciateObject (rightOuterTurnWall, _startingObjectLocation, Vector3.zero,tag_rightOuterTurnWall,WallMaterial));
 
 			//loading elements with veriety
 			for (int j = 1; j < leftWallAmount+1; j++)
-				pool_leftWallStraightElemets.Add (InstanciateObject(leftWallSegmentPath+leftWallSegmentPrefix+j,_startingObjectLocation ,Vector3.zero,tag_leftStraightWall));
+				pool_leftWallStraightElemets.Add (InstanciateObject(leftWallSegmentPath+leftWallSegmentPrefix+j,_startingObjectLocation ,Vector3.zero,tag_leftStraightWall,WallMaterial));
 			for (int j = 1; j < rightWallAmount+1; j++)
-				pool_rightWallStraightElements.Add (InstanciateObject(rightWallSegmentPath+rightWallSegmentPrefix+j,_startingObjectLocation , Vector3.zero,tag_rightStraightWall));
+				pool_rightWallStraightElements.Add (InstanciateObject(rightWallSegmentPath+rightWallSegmentPrefix+j,_startingObjectLocation , Vector3.zero,tag_rightStraightWall,WallMaterial));
 			
 		}
 
@@ -133,8 +135,8 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	public void InitRoad(){
 		_previousDirection = DirectionFromTo.UpUp;
-		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero,tag_fronWall);
-		backWall = InstanciateObject ("walls/backWall", new Vector3 (-1*tileSize, 0, 0), Vector3.zero,"back_wall");
+		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero,tag_fronWall,WallMaterial);
+		backWall = InstanciateObject ("walls/backWall", new Vector3 (-1*tileSize, 0, 0), Vector3.zero,"back_wall",WallMaterial);
 		_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
 
 		InintStartingPoint ();
@@ -485,32 +487,43 @@ public class RoadGenerationScript : MonoBehaviour {
 	}
 
 
-	private GameObject InstanciateObject(string resourcePath,Vector3 location,Vector3 rotation,string tag){
+	private GameObject InstanciateObject(string resourcePath,Vector3 location,Vector3 rotation,string tag,Material mat){
 		GameObject result = null;;
 		try{
-		 result = Instantiate ((GameObject)Resources.Load (resourcePath), location, Quaternion.LookRotation (Vector3.zero));
+			result = Instantiate ((GameObject)Resources.Load (resourcePath), location, Quaternion.LookRotation (Vector3.zero));
 		}
 		catch (System.Exception e) {
 			Debug.Log (e);
 		}
 		if (result != null) {
 			result.name = tag;
-			AddMeshCollider (result);
+			AddMeshCollider (result,mat);
 
 			result.transform.Rotate (rotation);
 		}
 		return result;
 	}
 
-	private void AddMeshCollider(GameObject obj){
+	private void SetMaterial(GameObject obj, Material mat){
+		//Material[] temp = new Material[1];
+		//temp [0] = mat;
+		//for (int i =0; i<obj.GetComponent<Renderer> ().materials.Length;i++)
+		//	obj.GetComponent<Renderer> ().materials[i]= mat;
+		obj.GetComponent<Renderer> ().material= mat;
+	}
+
+
+	private void AddMeshCollider(GameObject obj,Material mat){
 		if (IsAMesh (obj)) {
 			obj.AddComponent<MeshCollider> ();
 			obj.AddComponent<Rigidbody> ();
 			obj.GetComponent<Rigidbody> ().isKinematic = true;
 			obj.GetComponent<Rigidbody> ().useGravity = false;
+
+			SetMaterial (obj, mat);
 		}
 		for (int i = 0; i < obj.transform.childCount; i++) {
-			AddMeshCollider (obj.transform.GetChild (i).gameObject);
+			AddMeshCollider (obj.transform.GetChild (i).gameObject,mat);
 		}
 	}
 
