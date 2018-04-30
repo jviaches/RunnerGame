@@ -19,6 +19,7 @@ public class PlayerControllerScript : MonoBehaviour {
 	private Rigidbody playersBody;
 	private float _moveZ;
 
+	public bool GameOver = false;
 
 	void Start () {
 
@@ -30,23 +31,29 @@ public class PlayerControllerScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		float v = Input.GetAxis ("Vertical") * EngineForce;
-		float h = Input.GetAxis ("Horizontal") * SteeringForce;
+		if (!GameOver) {
+			float v = Input.GetAxis ("Vertical") * EngineForce;
+			float h = Input.GetAxis ("Horizontal") * SteeringForce;
 
-		RighBacktW.motorTorque = v;
-		LeftBackW.motorTorque = v;
+			RighBacktW.motorTorque = v;
+			LeftBackW.motorTorque = v;
 
-		RighFrontW.steerAngle = h;
-		LeftFrontW.steerAngle = h;
+			RighFrontW.steerAngle = h;
+			LeftFrontW.steerAngle = h;
 
-		//RighFrontW.motorTorque = v;
-		//LeftFrontW.motorTorque = v;
+			//RighFrontW.motorTorque = v;
+			//LeftFrontW.motorTorque = v;
+
+		} else {
+			RighBacktW.brakeTorque=Mathf.Infinity;
+			LeftBackW.brakeTorque=Mathf.Infinity;
+
+			GameObject.Find ("PlayerBody").GetComponent<Rigidbody> ().isKinematic = true;
+
+		}
 	}
 
 
-	void OnParticleCollision(GameObject other) {
 
-			Debug.Log ("Game Over");
-	}
 
 }

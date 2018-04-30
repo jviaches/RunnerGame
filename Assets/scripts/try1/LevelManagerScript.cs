@@ -8,6 +8,19 @@ public class LevelManagerScript : MonoBehaviour {
 	public int directionChangingFrequency =3; // Random 0 =  change direction
 	public float droneRedrawSpeed = 60f;
 	public GameObject Drone;
+	private bool GameOver = false;
+	public PlayerControllerScript playerScript;
+	public GameObject GameOverPanel;
+
+	public void FinishLevel(bool playerLost){
+		if (playerLost) {
+			GameOver = true;
+			playerScript.GameOver = true;
+			GameOverPanel.SetActive (true);
+			Debug.Log ("Player has lost. GameOver.");
+		}
+	}
+
 
 	public float roadTileCreationSpeed=1;//tile per second
 
@@ -16,6 +29,7 @@ public class LevelManagerScript : MonoBehaviour {
 	private int amountOfDirections;
 
 	void Start () {
+		GameOverPanel.SetActive (false);
 		roadScript = (RoadGenerationScript)RoadManager.GetComponent<RoadGenerationScript> ();
 		if(roadScript==null){
 			Debug.Log ("Failed to load roads script. Exiting");
@@ -34,9 +48,11 @@ public class LevelManagerScript : MonoBehaviour {
 	}
 
 	private void AdvancingRoad(){
-		roadScript.ForceStart ();
-		roadScript.AdvanceRoad ();
-		Invoke ("AdvancingRoad", 1/roadTileCreationSpeed);
+		if (!GameOver) {
+			roadScript.ForceStart ();
+			roadScript.AdvanceRoad ();
+			Invoke ("AdvancingRoad", 1 / roadTileCreationSpeed);
+		}
 	}
 
 	/*
@@ -49,10 +65,6 @@ public class LevelManagerScript : MonoBehaviour {
 		return Random.Range (0, directionChangingFrequency + 1) == 0;
 	}
 
-	void OnParticleCollision(GameObject other) {
-		if (other.name == "Player")
-			Debug.Log ("Game Over");
-	}
 
 
 
