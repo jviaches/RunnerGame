@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 198413897310161940}
   - component: {fileID: 199315190506416896}
   - component: {fileID: 65944486007556638}
+  - component: {fileID: 114194743204287390}
   m_Layer: 0
   m_Name: backWall
   m_TagString: Untagged
@@ -126,6 +127,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 0.1, z: 30}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114194743204287390
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718242898987090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc848f4a839ac0d429fb08e49906d973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallingStones: {fileID: 198413897310161940}
+  lmScript: {fileID: 0}
 --- !u!198 &198413897310161940
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -145,7 +159,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 10
+    scalar: 1
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -2680,7 +2694,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
