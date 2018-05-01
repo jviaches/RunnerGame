@@ -19,7 +19,7 @@ public class LevelManagerScript : MonoBehaviour
     public PlayerControllerScript playerScript;
     
     public int Level = 1;
-    public int timeToSurvive = 60; //in seconds
+    public int timeToSurvive = 4; //in seconds
 
     public GameObject MainModalPanel;               // ..
     public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
@@ -70,13 +70,16 @@ public class LevelManagerScript : MonoBehaviour
 
     private void Run()
     {
-        Debug.Log("Timer: " + timeLeft);
         if (timeLeft != 0)
         {
             timeLeft = timeLeft - 1;
             LevelTimeText.text = "Time: " + timeLeft + " sec";
 
             Invoke("Run", 1);
+        }
+        else
+        {
+            FinishLevel(false);
         }
     }
 
@@ -113,7 +116,6 @@ public class LevelManagerScript : MonoBehaviour
     {
         GameOver = true;
         playerScript.GameOver = true;
-        //GameOverPanel.SetActive(true);
 
         if (playerLost)
             showModalFailLevelDialog();

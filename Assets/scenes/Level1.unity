@@ -1046,13 +1046,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadManager: {fileID: 1791863115}
-  roadTileCreationSpeed: 0.2
+  roadTileCreationSpeed: 0.4
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
   playerScript: {fileID: 1637762380}
   Level: 1
-  timeToSurvive: 60
+  timeToSurvive: 4
   MainModalPanel: {fileID: 693476073}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalTitle: {fileID: 1909554120}
@@ -1062,6 +1062,7 @@ MonoBehaviour:
   FailModalTitle: {fileID: 410819490}
   FailModalOkButton: {fileID: 100688280}
   FailModalRepeatLvlButton: {fileID: 964943382}
+  LevelTimeText: {fileID: 1320449686}
 --- !u!4 &651764411
 Transform:
   m_ObjectHideFlags: 0
@@ -2478,13 +2479,11 @@ MonoBehaviour:
   EngineForce: 5000
   SteeringForce: 20
   BreakForce: 1
-  IsMoving: 0
   RighFrontW: {fileID: 68315754}
   RighBacktW: {fileID: 946890078}
   LeftFrontW: {fileID: 549556414}
   LeftBackW: {fileID: 229527658}
   movementDirection: {x: 0, y: 0, z: 0}
-  playerObject: {fileID: 0}
   GameOver: 0
 --- !u!4 &1637762381
 Transform:
