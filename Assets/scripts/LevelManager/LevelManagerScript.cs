@@ -18,17 +18,21 @@ public class LevelManagerScript : MonoBehaviour {
 
 	public void FinishLevel(bool playerLost){
 		if (playerLost) {
-			GameOver = true;
-			playerScript.GameOver = true;
-			GameOverPanel.SetActive (true);
+			
+		
+
 			Debug.Log ("Player has lost. GameOver.");
 		} else {
-			GameOver = true;
-			playerScript.GameOver = true;
+			
+
 			EndLevelMessageText.text = "Level Completed !";
-			GameOverPanel.SetActive (true);
+
 			Debug.Log ("Player has Won. GameOver.");
 		}
+		roadScript.frontWall.GetComponent<FrontWallAnimation> ().StopAnimation ();
+		playerScript.GameOver = true;
+		GameOverPanel.SetActive (true);
+		GameOver = true;
 	}
 
 
