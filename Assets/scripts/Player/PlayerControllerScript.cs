@@ -8,20 +8,15 @@ public class PlayerControllerScript : MonoBehaviour
     public float SteeringForce = 65f;
     public float BreakForce = 1f;
 
-    public bool IsMoving = false;
-
     public WheelCollider RighFrontW;
     public WheelCollider RighBacktW;
     public WheelCollider LeftFrontW;
     public WheelCollider LeftBackW;
 
     public Vector3 movementDirection;
-    public GameObject playerObject;
 
     public bool GameOver = false;
 
-    private Rigidbody playersBody;
-    private float _moveZ;
     private LevelManagerScript levelManagerScript;
    
 
