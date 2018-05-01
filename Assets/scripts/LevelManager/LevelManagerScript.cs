@@ -17,7 +17,7 @@ public class LevelManagerScript : MonoBehaviour
     public GameObject Drone;
 
     public PlayerControllerScript playerScript;
-
+    
     public int Level = 1;
     public int timeToSurvive = 60; //in seconds
 
@@ -32,19 +32,21 @@ public class LevelManagerScript : MonoBehaviour
     public Button FailModalOkButton;                // OK button in Fail modal dialog
     public Button FailModalRepeatLvlButton;         // repeat level button in Fail modal dialog
 
+    public Text LevelTimeText;
+
     private DialogManager dialogManager;
 
     private bool GameOver = false;
-    private Timer timerScript;
     private RoadGenerationScript roadScript;
+    private int timeLeft;
 
-    void Start()
+    public void Start()
     {
+        Debug.Log("Start");
         InitAllPanelsAndDialogs();
 
-        timeToSurvive = Level * 60;
+        initTimer();
 
-        timerScript = this.GetComponent<Timer>();
         roadScript = RoadManager.GetComponent<RoadGenerationScript>();
 
         if (roadScript == null)
@@ -53,9 +55,34 @@ public class LevelManagerScript : MonoBehaviour
             return;
         }
 
-        timerScript.StartTimer();
         AdvancingRoad();
         DroneMovement();
+    }
+
+    private void initTimer()
+    {
+        Debug.Log("initTimer");
+        timeLeft = timeToSurvive;
+
+        RestartTimer();
+        Run();
+    }
+
+    private void Run()
+    {
+        Debug.Log("Timer: " + timeLeft);
+        if (timeLeft != 0)
+        {
+            timeLeft = timeLeft - 1;
+            LevelTimeText.text = "Time: " + timeLeft + " sec";
+
+            Invoke("Run", 1);
+        }
+    }
+
+    private void RestartTimer()
+    {
+        timeLeft = timeToSurvive;
     }
 
     private void DroneMovement()
