@@ -135,9 +135,18 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	public void InitRoad(){
 		_previousDirection = DirectionFromTo.UpUp;
-		frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero,tag_fronWall,WallMaterial);
-		backWall = InstanciateObject ("walls/backWall", new Vector3 (-1*tileSize, 0, 0), Vector3.zero,"back_wall",WallMaterial);
 		_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
+		if (frontWall == null) {
+			_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
+			frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero, tag_fronWall, WallMaterial);
+		}
+		if (backWall == null) {
+			backWall = InstanciateObject ("walls/backWall", new Vector3 (-1 * tileSize, 0, 0), Vector3.zero, "back_wall", WallMaterial);
+		} else {
+			backWall.transform.position = new Vector3 (-1 * tileSize, 0, 0);
+			backWall.transform.rotation =  Quaternion.LookRotation(Vector3.zero);
+				
+		}
 
 		InintStartingPoint ();
 
@@ -145,6 +154,8 @@ public class RoadGenerationScript : MonoBehaviour {
 	
 	}
 
+
+	//main function that creats new road block
 	public void AdvanceRoad(){
 		AddNextRoadSegment (ChoosingNewDirection ());
 	}
@@ -490,7 +501,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	private GameObject InstanciateObject(string resourcePath,Vector3 location,Vector3 rotation,string tag,Material mat){
 		GameObject result = null;;
 		try{
-			result = Instantiate ((GameObject)Resources.Load (resourcePath), location, Quaternion.LookRotation (Vector3.zero));
+			result = Instantiate ((GameObject)Resources.Load (resourcePath), location, Quaternion.LookRotation (rotation));
 		}
 		catch (System.Exception e) {
 			Debug.Log (e);

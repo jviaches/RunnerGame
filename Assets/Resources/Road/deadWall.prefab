@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 199945220807956554}
   - component: {fileID: 114684895874723828}
   m_Layer: 0
-  m_Name: deadWall3 1
+  m_Name: deadWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
