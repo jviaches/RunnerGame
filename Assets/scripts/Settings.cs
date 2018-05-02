@@ -26,7 +26,12 @@ public class Settings : MonoBehaviour {
 
     private void MusicMenuButtonClick()
     {
-        Debug.Log("Music still not wired");
+        if (WorldManager.Instance.MusicOff)
+        {
+            // set visual on button
+
+            // music off in this scene
+        }
     }
 
     private void EffectsMenuButtonClick()

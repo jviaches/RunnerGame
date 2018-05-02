@@ -7,22 +7,26 @@ using UnityEngine.SceneManagement;
 using Assets.scripts.DialogModule;
 using UnityEngine.Events;
 
-public class WorldManager : MonoBehaviour
-{
+public class WorldManager
+{ 
     public int Level = 4;
-    
+
+    public bool MusicOff = false;
+    public bool MusicEffectsOff = false;
+    public int Volume = 10;
+
     #region Singleton
     private static WorldManager instance;
-    private static object lockingObect = null;
+    private static object lockingObect = new object();
     private WorldManager() { }
 
     public static WorldManager Instance
     {
         get
         {
-            //if (instance == null)
+            if (instance == null)
             {
-                //lock (lockingObect)
+                lock (lockingObect)
                 {
                     if (instance == null)
                     {
@@ -38,8 +42,4 @@ public class WorldManager : MonoBehaviour
 
     #endregion
 
-    public void Awake()
-    {
-        DontDestroyOnLoad(this);    // survice scene loads
-    }
 }
