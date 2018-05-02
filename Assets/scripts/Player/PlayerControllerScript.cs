@@ -21,7 +21,7 @@ public class PlayerControllerScript : MonoBehaviour
     public Vector3 movementDirection;
 	private int currentSpint = 0;
 
-	public int WheelRPM= 200;
+	public int WheelRPMModifyer= 50;
 
     public bool GameOver = false;
 
@@ -46,10 +46,10 @@ public class PlayerControllerScript : MonoBehaviour
             float h = Input.GetAxis("Horizontal") * SteeringForce;
 
 
-			RighBacktWTransform.Rotate (RighBacktW.rpm / 60  * 360 * Time.deltaTime, 0, 0);
-			RighFrontWTransform.Rotate (RighFrontW.rpm / 60 * 360 * Time.deltaTime, 0, 0);
-			LeftFrontWTransform.Rotate (LeftFrontW.rpm / 60 * 360 * Time.deltaTime, 0, 0);
-			LeftBackWTransform.Rotate (LeftBackW.rpm  / 60  * 360 * Time.deltaTime, 0, 0);
+			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRPMModifyer / 60  * 360 * Time.deltaTime, 0, 0);
+			RighFrontWTransform.Rotate (RighFrontW.rpm/WheelRPMModifyer / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftFrontWTransform.Rotate (LeftFrontW.rpm/WheelRPMModifyer / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftBackWTransform.Rotate (LeftBackW.rpm/WheelRPMModifyer  / 60  * 360 * Time.deltaTime, 0, 0);
 
             RighBacktW.motorTorque = v;
             LeftBackW.motorTorque = v;

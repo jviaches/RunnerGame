@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
-<<<<<<< HEAD
+	
 public class LevelManagerScript : MonoBehaviour
 {
     public GameObject RoadManager;
