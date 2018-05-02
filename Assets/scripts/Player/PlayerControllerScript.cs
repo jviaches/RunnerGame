@@ -29,7 +29,7 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameObject.Find("PlayerBody").transform.position.y < -1)
+        if (GameObject.Find("Buggy").transform.position.y < -1)
             levelManagerScript.FinishLevel(true);
 
         if (!GameOver)
@@ -48,7 +48,7 @@ public class PlayerControllerScript : MonoBehaviour
             RighBacktW.brakeTorque = Mathf.Infinity;
             LeftBackW.brakeTorque = Mathf.Infinity;
 
-            GameObject.Find("PlayerBody").GetComponent<Rigidbody>().isKinematic = true;
+            GameObject.Find("Buggy").GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

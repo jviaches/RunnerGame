@@ -12,7 +12,7 @@ public class BackWallCollision : MonoBehaviour {
 		lmScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
 	}
 	void OnParticleCollision(GameObject other) {
-		if (other.name == "PlayerBody") {
+		if (other.name == "Buggy") {
 			//Debug.Log ("Game Over");
 			fallingStones.Stop ();
 			lmScript.FinishLevel (true);
