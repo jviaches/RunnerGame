@@ -11,9 +11,9 @@ public class WorldManager
 { 
     public int Level = 4;
 
-    public bool MusicOff = false;
-    public bool MusicEffectsOff = false;
-    public int Volume = 10;
+    public bool isMusicOn = true;
+    public bool isMusicEffectsOn = true;
+    public float Volume = 10;
 
     #region Singleton
     private static WorldManager instance;

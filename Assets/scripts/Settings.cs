@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -8,15 +9,36 @@ public class Settings : MonoBehaviour {
 
     #region Unity Editor
     public Button OkMenuButton;
-    public Button MusicMenuButton;
-    public Button EffectsMenuButton;
+
+    public Button MusicMenuButtonOn;
+    public Button MusicMenuButtonOff;
+
+    public Button EffectsMenuButtonOn;
+    public Button EffectsMenuButtonOff;
+
+    public Slider VolumeLevelSlider;
+
+    private float volumeLevel = 0;
     #endregion
 
     void Start()
     {
         OkMenuButton.GetComponent<Button>().onClick.AddListener(OkMenuButtonClick);
-        MusicMenuButton.GetComponent<Button>().onClick.AddListener(MusicMenuButtonClick);
-        EffectsMenuButton.GetComponent<Button>().onClick.AddListener(EffectsMenuButtonClick);
+
+        MusicMenuButtonOn.GetComponent<Button>().onClick.AddListener(MusicOnMenuButtonClick);
+        MusicMenuButtonOff.GetComponent<Button>().onClick.AddListener(MusicOffMenuButtonClick);
+
+        EffectsMenuButtonOn.GetComponent<Button>().onClick.AddListener(EffectsOnMenuButtonClick);
+        EffectsMenuButtonOff.GetComponent<Button>().onClick.AddListener(EffectsOffMenuButtonClick);
+
+        volumeLevel = VolumeLevelSlider.value;
+        VolumeLevelSlider.onValueChanged.AddListener(volumeLevelChanged);
+    }
+
+    private void volumeLevelChanged(float newVolumeLevel)
+    {
+        volumeLevel = WorldManager.Instance.Volume = newVolumeLevel;
+        Debug.Log("volumeLevel = " + WorldManager.Instance.Volume);
     }
 
     private void OkMenuButtonClick()
@@ -24,18 +46,27 @@ public class Settings : MonoBehaviour {
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    private void MusicMenuButtonClick()
+    private void MusicOnMenuButtonClick()
     {
-        if (WorldManager.Instance.MusicOff)
-        {
-            // set visual on button
-
-            // music off in this scene
-        }
+        WorldManager.Instance.isMusicOn = false;
+        Debug.Log("Music is " + WorldManager.Instance.isMusicOn);
     }
 
-    private void EffectsMenuButtonClick()
+    private void MusicOffMenuButtonClick()
     {
-        Debug.Log("Effects still not wired");
+        WorldManager.Instance.isMusicOn = true;
+        Debug.Log("Music is " + WorldManager.Instance.isMusicOn);
+    }
+
+    private void EffectsOnMenuButtonClick()
+    {
+        WorldManager.Instance.isMusicEffectsOn = false;
+        Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
+    }
+
+    private void EffectsOffMenuButtonClick()
+    {
+        WorldManager.Instance.isMusicEffectsOn = true;
+        Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
     }
 }

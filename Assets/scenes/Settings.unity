@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 44081763}
   - component: {fileID: 44081762}
   m_Layer: 5
-  m_Name: Button_SliderOff
+  m_Name: MusicBtn_SliderOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,7 +679,7 @@ GameObject:
   - component: {fileID: 227483488}
   - component: {fileID: 227483487}
   m_Layer: 5
-  m_Name: Button_SliderOn
+  m_Name: SFXBtn_SliderOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1530,7 +1530,7 @@ GameObject:
   - component: {fileID: 598658019}
   - component: {fileID: 598658018}
   m_Layer: 5
-  m_Name: Button_SliderOn
+  m_Name: MusicBtn_SliderOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2291,8 +2291,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OkMenuButton: {fileID: 593969233}
-  MusicMenuButton: {fileID: 598658018}
-  EffectsMenuButton: {fileID: 1438967178}
+  MusicMenuButtonOn: {fileID: 598658018}
+  MusicMenuButtonOff: {fileID: 44081762}
+  EffectsMenuButtonOn: {fileID: 227483487}
+  EffectsMenuButtonOff: {fileID: 1438967178}
+  VolumeLevelSlider: {fileID: 467158918}
 --- !u!4 &1240538636
 Transform:
   m_ObjectHideFlags: 0
@@ -2661,7 +2664,7 @@ GameObject:
   - component: {fileID: 1438967179}
   - component: {fileID: 1438967178}
   m_Layer: 5
-  m_Name: Button_SliderOff
+  m_Name: SFXBtn_SliderOff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
