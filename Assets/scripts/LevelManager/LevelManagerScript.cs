@@ -18,7 +18,7 @@ public class LevelManagerScript : MonoBehaviour
 
     public PlayerControllerScript playerScript;
     
-    public int Level = 1;
+    public int Level = WorldManager.Instance.Level;
     public int timeToSurvive = 4; //in seconds
 
     public GameObject MainModalPanel;               // ..
@@ -184,7 +184,7 @@ public class LevelManagerScript : MonoBehaviour
         SuccessModalPanel.SetActive(true);
         SuccessModalTitle.text = "Level " + Level + " completed !";
 
-        Level++;
+        WorldManager.Instance.Level++;
     }
 
     private void showModalFailLevelDialog()

@@ -9,20 +9,20 @@ using UnityEngine.Events;
 
 public class WorldManager : MonoBehaviour
 {
-    public int Level = 1;
+    public int Level = 4;
     
     #region Singleton
     private static WorldManager instance;
-    private object lockingObect = null;
+    private static object lockingObect = null;
     private WorldManager() { }
 
-    public WorldManager Instance
+    public static WorldManager Instance
     {
         get
         {
-            if (instance == null)
+            //if (instance == null)
             {
-                lock (lockingObect)
+                //lock (lockingObect)
                 {
                     if (instance == null)
                     {
