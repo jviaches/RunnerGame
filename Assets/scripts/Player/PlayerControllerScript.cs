@@ -13,7 +13,15 @@ public class PlayerControllerScript : MonoBehaviour
     public WheelCollider LeftFrontW;
     public WheelCollider LeftBackW;
 
+	public Transform RighFrontWTransform;
+	public Transform RighBacktWTransform;
+	public Transform LeftFrontWTransform;
+	public Transform LeftBackWTransform;
+
     public Vector3 movementDirection;
+	private int currentSpint = 0;
+
+	public int WheelRPM= 200;
 
     public bool GameOver = false;
 
@@ -27,7 +35,7 @@ public class PlayerControllerScript : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (GameObject.Find("Buggy").transform.position.y < -1)
             levelManagerScript.FinishLevel(true);
@@ -36,6 +44,12 @@ public class PlayerControllerScript : MonoBehaviour
         {
             float v = Input.GetAxis("Vertical") * EngineForce;
             float h = Input.GetAxis("Horizontal") * SteeringForce;
+
+
+			RighBacktWTransform.Rotate (RighBacktW.rpm / 60  * 360 * Time.deltaTime, 0, 0);
+			RighFrontWTransform.Rotate (RighFrontW.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftFrontWTransform.Rotate (LeftFrontW.rpm / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftBackWTransform.Rotate (LeftBackW.rpm  / 60  * 360 * Time.deltaTime, 0, 0);
 
             RighBacktW.motorTorque = v;
             LeftBackW.motorTorque = v;

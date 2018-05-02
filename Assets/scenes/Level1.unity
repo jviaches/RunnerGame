@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -333,8 +333,8 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 206604079}
-  m_Center: {x: 0, y: 0.25, z: 0}
-  m_Radius: 0.5
+  m_Center: {x: -0.3, y: 0.25, z: 0}
+  m_Radius: 0.556
   m_SuspensionSpring:
     spring: 30000
     damper: 2000
@@ -367,8 +367,8 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 251265846}
-  m_Center: {x: 0, y: 0.25, z: 0}
-  m_Radius: 0.6
+  m_Center: {x: -0.4, y: 0.25, z: 0}
+  m_Radius: 0.7
   m_SuspensionSpring:
     spring: 30000
     damper: 2000
@@ -866,13 +866,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadManager: {fileID: 1791863115}
-  roadTileCreationSpeed: 0.4
+  roadTileCreationSpeed: 0.1
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
   playerScript: {fileID: 2010931214}
   Level: 1
-  timeToSurvive: 60
+  timeToSurvive: 6000
   MainModalPanel: {fileID: 693476073}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalTitle: {fileID: 1909554120}
@@ -968,6 +968,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 693476073}
+--- !u!4 &729823045 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4985257543040304, guid: f2afd94da5cfa3743b3b5a22dd0d179d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860953581}
 --- !u!1 &876686287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1193,6 +1198,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 964943380}
+--- !u!4 &972117173 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4972731424419822, guid: f2afd94da5cfa3743b3b5a22dd0d179d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860953581}
 --- !u!1 &985769333
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,6 +1646,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1094489642}
+--- !u!4 &1102099582 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4778758478869996, guid: f2afd94da5cfa3743b3b5a22dd0d179d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860953581}
 --- !u!1 &1105038355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1920,8 +1935,8 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1185178957}
-  m_Center: {x: 0, y: 0.25, z: 0}
-  m_Radius: 0.6
+  m_Center: {x: 0.4, y: 0.25, z: 0}
+  m_Radius: 0.7
   m_SuspensionSpring:
     spring: 30000
     damper: 2000
@@ -2327,7 +2342,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1637762379}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1860953582}
@@ -2381,8 +2396,8 @@ WheelCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1778436241}
-  m_Center: {x: 0, y: 0.25, z: 0}
-  m_Radius: 0.5
+  m_Center: {x: 0.3, y: 0.25, z: 0}
+  m_Radius: 0.556
   m_SuspensionSpring:
     spring: 30000
     damper: 2000
@@ -2438,7 +2453,7 @@ MonoBehaviour:
   RoadMaterial: {fileID: 2100000, guid: 1842f053636056244ae7f40fa51d0d76, type: 2}
   WallMaterial: {fileID: 2100000, guid: 01ae62f9948008540a5291e8b48f0fdd, type: 2}
   newTileRotation: {x: 0, y: 0, z: 0}
-  SimmultaniousRoadTileAmount: 5
+  SimmultaniousRoadTileAmount: 100
   frontWall: {fileID: 0}
 --- !u!4 &1791863117
 Transform:
@@ -2606,6 +2621,11 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1909554118}
+--- !u!4 &1929830560 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4330742800520072, guid: f2afd94da5cfa3743b3b5a22dd0d179d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1860953581}
 --- !u!1 &1978542408
 GameObject:
   m_ObjectHideFlags: 0
@@ -2733,7 +2753,7 @@ Rigidbody:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2010931211}
   serializedVersion: 2
-  m_Mass: 30000
+  m_Mass: 2000
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
@@ -2749,7 +2769,7 @@ BoxCollider:
   m_GameObject: {fileID: 2010931211}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 3, y: 2.23, z: 6}
   m_Center: {x: 0, y: 1.28, z: 0}
@@ -2764,15 +2784,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 573e54aee324627419d91b4016b459b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  EngineForce: 5000
+  EngineForce: 50000
   SteeringForce: 20
   BreakForce: 1
   RighFrontW: {fileID: 1778436243}
   RighBacktW: {fileID: 1185178959}
   LeftFrontW: {fileID: 206604081}
   LeftBackW: {fileID: 251265848}
+  RighFrontWTransform: {fileID: 1929830560}
+  RighBacktWTransform: {fileID: 972117173}
+  LeftFrontWTransform: {fileID: 729823045}
+  LeftBackWTransform: {fileID: 1102099582}
   movementDirection: {x: 0, y: 0, z: 0}
+  WheelRPM: 200
   GameOver: 0
+--- !u!64 &2010931216
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010931211}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 0285894139d1b1f46a8fc1469e4b7648, type: 3}
 --- !u!1 &2013666121
 GameObject:
   m_ObjectHideFlags: 0
