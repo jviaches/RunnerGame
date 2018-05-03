@@ -29,6 +29,9 @@ public class PlayerControllerScript : MonoBehaviour
 
     public bool GameOver = false;
 
+	public Text DebugText;
+
+
     private LevelManagerScript levelManagerScript;
    
 	private float ScreenWidth;
@@ -52,7 +55,7 @@ public class PlayerControllerScript : MonoBehaviour
 		if (!GameOver) {
 			//float v = Input.GetAxis("Vertical") * EngineForce;
 
-
+			/*
 			int i = 0;
 			while (i < Input.touchCount) {
 				if (Input.GetTouch (i).position.x > ScreenWidth / 2) {
@@ -67,6 +70,9 @@ public class PlayerControllerScript : MonoBehaviour
 			}
 			if (i == 0)
 				currentTurn = 0f;;
+			*/
+			DebugText.text = currentTurn+"";
+
 
 			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRoattioVisualModifyer / 60  * 360 * Time.deltaTime, 0, 0);
 			RighFrontWTransform.Rotate (RighFrontW.rpm/WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
