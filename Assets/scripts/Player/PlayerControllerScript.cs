@@ -31,12 +31,16 @@ public class PlayerControllerScript : MonoBehaviour
 
     private LevelManagerScript levelManagerScript;
    
+	private float ScreenWidth;
+	private float currentTurn=0f;
 
     void Start()
     {
+		
 		carRigidBody = GameObject.Find ("Buggy").GetComponent<Rigidbody> ();
         levelManagerScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
         movementDirection = new Vector3(1, 0, 0);
+		ScreenWidth = Screen.width;
     }
 
     // Update is called once per frame
@@ -45,11 +49,24 @@ public class PlayerControllerScript : MonoBehaviour
         if (GameObject.Find("Buggy").transform.position.y < -1)
             levelManagerScript.FinishLevel(true);
 
-        if (!GameOver)
-        {
-            float v = Input.GetAxis("Vertical") * EngineForce;
-            float h = Input.GetAxis("Horizontal") * SteeringForce;
+		if (!GameOver) {
+			//float v = Input.GetAxis("Vertical") * EngineForce;
 
+
+			int i = 0;
+			while (i < Input.touchCount) {
+				if (Input.GetTouch (i).position.x > ScreenWidth / 2) {
+					currentTurn = Mathf.Min (1f, currentTurn + 0.1f);
+					RighFrontW.steerAngle = currentTurn;
+					LeftFrontW.steerAngle = currentTurn;
+				} else if (Input.GetTouch (i).position.x < ScreenWidth / 2) {
+					currentTurn = Mathf.Max (-1.0f, currentTurn - 0.1f);
+					RighFrontW.steerAngle = currentTurn;
+					LeftFrontW.steerAngle = currentTurn;
+				}
+			}
+			if (i == 0)
+				currentTurn = 0f;;
 
 			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRoattioVisualModifyer / 60  * 360 * Time.deltaTime, 0, 0);
 			RighFrontWTransform.Rotate (RighFrontW.rpm/WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
@@ -72,8 +89,8 @@ public class PlayerControllerScript : MonoBehaviour
 
 			speedometer.text = "SPEED: "+Mathf.RoundToInt (currentspeed);
 
-            RighFrontW.steerAngle = h;
-            LeftFrontW.steerAngle = h;
+			RighFrontW.steerAngle = currentTurn;
+			LeftFrontW.steerAngle = currentTurn;
         }
         else
         {
