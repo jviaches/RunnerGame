@@ -2291,8 +2291,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OkMenuButton: {fileID: 593969233}
-  MusicMenuButtonOn: {fileID: 598658018}
-  MusicMenuButtonOff: {fileID: 44081762}
+  MusicMenuButtonOn: {fileID: 44081762}
+  MusicMenuButtonOff: {fileID: 598658018}
   EffectsMenuButtonOn: {fileID: 227483487}
   EffectsMenuButtonOff: {fileID: 1438967178}
   VolumeLevelSlider: {fileID: 467158918}

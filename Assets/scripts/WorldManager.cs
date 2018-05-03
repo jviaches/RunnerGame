@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Assets.scripts.DialogModule;
 using UnityEngine.Events;
 
-public class WorldManager
+public class WorldManager : MonoBehaviour
 { 
     public int Level = 4;
 
@@ -16,28 +16,45 @@ public class WorldManager
     public float Volume = 10;
 
     #region Singleton
-    private static WorldManager instance;
-    private static object lockingObect = new object();
-    private WorldManager() { }
+    public static WorldManager Instance;
+    private AudioSource audioSource;
 
-    public static WorldManager Instance
+    public void Awake()
     {
-        get
-        {
-            if (instance == null)
-            {
-                lock (lockingObect)
-                {
-                    if (instance == null)
-                    {
-                        instance = new WorldManager();
-                    }
-                }
-            }
-            return instance;
-        }
+        if (Instance == null)
+            Instance = this;
+        else if (Instance != this)
+            DestroyObject(gameObject);
 
-       
+        DontDestroyOnLoad(gameObject);
+
+        audioSource = gameObject.GetComponent<AudioSource>();
+        audioSource.volume = Volume / 100;
+
+        if (isMusicOn)
+            audioSource.Play();
+        else
+            audioSource.Stop();
+    }
+
+    public void ChangeMusicVolume(float newVolume)
+    {
+        if (newVolume >= 1f)
+            newVolume = newVolume / 100;
+
+        audioSource.volume = newVolume;
+    }
+
+    public void MuteMusic()
+    {
+        audioSource.Stop();
+        isMusicOn = false;
+    }
+
+    public void UnMuteMusic()
+    {
+        audioSource.Play();
+        isMusicOn = true;
     }
 
     #endregion

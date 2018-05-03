@@ -37,7 +37,7 @@ public class Settings : MonoBehaviour {
 
     private void volumeLevelChanged(float newVolumeLevel)
     {
-        volumeLevel = WorldManager.Instance.Volume = newVolumeLevel;
+        WorldManager.Instance.ChangeMusicVolume(newVolumeLevel);
         Debug.Log("volumeLevel = " + WorldManager.Instance.Volume);
     }
 
@@ -48,25 +48,25 @@ public class Settings : MonoBehaviour {
 
     private void MusicOnMenuButtonClick()
     {
-        WorldManager.Instance.isMusicOn = false;
+        WorldManager.Instance.UnMuteMusic();
         Debug.Log("Music is " + WorldManager.Instance.isMusicOn);
     }
 
     private void MusicOffMenuButtonClick()
     {
-        WorldManager.Instance.isMusicOn = true;
+        WorldManager.Instance.MuteMusic();
         Debug.Log("Music is " + WorldManager.Instance.isMusicOn);
     }
 
     private void EffectsOnMenuButtonClick()
     {
-        WorldManager.Instance.isMusicEffectsOn = false;
-        Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
+        //WorldManager.Instance.isMusicEffectsOn = false;
+        //Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
     }
 
     private void EffectsOffMenuButtonClick()
     {
-        WorldManager.Instance.isMusicEffectsOn = true;
-        Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
+        //WorldManager.Instance.isMusicEffectsOn = true;
+        //Debug.Log("MusicEffectsOff is " + WorldManager.Instance.isMusicEffectsOn);
     }
 }
