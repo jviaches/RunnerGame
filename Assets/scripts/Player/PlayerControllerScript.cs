@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerControllerScript : MonoBehaviour
 {
@@ -29,9 +30,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     public bool GameOver = false;
 
-	public Text DebugText;
 
-
+	 
     private LevelManagerScript levelManagerScript;
    
 	private float ScreenWidth;
@@ -55,23 +55,11 @@ public class PlayerControllerScript : MonoBehaviour
 		if (!GameOver) {
 			//float v = Input.GetAxis("Vertical") * EngineForce;
 
-			/*
-			int i = 0;
-			while (i < Input.touchCount) {
-				if (Input.GetTouch (i).position.x > ScreenWidth / 2) {
-					currentTurn = Mathf.Min (1f, currentTurn + 0.1f);
-					RighFrontW.steerAngle = currentTurn;
-					LeftFrontW.steerAngle = currentTurn;
-				} else if (Input.GetTouch (i).position.x < ScreenWidth / 2) {
-					currentTurn = Mathf.Max (-1.0f, currentTurn - 0.1f);
-					RighFrontW.steerAngle = currentTurn;
-					LeftFrontW.steerAngle = currentTurn;
-				}
-			}
-			if (i == 0)
-				currentTurn = 0f;;
-			*/
-			DebugText.text = currentTurn+"";
+			currentTurn = CrossPlatformInputManager.GetAxis ("Horizontal") * SteeringForce;
+
+	
+			RighFrontW.steerAngle = currentTurn;
+			LeftFrontW.steerAngle = currentTurn;
 
 
 			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRoattioVisualModifyer / 60  * 360 * Time.deltaTime, 0, 0);
