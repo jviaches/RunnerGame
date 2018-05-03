@@ -30,6 +30,7 @@ public class WorldManager : MonoBehaviour
 
         audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.volume = Volume / 100;
+        audioSource.enabled = true;
 
         if (isMusicOn)
             audioSource.Play();
