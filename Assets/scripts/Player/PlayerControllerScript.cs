@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerControllerScript : MonoBehaviour
 {
@@ -19,9 +20,12 @@ public class PlayerControllerScript : MonoBehaviour
 	public Transform LeftBackWTransform;
 
     public Vector3 movementDirection;
-	private int currentSpint = 0;
+	private Rigidbody carRigidBody;
 
-	public int WheelRPMModifyer= 50;
+	public int WheelRoattioVisualModifyer= 25
+		;
+	public Text speedometer;
+	public float maxSpeed=10f;
 
     public bool GameOver = false;
 
@@ -30,6 +34,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     void Start()
     {
+		carRigidBody = GameObject.Find ("Buggy").GetComponent<Rigidbody> ();
         levelManagerScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
         movementDirection = new Vector3(1, 0, 0);
     }
@@ -46,13 +51,26 @@ public class PlayerControllerScript : MonoBehaviour
             float h = Input.GetAxis("Horizontal") * SteeringForce;
 
 
-			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRPMModifyer / 60  * 360 * Time.deltaTime, 0, 0);
-			RighFrontWTransform.Rotate (RighFrontW.rpm/WheelRPMModifyer / 60 * 360 * Time.deltaTime, 0, 0);
-			LeftFrontWTransform.Rotate (LeftFrontW.rpm/WheelRPMModifyer / 60 * 360 * Time.deltaTime, 0, 0);
-			LeftBackWTransform.Rotate (LeftBackW.rpm/WheelRPMModifyer  / 60  * 360 * Time.deltaTime, 0, 0);
+			RighBacktWTransform.Rotate (RighBacktW.rpm/WheelRoattioVisualModifyer / 60  * 360 * Time.deltaTime, 0, 0);
+			RighFrontWTransform.Rotate (RighFrontW.rpm/WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftFrontWTransform.Rotate (LeftFrontW.rpm/WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
+			LeftBackWTransform.Rotate (LeftBackW.rpm/WheelRoattioVisualModifyer  / 60  * 360 * Time.deltaTime, 0, 0);
 
-            RighBacktW.motorTorque = v;
-            LeftBackW.motorTorque = v;
+			float currentspeed = carRigidBody.velocity.magnitude;
+
+				//2.0f * 3.14f * RighBacktW.radius * RighBacktW.rpm * 60 + "";
+
+			if (currentspeed < maxSpeed) {
+				RighBacktW.motorTorque = EngineForce*(maxSpeed-currentspeed)/maxSpeed;
+				RighBacktW.brakeTorque = 0;
+				LeftBackW.motorTorque = EngineForce*(maxSpeed-currentspeed)/maxSpeed;
+				LeftBackW.brakeTorque = 0;
+			} else if (currentspeed > maxSpeed) {
+				RighBacktW.brakeTorque = EngineForce*BreakForce;
+				LeftBackW.brakeTorque = EngineForce*BreakForce;
+			}
+
+			speedometer.text = "SPEED: "+Mathf.RoundToInt (currentspeed);
 
             RighFrontW.steerAngle = h;
             LeftFrontW.steerAngle = h;
