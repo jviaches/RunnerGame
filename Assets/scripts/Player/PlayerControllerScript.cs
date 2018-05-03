@@ -55,7 +55,13 @@ public class PlayerControllerScript : MonoBehaviour
 		if (!GameOver) {
 			//float v = Input.GetAxis("Vertical") * EngineForce;
 
-			currentTurn = CrossPlatformInputManager.GetAxis ("Horizontal") * SteeringForce;
+			if (Application.platform == RuntimePlatform.Android) {
+				currentTurn = CrossPlatformInputManager.GetAxis ("Horizontal") * SteeringForce;
+			}
+
+			if (Application.platform == RuntimePlatform.WindowsEditor){
+				currentTurn = Input.GetAxis ("Horizontal") * SteeringForce;
+			}
 
 	
 			RighFrontW.steerAngle = currentTurn;
