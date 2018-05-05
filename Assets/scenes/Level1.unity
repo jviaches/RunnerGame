@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RoadManager: {fileID: 1791863115}
-  roadTileCreationSpeed: 0.4
+  roadTileCreationSpeed: 1
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
@@ -2071,9 +2071,9 @@ RectTransform:
   m_Father: {fileID: 1165868772}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: -350}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: -124}
   m_SizeDelta: {x: 270, y: 400}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1388295044
@@ -2666,9 +2666,9 @@ RectTransform:
   m_Father: {fileID: 1165868772}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 686, y: -350}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: -114, y: -124}
   m_SizeDelta: {x: 270, y: 400}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1978542410
@@ -2802,9 +2802,9 @@ MonoBehaviour:
   LeftFrontWTransform: {fileID: 729823045}
   LeftBackWTransform: {fileID: 1102099582}
   movementDirection: {x: 0, y: 0, z: 0}
-  WheelRoattioVisualModifyer: 5
+  WheelRoattioVisualModifyer: 2
   speedometer: {fileID: 2049205023}
-  maxSpeed: 4
+  maxSpeed: 10
   GameOver: 0
 --- !u!64 &2010931216
 MeshCollider:
