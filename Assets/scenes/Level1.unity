@@ -778,7 +778,7 @@ MonoBehaviour:
   Drone: {fileID: 445284676}
   playerScript: {fileID: 2010931214}
   Level: 1
-  timeToSurvive: 60
+  timeToSurvive: 8
   MainModalPanel: {fileID: 1165868768}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalTitle: {fileID: 1909554120}
