@@ -41,6 +41,7 @@ public class PlayerControllerScript : MonoBehaviour
         levelManagerScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
         movementDirection = new Vector3(1, 0, 0);
         ScreenWidth = Screen.width;
+		Debug.Log ("RunnerLogForGrep            "+Application.platform+" platform detected");
     }
 
     // Update is called once per frame
@@ -52,10 +53,11 @@ public class PlayerControllerScript : MonoBehaviour
         if (!GameOver)
         {
             //float v = Input.GetAxis("Vertical") * EngineForce;
-
+			var t = Application.platform;
             if (Application.platform == RuntimePlatform.Android)
             {
                 currentTurn = CrossPlatformInputManager.GetAxis("Horizontal") * SteeringForce;
+				//Debug.Log ("RunnerLogForGrep                  turn value: " + currentTurn);
             }
 
             if (Application.platform == RuntimePlatform.WindowsEditor)
