@@ -74,7 +74,7 @@ public class LevelManagerScript : MonoBehaviour
         if (timeLeft != 0)
         {
             timeLeft = timeLeft - 1;
-            LevelTimeText.text = "Time: " + timeLeft + " sec";
+            LevelTimeText.text = timeLeft + " sec";
 
             Invoke("Run", 1);
         }
@@ -133,6 +133,18 @@ public class LevelManagerScript : MonoBehaviour
         {
             foreach (Button btn in canvasButtons)
                 btn.gameObject.SetActive(status);
+        }
+
+        Image[] canvasImages = MainModalPanel.GetComponentsInChildren<Image>();
+        if (canvasImages != null && canvasImages.Length != 0)
+        {
+            foreach (Image img in canvasImages)
+            {
+                if (img.name == "TimerImage")
+                {
+                    img.gameObject.SetActive(status);
+                }
+            }
         }
     }
 
