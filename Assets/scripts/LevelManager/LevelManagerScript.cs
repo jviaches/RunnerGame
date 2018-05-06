@@ -55,7 +55,7 @@ public class LevelManagerScript : MonoBehaviour
             return;
         }
 
-        SetVisualOfCanvasButtons(true);
+        SetVisualCanvasItems(true);
         AdvancingRoad();
         DroneMovement();
     }
@@ -118,7 +118,7 @@ public class LevelManagerScript : MonoBehaviour
         GameOver = true;
         playerScript.GameOver = true;
 
-        SetVisualOfCanvasButtons(false);
+        SetVisualCanvasItems(false);
 
         if (playerLost)
             showModalFailLevelDialog();
@@ -126,7 +126,7 @@ public class LevelManagerScript : MonoBehaviour
             showModalSuccessLevelCompletedDialog();
     }
 
-    private void SetVisualOfCanvasButtons(bool status)
+    private void SetVisualCanvasItems(bool status)
     {
         Button[] canvasButtons = MainModalPanel.GetComponentsInChildren<Button>();
         if (canvasButtons != null && canvasButtons.Length != 0)
@@ -141,9 +141,7 @@ public class LevelManagerScript : MonoBehaviour
             foreach (Image img in canvasImages)
             {
                 if (img.name == "TimerImage")
-                {
                     img.gameObject.SetActive(status);
-                }
             }
         }
     }
@@ -178,7 +176,14 @@ public class LevelManagerScript : MonoBehaviour
     {
         dialogManager.CloseAllOpenedModalDialogs();
 
-        //startLevel();
+        startLevel();
+    }
+
+    private void startLevel()
+    {
+        GameOver = false;
+        playerScript.GameOver = false;
+        Start();
     }
 
     private void repeatLevelFailModalDialog()
