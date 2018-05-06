@@ -44,6 +44,21 @@ public class PlayerControllerScript : MonoBehaviour
 		Debug.Log ("RunnerLogForGrep            "+Application.platform+" platform detected");
     }
 
+
+	void Update(){
+		if (!GameOver) {
+			if (Application.platform == RuntimePlatform.Android)
+			{
+				currentTurn = CrossPlatformInputManager.GetAxis("Horizontal") * SteeringForce;
+				Debug.Log ("RunnerLogForGrep                  turn value: " + currentTurn);
+			}
+			if (Application.platform == RuntimePlatform.WindowsEditor)
+			{
+				currentTurn = Input.GetAxis("Horizontal") * SteeringForce;
+			}
+		}
+	}
+
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -53,18 +68,7 @@ public class PlayerControllerScript : MonoBehaviour
         if (!GameOver)
         {
             //float v = Input.GetAxis("Vertical") * EngineForce;
-			var t = Application.platform;
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                currentTurn = CrossPlatformInputManager.GetAxis("Horizontal") * SteeringForce;
-				//Debug.Log ("RunnerLogForGrep                  turn value: " + currentTurn);
-            }
-
-            if (Application.platform == RuntimePlatform.WindowsEditor)
-            {
-                currentTurn = Input.GetAxis("Horizontal") * SteeringForce;
-            }
-
+		
             RighFrontW.steerAngle = currentTurn;
             LeftFrontW.steerAngle = currentTurn;
 
