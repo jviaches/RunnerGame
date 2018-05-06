@@ -872,8 +872,8 @@ MonoBehaviour:
   Drone: {fileID: 445284676}
   playerScript: {fileID: 2010931214}
   Level: 1
-  timeToSurvive: 60
-  MainModalPanel: {fileID: 693476073}
+  timeToSurvive: 5
+  MainModalPanel: {fileID: 1165868768}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalTitle: {fileID: 1909554120}
   SuccessModalOkButton: {fileID: 1105038357}
@@ -2066,7 +2066,7 @@ RectTransform:
   m_GameObject: {fileID: 1388295042}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 1, z: 0.4}
+  m_LocalScale: {x: 0.8, y: 1, z: 0}
   m_Children:
   - {fileID: 584071833}
   m_Father: {fileID: 1165868772}
@@ -2717,7 +2717,7 @@ RectTransform:
   m_GameObject: {fileID: 1978542408}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.8, y: 1, z: 0.4}
+  m_LocalScale: {x: 0.8, y: 1, z: 0}
   m_Children:
   - {fileID: 309669291}
   m_Father: {fileID: 1165868772}
