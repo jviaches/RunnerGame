@@ -68,6 +68,14 @@ public class PlayerControllerScript : MonoBehaviour
             RighFrontW.steerAngle = currentTurn;
             LeftFrontW.steerAngle = currentTurn;
 
+			Vector3 colliderPosition;
+			Quaternion colliderRotation;
+			LeftFrontW.GetWorldPose(out colliderPosition,out colliderRotation);
+			LeftFrontWTransform.rotation = colliderRotation;
+
+			RighFrontW.GetWorldPose (out colliderPosition, out colliderRotation);
+			RighFrontWTransform.rotation = colliderRotation;
+
             RighBacktWTransform.Rotate(RighBacktW.rpm / WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
             RighFrontWTransform.Rotate(RighFrontW.rpm / WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);
             LeftFrontWTransform.Rotate(LeftFrontW.rpm / WheelRoattioVisualModifyer / 60 * 360 * Time.deltaTime, 0, 0);

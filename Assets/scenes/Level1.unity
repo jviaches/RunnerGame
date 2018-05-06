@@ -336,7 +336,7 @@ WheelCollider:
   m_Center: {x: -0.3, y: 0.25, z: 0}
   m_Radius: 0.58
   m_SuspensionSpring:
-    spring: 50000
+    spring: 75000
     damper: 1000
     targetPosition: 0.4
   m_SuspensionDistance: 0.5
@@ -354,7 +354,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!1 &251265846 stripped
 GameObject:
@@ -370,7 +370,7 @@ WheelCollider:
   m_Center: {x: -0.4, y: 0.25, z: 0}
   m_Radius: 0.72
   m_SuspensionSpring:
-    spring: 50000
+    spring: 75000
     damper: 1000
     targetPosition: 0.4
   m_SuspensionDistance: 0.5
@@ -388,7 +388,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!1 &287434862
 GameObject:
@@ -1939,7 +1939,7 @@ WheelCollider:
   m_Center: {x: 0.4, y: 0.25, z: 0}
   m_Radius: 0.72
   m_SuspensionSpring:
-    spring: 50000
+    spring: 75000
     damper: 1000
     targetPosition: 0.4
   m_SuspensionDistance: 0.5
@@ -1957,7 +1957,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!1 &1238562077 stripped
 GameObject:
@@ -2416,7 +2416,7 @@ WheelCollider:
   m_Center: {x: 0.3, y: 0.25, z: 0}
   m_Radius: 0.58
   m_SuspensionSpring:
-    spring: 50000
+    spring: 75000
     damper: 1000
     targetPosition: 0.4
   m_SuspensionDistance: 0.5
@@ -2434,7 +2434,7 @@ WheelCollider:
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 0.5
   m_Enabled: 1
 --- !u!1 &1791863115
 GameObject:
@@ -2556,6 +2556,46 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330742800520072, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330742800520072, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330742800520072, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330742800520072, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.01745245
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.99984777
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4330678998880286, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f2afd94da5cfa3743b3b5a22dd0d179d, type: 2}
@@ -2823,7 +2863,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineForce: 500
-  SteeringForce: 20
+  SteeringForce: 40
   BreakForce: 20
   RighFrontW: {fileID: 1778436243}
   RighBacktW: {fileID: 1185178959}
