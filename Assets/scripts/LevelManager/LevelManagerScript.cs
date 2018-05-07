@@ -241,7 +241,7 @@ public class LevelManagerScript : MonoBehaviour
 
     private void showModalFailLevelDialog()
     {
-        GameOver = false;
+        //GameOver = false;
         CancelInvoke("spawnPlatform");
 
         //playerScript.SetSpeed(0);
