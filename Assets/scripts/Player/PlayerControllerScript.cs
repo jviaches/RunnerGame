@@ -59,6 +59,20 @@ public class PlayerControllerScript : MonoBehaviour
 		}
 	}
 
+    public void RestartPlayer()
+    {
+        RighBacktW.brakeTorque = 0;
+        LeftBackW.brakeTorque = 0;
+        GameObject playerBody = GameObject.Find("Buggy");
+
+        playerBody.GetComponent<Rigidbody>().isKinematic = false;
+
+        GameOver = false;
+        playerBody.transform.position = new Vector3(0, 2, 0);
+        playerBody.transform.rotation = Quaternion.Euler(Vector3.zero);
+        playerBody.transform.Rotate(0, 90, 0);
+
+    }
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -68,7 +82,8 @@ public class PlayerControllerScript : MonoBehaviour
         if (!GameOver)
         {
             //float v = Input.GetAxis("Vertical") * EngineForce;
-		
+            
+
             RighFrontW.steerAngle = currentTurn;
             LeftFrontW.steerAngle = currentTurn;
 

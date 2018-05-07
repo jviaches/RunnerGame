@@ -203,7 +203,7 @@ public class LevelManagerScript : MonoBehaviour
     private void startLevel()
     {
         GameOver = false;
-        playerScript.GameOver = false;
+        playerScript.RestartPlayer();
         Start();
     }
 
