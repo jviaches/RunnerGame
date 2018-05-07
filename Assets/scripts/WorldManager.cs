@@ -24,7 +24,7 @@ public class WorldManager : MonoBehaviour
         if (Instance == null)
             Instance = this;
         else if (Instance != this)
-            DestroyObject(gameObject);
+            Destroy(gameObject);
 
         DontDestroyOnLoad(gameObject);
 
