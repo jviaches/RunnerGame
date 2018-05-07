@@ -93,9 +93,10 @@ public class RoadGenerationScript : MonoBehaviour {
 		if(!isInitialized){
 
 			InitializeCollections ();	
-			InitRoad ();
+			
 		}
-	}
+        InitRoad();
+    }
 	private void InitializeCollections(){
 
 		q_road = new Queue<GameObject> ();

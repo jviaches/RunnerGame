@@ -58,6 +58,7 @@ public class LevelManagerScript : MonoBehaviour
             Debug.Log("Failed to load roads script. Exiting");
             return;
         }
+        roadScript.ForceStart();
 
         SetVisualCanvasItems(true);
         AdvancingRoad();
@@ -108,9 +109,9 @@ public class LevelManagerScript : MonoBehaviour
 
     private void AdvancingRoad()
     {
-        if (!GameOver)
+        if (!this.GameOver)
         {
-            roadScript.ForceStart();
+            //roadScript.ForceStart();
             roadScript.AdvanceRoad();
 
             Invoke("AdvancingRoad", 1 / roadTileCreationSpeed);
@@ -119,7 +120,7 @@ public class LevelManagerScript : MonoBehaviour
 
     public void FinishLevel(bool playerLost)
     {
-        GameOver = true;
+        this.GameOver = true;
         playerScript.GameOver = true;
 
         SetVisualCanvasItems(false);
@@ -204,7 +205,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         GameOver = false;
         playerScript.RestartPlayer();
-        roadScript.InitRoad();
+        //roadScript.InitRoad();
         Start();
     }
 
@@ -227,7 +228,7 @@ public class LevelManagerScript : MonoBehaviour
 
     private void showModalSuccessLevelCompletedDialog()
     {
-        GameOver = false;
+        //GameOver = false;
         CancelInvoke("spawnPlatform");
 
         //playerScript.SetSpeed(0);
