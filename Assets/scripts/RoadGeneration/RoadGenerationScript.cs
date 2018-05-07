@@ -25,7 +25,7 @@ public class RoadGenerationScript : MonoBehaviour {
 	public Material WallMaterial;
 
 
-	private Quaternion _originalElementRotation;
+    private Quaternion _originalElementRotation ;
 	private Vector3 frontWallRotationVector;
 	public Vector3 newTileRotation;
 	private Vector3 _startingObjectLocation = new Vector3 (-2000, 2000, 0);
@@ -150,11 +150,17 @@ public class RoadGenerationScript : MonoBehaviour {
 	public void InitRoad(){
 
 		_previousDirection = DirectionFromTo.UpUp;
+        if(!isInitialized)
 		_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
 		if (frontWall == null) {
 			_originalElementRotation = ((GameObject)pool_leftWallStraightElemets [0]).transform.rotation;
 			frontWall = InstanciateObject ("Road/deadWall", Vector3.zero, Vector3.zero, tag_fronWall, WallMaterial);
 		}
+        else
+        {
+            frontWall.transform.position=Vector3.zero;
+            frontWall.transform.rotation = Quaternion.LookRotation(Vector3.zero);
+        }
 		if (backWall == null) {
 			backWall = InstanciateObject ("walls/backWall", new Vector3 (-1 * tileSize, 0, 0), Vector3.zero, "back_wall", WallMaterial);
 		} else {
@@ -162,6 +168,7 @@ public class RoadGenerationScript : MonoBehaviour {
 			backWall.transform.rotation =  Quaternion.LookRotation(Vector3.zero);
 
 		}
+        if (isInitialized) ResetRoad();
 
 		InintStartingPoint ();
 
@@ -169,6 +176,36 @@ public class RoadGenerationScript : MonoBehaviour {
 
 	}
 
+    private void ResetRoad()
+    {
+        if (!isInitialized) return;
+        var m = q_road.Count;
+        for (int i = 0; i <m; i++)
+        {   
+            RemoveLastRoadSegment();
+        }
+        q_tileLocations.Clear();
+        foreach (GameObject segment in pool_leftTurnInnerWall)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_leftTurnOuterWall)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_leftWallStraightElemets)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_rightTurnInnerWall)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_rightTurnOuterWall)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_rightWallStraightElements)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_roadElements)
+            ResetGameObject(segment);
+        foreach (GameObject segment in pool_roadTurnElements)
+            ResetGameObject(segment);
+        backWall.transform.position = new Vector3(-1 * tileSize, 0, 0);
+        backWall.transform.rotation = Quaternion.LookRotation(Vector3.zero);
+        frontWall.transform.position = Vector3.zero;
+        frontWall.transform.rotation = Quaternion.LookRotation(Vector3.zero);
+    }
 
 	//main function that creats new road block
 	public void AdvanceRoad(){
@@ -542,7 +579,7 @@ public class RoadGenerationScript : MonoBehaviour {
 
 		if (obj != null) {
 
-			obj.transform.position = Vector3.zero;
+			obj.transform.position = _startingObjectLocation;
 			obj.transform.rotation = _originalElementRotation;
 		}
 		return obj;

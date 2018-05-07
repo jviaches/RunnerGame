@@ -204,6 +204,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         GameOver = false;
         playerScript.RestartPlayer();
+        roadScript.InitRoad();
         Start();
     }
 
