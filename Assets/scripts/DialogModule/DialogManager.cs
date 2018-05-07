@@ -52,11 +52,4 @@ public class DialogManager
         foreach (var dialog in modalsDialogList)
             dialog.ModalPanel.SetActive(false);
     }
-
-    public void UpdateDialogTitle(ModalDialog dialog, string titleText)
-    {
-        bool isFound = modalsDialogList.Contains(dialog);
-        if (!isFound)
-            dialog.Title.text = titleText;
-    }
 }

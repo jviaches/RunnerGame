@@ -23,14 +23,18 @@ public class LevelManagerScript : MonoBehaviour
 
     public GameObject MainModalPanel;               // ..
     public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
-    public Text SuccessModalTitle;                  // Caption of modal dialog
     public Button SuccessModalOkButton;             // OK button in Success modal dialog
     public Button SuccessModalNextLvlButton;        // Next level button in Success modal dialog
 
     public GameObject FailModalPanel;               // Modal Dialog when user Fail to complete level
-    public Text FailModalTitle;                     // Caption of modal dialog
     public Button FailModalOkButton;                // OK button in Fail modal dialog
     public Button FailModalRepeatLvlButton;         // repeat level button in Fail modal dialog
+
+    public GameObject AreYouSureModalPanel;         
+    public Button AreYouSureOkButton;          
+    public Button AreYouSureCancelButton;   
+
+    public Button MenuButton;   
 
     public Text LevelTimeText;
 
@@ -157,19 +161,36 @@ public class LevelManagerScript : MonoBehaviour
 
         Dictionary<Button, UnityAction> successModalDictionary = new Dictionary<Button, UnityAction>();
         successModalDictionary.Add(SuccessModalNextLvlButton, loadNextLevelModalDialog);
-        successModalDictionary.Add(SuccessModalOkButton, loadMainMenuModalDialog);
+        successModalDictionary.Add(SuccessModalOkButton, cancelAreYouSureDialog);
 
-        ModalDialog successModalDialog = new ModalDialog(SuccessModalTitle, SuccessModalPanel, successModalDictionary, MainModalPanel);
+        ModalDialog successModalDialog = new ModalDialog(SuccessModalPanel, successModalDictionary, MainModalPanel);
         dialogManager.AddDialog(successModalDialog);
 
         Dictionary<Button, UnityAction> failModalDictionary = new Dictionary<Button, UnityAction>();
         failModalDictionary.Add(FailModalRepeatLvlButton, repeatLevelFailModalDialog);
-        failModalDictionary.Add(FailModalOkButton, loadMainMenuModalDialog);
+        failModalDictionary.Add(FailModalOkButton, cancelAreYouSureDialog);
 
-        ModalDialog failModalDialog = new ModalDialog(FailModalTitle, FailModalPanel, failModalDictionary, MainModalPanel);
+        ModalDialog failModalDialog = new ModalDialog(FailModalPanel, failModalDictionary, MainModalPanel);
         dialogManager.AddDialog(failModalDialog);
 
+        Dictionary<Button, UnityAction> areYouSureModalDictionary = new Dictionary<Button, UnityAction>();
+        areYouSureModalDictionary.Add(AreYouSureOkButton, okAreYouSureDialog);
+        areYouSureModalDictionary.Add(AreYouSureCancelButton, cancelAreYouSureDialog);
+
+        ModalDialog areYouSureModalDialog = new ModalDialog(AreYouSureModalPanel, areYouSureModalDictionary, MainModalPanel);
+        dialogManager.AddDialog(areYouSureModalDialog);
+
+        Dictionary<Button, UnityAction> menuModalDictionary = new Dictionary<Button, UnityAction>();
+        menuModalDictionary.Add(MenuButton, menuButtonInvocation);
+
+        ModalDialog menuButtonModalDialog = new ModalDialog(MainModalPanel, menuModalDictionary, MainModalPanel);
+
         dialogManager.CloseAllOpenedModalDialogs();
+    }
+
+    private void menuButtonInvocation()
+    {
+        dialogManager.ShowModalDialog(AreYouSureModalPanel, MainModalPanel);
     }
 
     private void loadNextLevelModalDialog()
@@ -193,9 +214,14 @@ public class LevelManagerScript : MonoBehaviour
         //startLevel();
     }
 
-    private void loadMainMenuModalDialog()
+    private void cancelAreYouSureDialog()
     {
-        SceneManager.LoadScene(0);
+        dialogManager.CloseAllOpenedModalDialogs();
+    }
+
+    private void okAreYouSureDialog()
+    {
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     private void showModalSuccessLevelCompletedDialog()
@@ -207,7 +233,6 @@ public class LevelManagerScript : MonoBehaviour
 
         SuccessModalPanel.transform.position = MainModalPanel.transform.position;
         SuccessModalPanel.SetActive(true);
-        SuccessModalTitle.text = "Level " + Level + " completed !";
 
         //WorldManager.Instance.Level++;
     }
@@ -221,6 +246,5 @@ public class LevelManagerScript : MonoBehaviour
         //playerScript.SetMovingDirection(true);
 
         dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
-        FailModalTitle.text = "Level " + Level + " Failed !";
     }
 }
