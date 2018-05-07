@@ -19,7 +19,7 @@ public class LevelManagerScript : MonoBehaviour
     public PlayerControllerScript playerScript;
 
     public int Level = 1;//WorldManager.Instance.Level;
-    public int timeToSurvive = 4; //in seconds
+    public int timeToSurvive = 4;                   //in seconds
 
     public GameObject MainModalPanel;               // ..
     public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
@@ -70,28 +70,21 @@ public class LevelManagerScript : MonoBehaviour
         Debug.Log("initTimer");
         timeLeft = timeToSurvive;
 
-        RestartTimer();
-        Run();
+        InvokeRepeating("Run", 1, 1);
     }
 
     private void Run()
     {
         if (timeLeft != 0)
         {
-            timeLeft = timeLeft - 1;
+            timeLeft -= 1;
             LevelTimeText.text = timeLeft + " sec";
-
-            Invoke("Run", 1);
         }
         else
         {
+            CancelInvoke("Run");
             FinishLevel(false);
         }
-    }
-
-    private void RestartTimer()
-    {
-        timeLeft = timeToSurvive;
     }
 
     private void DroneMovement()
@@ -111,7 +104,6 @@ public class LevelManagerScript : MonoBehaviour
     {
         if (!this.GameOver)
         {
-            //roadScript.ForceStart();
             roadScript.AdvanceRoad();
 
             Invoke("AdvancingRoad", 1 / roadTileCreationSpeed);
@@ -181,39 +173,39 @@ public class LevelManagerScript : MonoBehaviour
         ModalDialog areYouSureModalDialog = new ModalDialog(AreYouSureModalPanel, areYouSureModalDictionary, MainModalPanel);
         dialogManager.AddDialog(areYouSureModalDialog);
 
-        Dictionary<Button, UnityAction> menuModalDictionary = new Dictionary<Button, UnityAction>();
-        menuModalDictionary.Add(MenuButton, menuButtonInvocation);
+        //Dictionary<Button, UnityAction> menuModalDictionary = new Dictionary<Button, UnityAction>();
+        //menuModalDictionary.Add(MenuButton, menuButtonInvocation);
 
-        ModalDialog menuButtonModalDialog = new ModalDialog(MainModalPanel, menuModalDictionary, MainModalPanel);
+        //ModalDialog menuButtonModalDialog = new ModalDialog(MainModalPanel, menuModalDictionary, MainModalPanel);
+        //dialogManager.AddDialog(menuButtonModalDialog);
 
         dialogManager.CloseAllOpenedModalDialogs();
     }
 
-    private void menuButtonInvocation()
-    {
-        dialogManager.ShowModalDialog(AreYouSureModalPanel, MainModalPanel);
-    }
+    //private void menuButtonInvocation()
+    //{
+    //    dialogManager.ShowModalDialog(AreYouSureModalPanel, MainModalPanel);
+    //}
 
     private void loadNextLevelModalDialog()
-    {
-        dialogManager.CloseAllOpenedModalDialogs();
-
-        startLevel();
-    }
-
-    private void startLevel()
     {
         GameOver = false;
         playerScript.RestartPlayer();
         //roadScript.InitRoad();
-        Start();
+
+        initTimer();
+
+        roadScript.ForceStart();
+        dialogManager.CloseAllOpenedModalDialogs();
+
+        SetVisualCanvasItems(true);
+        AdvancingRoad();
+        DroneMovement();
     }
 
     private void repeatLevelFailModalDialog()
     {
         dialogManager.CloseAllOpenedModalDialogs();
-
-        //startLevel();
     }
 
     private void cancelAreYouSureDialog()
@@ -228,25 +220,19 @@ public class LevelManagerScript : MonoBehaviour
 
     private void showModalSuccessLevelCompletedDialog()
     {
-        //GameOver = false;
         CancelInvoke("spawnPlatform");
-
-        //playerScript.SetSpeed(0);
-
-        SuccessModalPanel.transform.position = MainModalPanel.transform.position;
-        SuccessModalPanel.SetActive(true);
+        dialogManager.ShowModalDialog(SuccessModalPanel, MainModalPanel);
 
         //WorldManager.Instance.Level++;
     }
 
     private void showModalFailLevelDialog()
     {
-        //GameOver = false;
         CancelInvoke("spawnPlatform");
-
+        dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
         //playerScript.SetSpeed(0);
         //playerScript.SetMovingDirection(true);
 
-        dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
+
     }
 }

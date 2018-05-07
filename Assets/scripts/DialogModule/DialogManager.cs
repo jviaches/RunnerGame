@@ -16,8 +16,6 @@ public class DialogManager
         bool isFound = modalsDialogList.Contains(dialog);
         if (!isFound)
             modalsDialogList.Add(dialog);
-
-        CloseAllOpenedModalDialogs();
     }
 
     public void ShowModalDialog(GameObject modalPanel, GameObject parentModalPanel)
@@ -38,7 +36,7 @@ public class DialogManager
     public void HideModalDialog(GameObject modalPanel, GameObject parentModalPanel)
     {
         var foundModalPanel = modalsDialogList.First(dialog => dialog.ModalPanel == modalPanel && dialog.ParentModalPanel == parentModalPanel);
-        if (foundModalPanel != null)
+        if (foundModalPanel == null)
         {
             Debug.Log(String.Format("Error: Requested modalpanel [{0}] does not found!", modalPanel));
             return;

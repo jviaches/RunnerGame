@@ -29,7 +29,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public bool GameOver = false;
 
-    private LevelManagerScript levelManagerScript;
+    //private LevelManagerScript levelManagerScript;
 
     private float ScreenWidth;
     private float currentTurn = 0f;
@@ -38,7 +38,7 @@ public class PlayerControllerScript : MonoBehaviour
     {
 
         carRigidBody = GameObject.Find("Buggy").GetComponent<Rigidbody>();
-        levelManagerScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
+        //levelManagerScript = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
         movementDirection = new Vector3(1, 0, 0);
         ScreenWidth = Screen.width;
 		Debug.Log ("RunnerLogForGrep            "+Application.platform+" platform detected");
@@ -76,8 +76,8 @@ public class PlayerControllerScript : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (GameObject.Find("Buggy").transform.position.y < -1)
-            levelManagerScript.FinishLevel(true);
+        //if (GameObject.Find("Buggy").transform.position.y < -1)
+        //    levelManagerScript.FinishLevel(true);
 
         if (!GameOver)
         {
