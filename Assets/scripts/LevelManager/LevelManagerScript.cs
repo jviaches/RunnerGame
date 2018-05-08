@@ -133,7 +133,7 @@ public class LevelManagerScript : MonoBehaviour
         }
 
         Image[] canvasImages = MainModalPanel.GetComponentsInChildren<Image>();
-        if (canvasImages != null && canvasImages.Length != 0)
+        if (canvasImages != null)
         {
             foreach (Image img in canvasImages)
             {
@@ -154,7 +154,7 @@ public class LevelManagerScript : MonoBehaviour
 
         Dictionary<Button, UnityAction> successModalDictionary = new Dictionary<Button, UnityAction>();
         successModalDictionary.Add(SuccessModalNextLvlButton, loadNextLevelModalDialog);
-        successModalDictionary.Add(SuccessModalOkButton, cancelAreYouSureDialog);
+        successModalDictionary.Add(SuccessModalOkButton, okAreYouSureDialog);
 
         ModalDialog successModalDialog = new ModalDialog(SuccessModalPanel, successModalDictionary, MainModalPanel);
         dialogManager.AddDialog(successModalDialog);
@@ -221,7 +221,7 @@ public class LevelManagerScript : MonoBehaviour
     private void showModalSuccessLevelCompletedDialog()
     {
         CancelInvoke("spawnPlatform");
-        dialogManager.ShowModalDialog(SuccessModalPanel, MainModalPanel);
+        dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[0]);
 
         //WorldManager.Instance.Level++;
     }
@@ -229,10 +229,8 @@ public class LevelManagerScript : MonoBehaviour
     private void showModalFailLevelDialog()
     {
         CancelInvoke("spawnPlatform");
-        dialogManager.ShowModalDialog(FailModalPanel, MainModalPanel);
+        dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[1]);
         //playerScript.SetSpeed(0);
         //playerScript.SetMovingDirection(true);
-
-
     }
 }

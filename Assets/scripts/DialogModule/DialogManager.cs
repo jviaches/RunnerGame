@@ -11,16 +11,24 @@ public class DialogManager
 {
     private List<ModalDialog> modalsDialogList = new List<ModalDialog>();
 
-    public void AddDialog(ModalDialog dialog)
+    public List<ModalDialog> ModalsDialogList
     {
-        bool isFound = modalsDialogList.Contains(dialog);
-        if (!isFound)
-            modalsDialogList.Add(dialog);
+        get
+        {
+            return modalsDialogList;
+        }
     }
 
-    public void ShowModalDialog(GameObject modalPanel, GameObject parentModalPanel)
+    public void AddDialog(ModalDialog dialog)
     {
-        var foundModalPanel = modalsDialogList.First(dialog => dialog.ModalPanel == modalPanel && dialog.ParentModalPanel == parentModalPanel);
+        bool isFound = ModalsDialogList.Contains(dialog);
+        if (!isFound)
+            ModalsDialogList.Add(dialog);
+    }
+
+    public void ShowModalDialog(ModalDialog modalPanel)
+    {
+        var foundModalPanel = ModalsDialogList.First(dialog => dialog == modalPanel);
         if (foundModalPanel == null)
         {
             Debug.Log(String.Format("Error: Requested modalpanel [{0}] does not found!", modalPanel));
@@ -29,13 +37,13 @@ public class DialogManager
 
         CloseAllOpenedModalDialogs();
 
-        foundModalPanel.ModalPanel.transform.position = parentModalPanel.transform.position;
+        foundModalPanel.ModalPanel.transform.position = modalPanel.ParentModalPanel.transform.position;
         foundModalPanel.ModalPanel.SetActive(true);
     }
 
-    public void HideModalDialog(GameObject modalPanel, GameObject parentModalPanel)
+    public void HideModalDialog(GameObject modalPanel)
     {
-        var foundModalPanel = modalsDialogList.First(dialog => dialog.ModalPanel == modalPanel && dialog.ParentModalPanel == parentModalPanel);
+        var foundModalPanel = ModalsDialogList.First(dialog => dialog.ModalPanel == modalPanel);
         if (foundModalPanel == null)
         {
             Debug.Log(String.Format("Error: Requested modalpanel [{0}] does not found!", modalPanel));
@@ -47,7 +55,7 @@ public class DialogManager
 
     public void CloseAllOpenedModalDialogs()
     {
-        foreach (var dialog in modalsDialogList)
+        foreach (var dialog in ModalsDialogList)
             dialog.ModalPanel.SetActive(false);
     }
 }
