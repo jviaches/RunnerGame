@@ -1109,7 +1109,7 @@ MonoBehaviour:
   Drone: {fileID: 445284676}
   playerScript: {fileID: 2010931214}
   Level: 1
-  timeToSurvive: 3
+  timeToSurvive: 60
   MainModalPanel: {fileID: 1165868768}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalOkButton: {fileID: 1105038357}
@@ -4244,7 +4244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EngineForce: 2000
-  SteeringForce: 30
+  SteeringForce: 20
   BreakForce: 20
   RighFrontW: {fileID: 1778436243}
   RighBacktW: {fileID: 1185178959}
