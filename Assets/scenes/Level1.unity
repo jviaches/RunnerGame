@@ -1510,7 +1510,7 @@ GameObject:
   - component: {fileID: 931916705}
   - component: {fileID: 931916704}
   m_Layer: 0
-  m_Name: ObsticalManager
+  m_Name: ObsticalManagerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
