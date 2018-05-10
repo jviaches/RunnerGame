@@ -47,15 +47,14 @@ public class LevelManagerScript : MonoBehaviour
 
     private ObsticalManager obsticalsScript;
 
+
+
     public void Start()
     {
         Debug.Log("Start");
         obsticalsScript = GameObject.Find("ObsticalManagerObject").GetComponent<ObsticalManager>();
 
-        if (obsticalsScript == null)
-            Debug.Log("Unable to find obsical manager script");
-        else
-            obsticalsScript.Init();
+		InitializeAndStartObsticles ();
 
         InitAllPanelsAndDialogs();
 
@@ -72,10 +71,20 @@ public class LevelManagerScript : MonoBehaviour
 
         SetVisualCanvasItems(true);
         AdvancingRoad();
-       // SendMeteorToRandomLocation();
+
         
         DroneMovement();
     }
+
+	void InitializeAndStartObsticles ()
+	{
+		if (obsticalsScript == null)
+			Debug.Log ("Unable to find obsical manager script");
+		else {
+			obsticalsScript.Init ();
+			obsticalsScript.SendMetheorToARandomLocation (true, 1);
+		}
+	}
 
     private void initTimer()
     {
@@ -112,21 +121,7 @@ public class LevelManagerScript : MonoBehaviour
         Invoke("DroneMovement", 1 / droneRedrawSpeed);
     }
 
-    private void SendMeteorToRandomLocation()
-    {
-        if (GameOver) return;
-
-        int delayInSeconds = 3;
-
-        if (roadScript.q_tileLocations.Count > 0)
-        {
-            int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
-            Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[0];
-            obsticalsScript.SendMetheor(landingPoint);
-        }
-
-        Invoke("SendMeteorToRandomLocation", delayInSeconds);
-    }
+   
 
     private void AdvancingRoad()
     {
@@ -143,7 +138,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         this.GameOver = true;
         playerScript.GameOver = true;
-
+		obsticalsScript.FinishLevel ();
         SetVisualCanvasItems(false);
 
         if (playerLost)
@@ -225,6 +220,7 @@ public class LevelManagerScript : MonoBehaviour
         initTimer();
 
         roadScript.ForceStart();
+		InitializeAndStartObsticles ();
         dialogManager.CloseAllOpenedModalDialogs();
 
         SetVisualCanvasItems(true);

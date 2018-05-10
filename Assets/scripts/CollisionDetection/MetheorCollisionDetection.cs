@@ -7,6 +7,7 @@ public class MetheorCollisionDetection : MonoBehaviour {
     public ParticleSystem debrie= null;
     public ParticleSystem smoke = null;
     public ParticleSystem exaust = null;
+	public GameObject target = null;
 
     // Use this for initialization
     void Start () {
@@ -20,7 +21,7 @@ public class MetheorCollisionDetection : MonoBehaviour {
             Rigidbody rb = this.GetComponent<Rigidbody>();
             if(rb!= null)
             {
-                //rb.isKinematic = true;
+                rb.isKinematic = true;
                 rb.velocity = Vector3.zero;
             }
             if (debrie != null) debrie.Play();
@@ -28,6 +29,9 @@ public class MetheorCollisionDetection : MonoBehaviour {
             if (smoke != null) smoke.Play();
 
             if (exaust != null) exaust.Stop();
+
+			if (target != null)
+				target.SetActive (false);
         }
     }
 

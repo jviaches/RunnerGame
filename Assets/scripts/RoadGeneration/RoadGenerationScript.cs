@@ -172,7 +172,7 @@ public class RoadGenerationScript : MonoBehaviour
         if (!isInitialized)
             return;
 
-        for (int i = 0; i < q_road.Count; i++)
+		while( q_road.Count>0)
             RemoveLastRoadSegment();
 
         q_tileLocations.Clear();
