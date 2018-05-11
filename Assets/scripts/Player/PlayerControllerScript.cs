@@ -61,8 +61,8 @@ public class PlayerControllerScript : MonoBehaviour
 
     public void RestartPlayer()
     {
-        RighBacktW.brakeTorque = 0;
-        LeftBackW.brakeTorque = 0;
+        //RighBacktW.brakeTorque = 0;
+        //LeftBackW.brakeTorque = 0;
         GameObject playerBody = GameObject.Find("Buggy");
 
         playerBody.GetComponent<Rigidbody>().isKinematic = false;
@@ -124,10 +124,10 @@ public class PlayerControllerScript : MonoBehaviour
         }
         else
         {
-            RighBacktW.brakeTorque = Mathf.Infinity;
-            LeftBackW.brakeTorque = Mathf.Infinity;
+            //RighBacktW.brakeTorque = Mathf.Infinity;
+            //LeftBackW.brakeTorque = Mathf.Infinity;
 
-            GameObject.Find("Buggy").GetComponent<Rigidbody>().isKinematic = true;
+            //GameObject.Find("Buggy").GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 }

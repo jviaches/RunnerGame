@@ -155,6 +155,7 @@ public class LevelManagerScript : MonoBehaviour
             foreach (Button btn in canvasButtons)
                 btn.gameObject.SetActive(status);
         }
+        Debug.Log("canvasButtons amount=" + canvasButtons.Length);
 
         Image[] canvasImages = MainModalPanel.GetComponentsInChildren<Image>();
         if (canvasImages != null)
@@ -215,6 +216,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         GameOver = false;
         playerScript.RestartPlayer();
+        GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
         //roadScript.InitRoad();
 
         initTimer();
@@ -224,6 +226,7 @@ public class LevelManagerScript : MonoBehaviour
         dialogManager.CloseAllOpenedModalDialogs();
 
         SetVisualCanvasItems(true);
+
         AdvancingRoad();
         DroneMovement();
     }
@@ -248,7 +251,8 @@ public class LevelManagerScript : MonoBehaviour
         CancelInvoke("spawnPlatform");
         dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[0]);
 
-        //WorldManager.Instance.Level++;
+        // need to set speed
+//        GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
     }
 
     private void showModalFailLevelDialog()
