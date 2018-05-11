@@ -107,7 +107,7 @@ public class RoadGenerationScript : MonoBehaviour
         for (int i = 0; i < SimmultaniousRoadTileAmount + 10; i++)
         {
             //loading elements without veriety
-            pool_roadElements.Add(InstanciateObject(straighRoadSegmentPath + straightRoadPrefix, _startingObjectLocation, Vector3.zero, tag_roadTile, RoadMaterial));
+			pool_roadElements.Add(InstanciateObject(straighRoadSegmentPath + straightRoadPrefix, _startingObjectLocation, Vector3.zero, tag_roadTile, RoadMaterial));
             pool_roadTurnElements.Add(InstanciateObject(turnRoadSegmentPath + turnRoadSegmentPrefix, _startingObjectLocation, Vector3.zero, tag_roadTurnTile, RoadMaterial));
             pool_leftTurnInnerWall.Add(InstanciateObject(leftInnerTurnWall, _startingObjectLocation, Vector3.zero, tag_leftInnterTurnWall, WallMaterial));
             pool_leftTurnOuterWall.Add(InstanciateObject(leftOuterTurnWall, _startingObjectLocation, Vector3.zero, tag_leftOuterTurnWall, WallMaterial));
@@ -618,7 +618,10 @@ public class RoadGenerationScript : MonoBehaviour
         if (result != null)
         {
             result.name = tag;
-            AddMeshCollider(result, mat);
+			bool s = false;
+			if (tag == tag_roadTile || tag == tag_roadTurnTile)
+				s = true;
+            AddMeshCollider(result, mat,s);
 
             result.transform.Rotate(rotation);
         }
@@ -635,11 +638,13 @@ public class RoadGenerationScript : MonoBehaviour
         obj.GetComponent<Renderer>().material = mat;
     }
 
-    private void AddMeshCollider(GameObject obj, Material mat)
+	private void AddMeshCollider(GameObject obj, Material mat, bool addScript)
     {
         if (IsAMesh(obj))
         {
             obj.AddComponent<MeshCollider>();
+			if (addScript)
+				obj.AddComponent<RoadPlayerDetect> ();
             obj.AddComponent<Rigidbody>();
             obj.GetComponent<Rigidbody>().isKinematic = true;
             obj.GetComponent<Rigidbody>().useGravity = false;
@@ -648,7 +653,7 @@ public class RoadGenerationScript : MonoBehaviour
         }
 
         for (int i = 0; i < obj.transform.childCount; i++)
-            AddMeshCollider(obj.transform.GetChild(i).gameObject, mat);
+			AddMeshCollider(obj.transform.GetChild(i).gameObject, mat,addScript);
     }
 
     private bool IsAMesh(GameObject obj)
