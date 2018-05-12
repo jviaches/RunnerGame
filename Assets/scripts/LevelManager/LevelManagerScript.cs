@@ -46,7 +46,7 @@ public class LevelManagerScript : MonoBehaviour
 
 
     private ObsticalManager obsticalsScript;
-
+    private Button[] canvasButtons;
 
 
     public void Start()
@@ -57,6 +57,7 @@ public class LevelManagerScript : MonoBehaviour
 		InitializeAndStartObsticles ();
 
         InitAllPanelsAndDialogs();
+        canvasButtons = MainModalPanel.GetComponentsInChildren<Button>(); // left and rightdirection buttons
 
         initTimer();
 
@@ -149,7 +150,6 @@ public class LevelManagerScript : MonoBehaviour
 
     private void SetVisualCanvasItems(bool status)
     {
-        Button[] canvasButtons = MainModalPanel.GetComponentsInChildren<Button>();
         if (canvasButtons != null && canvasButtons.Length != 0)
         {
             foreach (Button btn in canvasButtons)
