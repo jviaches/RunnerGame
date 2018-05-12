@@ -9,19 +9,19 @@ using UnityEngine.UI;
 	
 public class LevelManagerScript : MonoBehaviour
 {
-    public GameObject RoadManager;
+    public GameObject RoadManager;              // responsible for dynamic road creation
     public float roadTileCreationSpeed = 1;     // tile per second
     public int directionChangingFrequency = 3;  // Random 0 =  change direction
 
     public float droneRedrawSpeed = 60f;
-    public GameObject Drone;
+    public GameObject Drone;                    // flying drone simulating road creation
 
-    public PlayerControllerScript playerScript;
+    public PlayerControllerScript playerScript; // Script attached to buggy
 
     public int Level = 1;//WorldManager.Instance.Level;
-    public int timeToSurvive = 4;                   //in seconds
+    public int timeToSurviveSec = 4;                //Time ot survive to next level
 
-    public GameObject MainModalPanel;               // ..
+    public GameObject MainModalPanel;               // Canvas
     public GameObject SuccessModalPanel;            // Modal Dialog when user successfully completed level
     public Button SuccessModalOkButton;             // OK button in Success modal dialog
     public Button SuccessModalNextLvlButton;        // Next level button in Success modal dialog
@@ -44,10 +44,8 @@ public class LevelManagerScript : MonoBehaviour
     private RoadGenerationScript roadScript;
     private int timeLeft;
 
-
     private ObsticalManager obsticalsScript;
     private Button[] canvasButtons;
-
 
     public void Start()
     {
@@ -90,7 +88,7 @@ public class LevelManagerScript : MonoBehaviour
     private void initTimer()
     {
         Debug.Log("initTimer");
-        timeLeft = timeToSurvive;
+        timeLeft = timeToSurviveSec;
 
         InvokeRepeating("Run", 1, 1);
     }
@@ -122,13 +120,10 @@ public class LevelManagerScript : MonoBehaviour
         Invoke("DroneMovement", 1 / droneRedrawSpeed);
     }
 
-   
-
     private void AdvancingRoad()
     {
         if (!this.GameOver)
         {
-            
             roadScript.AdvanceRoad();
 
             Invoke("AdvancingRoad", 1 / roadTileCreationSpeed);
@@ -137,9 +132,10 @@ public class LevelManagerScript : MonoBehaviour
 
     public void FinishLevel(bool playerLost)
     {
-        this.GameOver = true;
+        GameOver = true;
         playerScript.GameOver = true;
-		obsticalsScript.FinishLevel ();
+
+		obsticalsScript.FinishLevel();
         SetVisualCanvasItems(false);
 
         if (playerLost)
@@ -207,17 +203,11 @@ public class LevelManagerScript : MonoBehaviour
         dialogManager.CloseAllOpenedModalDialogs();
     }
 
-    //private void menuButtonInvocation()
-    //{
-    //    dialogManager.ShowModalDialog(AreYouSureModalPanel, MainModalPanel);
-    //}
-
     private void loadNextLevelModalDialog()
     {
         GameOver = false;
         playerScript.RestartPlayer();
         GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
-        //roadScript.InitRoad();
 
         initTimer();
 
@@ -250,16 +240,11 @@ public class LevelManagerScript : MonoBehaviour
     {
         CancelInvoke("spawnPlatform");
         dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[0]);
-
-        // need to set speed
-//        GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
     }
 
     private void showModalFailLevelDialog()
     {
         CancelInvoke("spawnPlatform");
         dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[1]);
-        //playerScript.SetSpeed(0);
-        //playerScript.SetMovingDirection(true);
     }
 }
