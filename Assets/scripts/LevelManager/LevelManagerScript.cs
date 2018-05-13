@@ -41,32 +41,47 @@ public class LevelManagerScript : MonoBehaviour
     private DialogManager dialogManager;
 
     private bool GameOver = false;
-    private RoadGenerationScript roadScript;
+    private RoadGenerationScript script_RoadScript;
+    private EventManager script_eventManager;
     private int timeLeft;
 
     private ObsticalManager obsticalsScript;
     private Button[] canvasButtons;
 
-    public void Start()
+
+    private void OnEnable()
+    {
+        EventManager.LevelFailed += LevelEndedWithFail;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelFailed -= LevelEndedWithFail;
+    }
+
+      public void Start()
     {
         Debug.Log("Start");
         obsticalsScript = GameObject.Find("ObsticalManagerObject").GetComponent<ObsticalManager>();
 
-		InitializeAndStartObsticles ();
+        script_eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+
+
+        InitializeAndStartObsticles ();
 
         InitAllPanelsAndDialogs();
         canvasButtons = MainModalPanel.GetComponentsInChildren<Button>(); // left and rightdirection buttons
 
         initTimer();
 
-        roadScript = RoadManager.GetComponent<RoadGenerationScript>();
+        script_RoadScript = RoadManager.GetComponent<RoadGenerationScript>();
 
-        if (roadScript == null)
+        if (script_RoadScript == null)
         {
             Debug.Log("Failed to load roads script. Exiting");
             return;
         }
-        roadScript.ForceStart();
+        script_RoadScript.ForceStart();
 
         SetVisualCanvasItems(true);
         AdvancingRoad();
@@ -75,6 +90,10 @@ public class LevelManagerScript : MonoBehaviour
         DroneMovement();
     }
 
+    public EventManager GetEventManagerScript()
+    {
+        return script_eventManager;
+    }
 	void InitializeAndStartObsticles ()
 	{
 		if (obsticalsScript == null)
@@ -103,8 +122,14 @@ public class LevelManagerScript : MonoBehaviour
         else
         {
             CancelInvoke("Run");
+            script_eventManager.FireLevelWonEvent();
             FinishLevel(false);
         }
+    }
+
+    void LevelEndedWithFail()
+    {
+        FinishLevel(true);
     }
 
     private void DroneMovement()
@@ -112,10 +137,10 @@ public class LevelManagerScript : MonoBehaviour
         Vector3 currentLocation = Drone.transform.position;
 
         Drone.transform.position = currentLocation + 
-                                   (roadScript.frontWall.transform.position + new Vector3(0, 5, 0) - currentLocation) * 
+                                   (script_RoadScript.frontWall.transform.position + new Vector3(0, 5, 0) - currentLocation) * 
                                    roadTileCreationSpeed / droneRedrawSpeed;
 
-        Drone.transform.Rotate(roadScript.newTileRotation * roadTileCreationSpeed / droneRedrawSpeed);
+        Drone.transform.Rotate(script_RoadScript.newTileRotation * roadTileCreationSpeed / droneRedrawSpeed);
 
         Invoke("DroneMovement", 1 / droneRedrawSpeed);
     }
@@ -124,7 +149,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         if (!this.GameOver)
         {
-            roadScript.AdvanceRoad();
+            script_RoadScript.AdvanceRoad();
 
             Invoke("AdvancingRoad", 1 / roadTileCreationSpeed);
         }
@@ -133,9 +158,7 @@ public class LevelManagerScript : MonoBehaviour
     public void FinishLevel(bool playerLost)
     {
         GameOver = true;
-        playerScript.GameOver = true;
-
-		obsticalsScript.FinishLevel();
+      
         SetVisualCanvasItems(false);
 
         if (playerLost)
@@ -206,12 +229,14 @@ public class LevelManagerScript : MonoBehaviour
     private void loadNextLevelModalDialog()
     {
         GameOver = false;
+        script_eventManager.FireRestartLevelEvent();
+
         playerScript.RestartPlayer();
         GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
 
         initTimer();
 
-        roadScript.ForceStart();
+        script_RoadScript.ForceStart();
 		InitializeAndStartObsticles ();
         dialogManager.CloseAllOpenedModalDialogs();
 

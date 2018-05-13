@@ -9,14 +9,23 @@ public class MetheorCollisionDetection : MonoBehaviour {
     public ParticleSystem exaust = null;
 	public GameObject target = null;
 
+    private LevelManagerScript script_LevelManager;
+    private EventManager script_EventManager;
+    
+
     // Use this for initialization
     void Start () {
-		
+        script_LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
+        script_EventManager = script_LevelManager.GetEventManagerScript();
 	}
     void OnCollisionEnter(Collision collision)
     {
-        //if (collision.gameObject.name == "YourWallName")  // or if(gameObject.CompareTag("YourWallTag"))
-        Debug.Log("Metheor has landed");
+        if (collision.gameObject.name == "Buggy")
+        {
+            script_EventManager.FireLevelFailedEvent();
+        }
+            //if (collision.gameObject.name == "YourWallName")  // or if(gameObject.CompareTag("YourWallTag"))
+            Debug.Log("Metheor has landed");
         {
             Rigidbody rb = this.GetComponent<Rigidbody>();
             if(rb!= null)

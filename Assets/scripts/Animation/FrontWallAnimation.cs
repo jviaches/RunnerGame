@@ -7,12 +7,29 @@ public class FrontWallAnimation : MonoBehaviour {
 	public ParticleSystem debreeSystem;
 	public ParticleSystem smokeSystem;
 
-	// Use this for initialization
-	void Start () {
+    private void OnEnable()
+    {
+        EventManager.LevelFailed += StopAnimation;
+        EventManager.LevelWon += StopAnimation;
+        EventManager.RestartLevel += StartAnimation;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelFailed -= StopAnimation;
+        EventManager.LevelWon -= StopAnimation;
+        EventManager.RestartLevel -= StartAnimation;
+
+    }
+    void Start () {
 		
 	}
-	
-	public void StopAnimation(){
+    private void StartAnimation()
+    {
+        debreeSystem.Play();
+        smokeSystem.Play();
+    }
+    private void StopAnimation(){
 		debreeSystem.Stop ();
 		smokeSystem.Stop ();
 	}

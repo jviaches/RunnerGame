@@ -22,6 +22,7 @@ public class PlayerControllerScript : MonoBehaviour
 
     public Vector3 movementDirection;
     private Rigidbody carRigidBody;
+    private GameObject playerBody;
 
     public int WheelRoattioVisualModifyer = 25;
     public Text speedometer;
@@ -32,9 +33,21 @@ public class PlayerControllerScript : MonoBehaviour
     private float ScreenWidth;
     private float currentTurn = 0f;
 
+    private void OnEnable()
+    {
+        EventManager.LevelFailed += LevelEnded;
+        EventManager.LevelWon += LevelEnded;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelFailed -= LevelEnded;
+        EventManager.LevelWon -= LevelEnded;
+    }
+
     void Start()
     {
-
+        playerBody = GameObject.Find("Buggy");
         carRigidBody = GameObject.Find("Buggy").GetComponent<Rigidbody>();
         movementDirection = new Vector3(1, 0, 0);
         ScreenWidth = Screen.width;
@@ -55,13 +68,25 @@ public class PlayerControllerScript : MonoBehaviour
 		}
 	}
 
+    void LevelEnded()
+    {
+        GameOver = true;
+        StopPlayerMovement();
+    }
+
+    void StopPlayerMovement()
+    {
+        carRigidBody.isKinematic = true;
+        carRigidBody.velocity = Vector3.zero;
+    }
+
     public void RestartPlayer()
     {
         //RighBacktW.brakeTorque = 0;
         //LeftBackW.brakeTorque = 0;
-        GameObject playerBody = GameObject.Find("Buggy");
+      
 
-        playerBody.GetComponent<Rigidbody>().isKinematic = false;
+        carRigidBody.isKinematic = false;
 
         GameOver = false;
         playerBody.transform.position = new Vector3(0, 2, 0);

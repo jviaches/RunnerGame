@@ -72,7 +72,16 @@ public class RoadGenerationScript : MonoBehaviour
 
     private bool isInitialized = false;
 
-    // Use this for initialization
+    private void OnEnable()
+    {
+        EventManager.LevelFailed += LevelEndedWithFail;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelFailed -= LevelEndedWithFail;
+    }
+
     void Start()
     {
         if (!isInitialized)
@@ -123,6 +132,10 @@ public class RoadGenerationScript : MonoBehaviour
         }
     }
 
+    void LevelEndedWithFail()
+    {
+        //TODO
+    }
     private GameObject ConvertLeftTurnToRightTurnROAD(GameObject obj)
     {
         if (obj != null)

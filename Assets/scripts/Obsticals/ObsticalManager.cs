@@ -16,16 +16,29 @@ public class ObsticalManager : MonoBehaviour {
 
     private int landingForceAmlification = 5000;
     private float tileSize;
-    private RoadGenerationScript roadScript;
+    
 	private float delayInSeconds;
 
 	private bool GameOver = false;
 
-	void Start () {
-        //Init();
-		//SendMetheorToARandomLocation(true, 1);
+
+    private RoadGenerationScript roadScript;
+
+
+
+    private void OnEnable()
+    {
+        EventManager.LevelFailed += FinishLevel;
+        EventManager.LevelWon += FinishLevel;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.LevelFailed -= FinishLevel;
+        EventManager.LevelWon -= FinishLevel;
+    }
+    void Start () {
        
-	//	SendMetheor(Vector3.zero);
 	}
 
 	public void ResetAllObsticals(){
@@ -39,7 +52,7 @@ public class ObsticalManager : MonoBehaviour {
 
 	}
 
-	public void FinishLevel(){
+	 void FinishLevel(){
 		GameOver = true;
 		ResetAllObsticals ();
 	}
