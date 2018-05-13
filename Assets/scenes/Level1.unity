@@ -945,9 +945,8 @@ MonoBehaviour:
   directionChangingFrequency: 3
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
-  playerScript: {fileID: 2010931214}
   Level: 1
-  timeToSurviveSec: 2
+  timeToSurviveSec: 10
   MainModalPanel: {fileID: 1165868768}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalOkButton: {fileID: 1105038357}
@@ -3853,12 +3852,6 @@ MonoBehaviour:
   axisValue: 1
   responseSpeed: 30
   returnToCentreSpeed: 3
---- !u!114 &2010931214 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114670034760261352, guid: 61c5fdc527ba4d54fa0ffd6f0d011516,
-    type: 2}
-  m_PrefabInternal: {fileID: 1527527471}
-  m_Script: {fileID: 11500000, guid: 573e54aee324627419d91b4016b459b1, type: 3}
 --- !u!1 &2049205021
 GameObject:
   m_ObjectHideFlags: 0

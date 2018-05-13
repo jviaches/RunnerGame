@@ -83,6 +83,7 @@ public class ObsticalManager : MonoBehaviour {
     }
 
 
+
 	private void SendMetheorToRandomLocation(){
 
 	if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)

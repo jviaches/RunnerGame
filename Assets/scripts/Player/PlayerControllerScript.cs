@@ -86,8 +86,8 @@ public class PlayerControllerScript : MonoBehaviour
     {
         //RighBacktW.brakeTorque = 0;
         //LeftBackW.brakeTorque = 0;
-      
 
+        if (carRigidBody == null) Start();
         carRigidBody.isKinematic = false;
         carRigidBody.velocity = new Vector3(1, 0, 0);
         GameOver = false;

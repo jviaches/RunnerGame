@@ -84,8 +84,8 @@ public class LevelManagerScript : MonoBehaviour
 
         SetVisualCanvasItems(true);
         AdvancingRoad();
+        ((EventManager)scriptsDictionary["EventManager"]).FireRestartLevelEvent();
 
-        
         DroneMovement();
     }
 
