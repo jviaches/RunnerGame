@@ -51,6 +51,7 @@ public class ObsticalManager : MonoBehaviour {
 	}
 
 	public void ResetAllObsticals(){
+        Init();
 		int amount = q_obsticalsOnTheRoad.Count;
 		for (int i = 0; i < amount; i++) {
 			GameObject m = (GameObject) q_obsticalsOnTheRoad [0];

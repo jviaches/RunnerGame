@@ -16,7 +16,7 @@ public class LevelManagerScript : MonoBehaviour
     public float droneRedrawSpeed = 60f;
     public GameObject Drone;                    // flying drone simulating road creation
 
-    public PlayerControllerScript playerScript; // Script attached to buggy
+    //public PlayerControllerScript playerScript; // Script attached to buggy
 
     public int Level = 1;//WorldManager.Instance.Level;
     public int timeToSurviveSec = 4;                //Time ot survive to next level
@@ -41,13 +41,15 @@ public class LevelManagerScript : MonoBehaviour
     private DialogManager dialogManager;
 
     private bool GameOver = false;
-    private RoadGenerationScript script_RoadScript;
-    private EventManager script_eventManager;
+   // private RoadGenerationScript script_RoadScript;
+   //private EventManager script_eventManager;
     private int timeLeft;
 
-    private ObsticalManager obsticalsScript;
+    //private ObsticalManager obsticalsScript;
     private Button[] canvasButtons;
 
+
+    private Dictionary<string, MonoBehaviour> scriptsDictionary;
 
     private void OnEnable()
     {
@@ -62,26 +64,23 @@ public class LevelManagerScript : MonoBehaviour
       public void Start()
     {
         Debug.Log("Start");
-        obsticalsScript = GameObject.Find("ObsticalManagerObject").GetComponent<ObsticalManager>();
+        OrganizeScripts();
 
-        script_eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
-
-
-        InitializeAndStartObsticles ();
+        
 
         InitAllPanelsAndDialogs();
         canvasButtons = MainModalPanel.GetComponentsInChildren<Button>(); // left and rightdirection buttons
 
         initTimer();
 
-        script_RoadScript = RoadManager.GetComponent<RoadGenerationScript>();
 
-        if (script_RoadScript == null)
+        RoadGenerationScript rs = (RoadGenerationScript)scriptsDictionary["RoadGenerationScript"];
+        if (rs == null)
         {
             Debug.Log("Failed to load roads script. Exiting");
             return;
         }
-        script_RoadScript.ForceStart();
+        rs.ForceStart();
 
         SetVisualCanvasItems(true);
         AdvancingRoad();
@@ -90,19 +89,20 @@ public class LevelManagerScript : MonoBehaviour
         DroneMovement();
     }
 
-    public EventManager GetEventManagerScript()
+    void OrganizeScripts()
     {
-        return script_eventManager;
+        if (scriptsDictionary==null) scriptsDictionary = new Dictionary<string, MonoBehaviour>();
+        scriptsDictionary.Add("ObsticalManager", (MonoBehaviour)GameObject.Find("ObsticalManagerObject").GetComponent<ObsticalManager>());
+        scriptsDictionary.Add("EventManager", GameObject.Find("EventManager").GetComponent<EventManager>());
+        scriptsDictionary.Add("RoadGenerationScript",  RoadManager.GetComponent<RoadGenerationScript>());
     }
-	void InitializeAndStartObsticles ()
-	{
-		if (obsticalsScript == null)
-			Debug.Log ("Unable to find obsical manager script");
-		else {
-			obsticalsScript.Init ();
-			obsticalsScript.SendMetheorToARandomLocation (true, 1);
-		}
-	}
+
+
+    public MonoBehaviour GetScript(string scriptName)
+    {
+        return scriptsDictionary[scriptName];
+    }
+
 
     private void initTimer()
     {
@@ -122,7 +122,7 @@ public class LevelManagerScript : MonoBehaviour
         else
         {
             CancelInvoke("Run");
-            script_eventManager.FireLevelWonEvent();
+            ((EventManager) scriptsDictionary["EventManager"]).FireLevelWonEvent();
             FinishLevel(false);
         }
     }
@@ -135,12 +135,12 @@ public class LevelManagerScript : MonoBehaviour
     private void DroneMovement()
     {
         Vector3 currentLocation = Drone.transform.position;
-
+        RoadGenerationScript rs = (RoadGenerationScript)scriptsDictionary["RoadGenerationScript"];
         Drone.transform.position = currentLocation + 
-                                   (script_RoadScript.frontWall.transform.position + new Vector3(0, 5, 0) - currentLocation) * 
+                                   (rs.frontWall.transform.position + new Vector3(0, 5, 0) - currentLocation) * 
                                    roadTileCreationSpeed / droneRedrawSpeed;
 
-        Drone.transform.Rotate(script_RoadScript.newTileRotation * roadTileCreationSpeed / droneRedrawSpeed);
+        Drone.transform.Rotate(rs.newTileRotation * roadTileCreationSpeed / droneRedrawSpeed);
 
         Invoke("DroneMovement", 1 / droneRedrawSpeed);
     }
@@ -149,7 +149,7 @@ public class LevelManagerScript : MonoBehaviour
     {
         if (!this.GameOver)
         {
-            script_RoadScript.AdvanceRoad();
+            ((RoadGenerationScript)scriptsDictionary["RoadGenerationScript"]).AdvanceRoad();
 
             Invoke("AdvancingRoad", 1 / roadTileCreationSpeed);
         }
@@ -229,7 +229,7 @@ public class LevelManagerScript : MonoBehaviour
     private void loadNextLevelModalDialog()
     {
         GameOver = false;
-        script_eventManager.FireRestartLevelEvent();
+        ((EventManager)scriptsDictionary["EventManager"]).FireRestartLevelEvent();
 
         initTimer();
 

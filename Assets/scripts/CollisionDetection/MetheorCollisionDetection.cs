@@ -16,8 +16,9 @@ public class MetheorCollisionDetection : MonoBehaviour {
     // Use this for initialization
     void Start () {
         script_LevelManager = GameObject.Find("LevelManager").GetComponent<LevelManagerScript>();
-        script_EventManager = script_LevelManager.GetEventManagerScript();
-	}
+        script_EventManager = (EventManager)script_LevelManager.GetScript("EventManager");
+
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.name == "Buggy")
