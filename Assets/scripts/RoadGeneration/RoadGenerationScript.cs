@@ -74,12 +74,12 @@ public class RoadGenerationScript : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.LevelFailed += LevelEndedWithFail;
+        EventManager.RestartLevel += ForceStart;
     }
 
     private void OnDisable()
     {
-        EventManager.LevelFailed -= LevelEndedWithFail;
+        EventManager.RestartLevel -= ForceStart;
     }
 
     void Start()

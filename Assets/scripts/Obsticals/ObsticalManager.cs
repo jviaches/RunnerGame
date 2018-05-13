@@ -1,5 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 public class ObsticalManager : MonoBehaviour {
@@ -30,13 +30,22 @@ public class ObsticalManager : MonoBehaviour {
     {
         EventManager.LevelFailed += FinishLevel;
         EventManager.LevelWon += FinishLevel;
+        EventManager.RestartLevel += RestartObsticals;
     }
 
     private void OnDisable()
     {
         EventManager.LevelFailed -= FinishLevel;
         EventManager.LevelWon -= FinishLevel;
+        EventManager.RestartLevel -= RestartObsticals;
     }
+
+    private void RestartObsticals()
+    {
+        Init();
+        SendMetheorToARandomLocation(true, 1);
+    }
+
     void Start () {
        
 	}
@@ -65,7 +74,7 @@ public class ObsticalManager : MonoBehaviour {
         if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
         {
             int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
-			Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)Random.Range(-1*tileSize,tileSize) ,0,(float)Random.Range(-1*tileSize,tileSize));
+			Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)UnityEngine.Random.Range(-1*tileSize,tileSize) ,0,(float)UnityEngine.Random.Range(-1*tileSize,tileSize));
             SendMetheor(landingPoint);
         }
 		if(repeat)
@@ -78,7 +87,7 @@ public class ObsticalManager : MonoBehaviour {
 	if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
 	{
 		int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
-		Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)Random.Range(-1*tileSize,tileSize) ,0,(float)Random.Range(-1*tileSize,tileSize));
+		Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)UnityEngine.Random.Range(-1*tileSize,tileSize) ,0,(float)UnityEngine.Random.Range(-1*tileSize,tileSize));
 		SendMetheor(landingPoint);
 	}
 		if(!GameOver)
@@ -147,9 +156,9 @@ public class ObsticalManager : MonoBehaviour {
         GameObject m = (GameObject)pool_obsticalsPool[0];
         pool_obsticalsPool.RemoveAt(0);
 		q_obsticalsOnTheRoad.Add(m);
-        Vector3 startPosition = landingLocation + new Vector3(Random.Range(-1 * tileSize, tileSize),
-                                                           Random.Range(tileSize, maxAnimationStartingHeight + tileSize),
-                                                           Random.Range(-1 * tileSize, tileSize));
+        Vector3 startPosition = landingLocation + new Vector3(UnityEngine.Random.Range(-1 * tileSize, tileSize),
+                                                           UnityEngine.Random.Range(tileSize, maxAnimationStartingHeight + tileSize),
+                                                           UnityEngine.Random.Range(-1 * tileSize, tileSize));
 		m.transform.position = startPosition;
 		m.transform.Find("Rock").position = startPosition;
        

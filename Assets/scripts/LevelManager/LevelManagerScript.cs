@@ -231,13 +231,8 @@ public class LevelManagerScript : MonoBehaviour
         GameOver = false;
         script_eventManager.FireRestartLevelEvent();
 
-        playerScript.RestartPlayer();
-        GameObject.Find("Buggy").GetComponent<Rigidbody>().velocity = new Vector3(1, 0, 0);
-
         initTimer();
 
-        script_RoadScript.ForceStart();
-		InitializeAndStartObsticles ();
         dialogManager.CloseAllOpenedModalDialogs();
 
         SetVisualCanvasItems(true);

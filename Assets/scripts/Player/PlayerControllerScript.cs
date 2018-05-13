@@ -37,12 +37,14 @@ public class PlayerControllerScript : MonoBehaviour
     {
         EventManager.LevelFailed += LevelEnded;
         EventManager.LevelWon += LevelEnded;
+        EventManager.RestartLevel += RestartPlayer;
     }
 
     private void OnDisable()
     {
         EventManager.LevelFailed -= LevelEnded;
         EventManager.LevelWon -= LevelEnded;
+        EventManager.RestartLevel -= RestartPlayer;
     }
 
     void Start()
@@ -87,7 +89,7 @@ public class PlayerControllerScript : MonoBehaviour
       
 
         carRigidBody.isKinematic = false;
-
+        carRigidBody.velocity = new Vector3(1, 0, 0);
         GameOver = false;
         playerBody.transform.position = new Vector3(0, 2, 0);
         playerBody.transform.rotation = Quaternion.Euler(Vector3.zero);
