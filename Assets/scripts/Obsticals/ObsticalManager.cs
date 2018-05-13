@@ -13,10 +13,10 @@ public class ObsticalManager : MonoBehaviour {
     private string obsticlePath = "Obsticals/";
     private Vector3 offSceneLocation = new Vector3(1000, 1000, 1000);
     private float maxAnimationStartingHeight = 35f;
-
+    public float meteorFallingRadiusInTiles = 2f;
     private int landingForceAmlification = 5000;
     private float tileSize;
-    
+    private Vector3 playerTileLocation = new Vector3(0, 0, 0);
 	private float delayInSeconds;
 
 	private bool GameOver = false;
@@ -31,6 +31,7 @@ public class ObsticalManager : MonoBehaviour {
         EventManager.LevelFailed += FinishLevel;
         EventManager.LevelWon += FinishLevel;
         EventManager.RestartLevel += RestartObsticals;
+        EventManager.ReportPlayerLocation += PlayerLocationChanged;
     }
 
     private void OnDisable()
@@ -38,12 +39,19 @@ public class ObsticalManager : MonoBehaviour {
         EventManager.LevelFailed -= FinishLevel;
         EventManager.LevelWon -= FinishLevel;
         EventManager.RestartLevel -= RestartObsticals;
+        EventManager.ReportPlayerLocation -= PlayerLocationChanged;
     }
 
     private void RestartObsticals()
     {
         Init();
-        SendMetheorToARandomLocation(true, 1);
+        SendMetheorToARandomLocation(true, 2);
+    }
+
+    void PlayerLocationChanged(Vector3 location)
+    {
+        playerTileLocation = location;
+       // Debug.Log("new player location" + location);
     }
 
     void Start () {
@@ -72,12 +80,12 @@ public class ObsticalManager : MonoBehaviour {
 		delayInSeconds = _delayInSeconds;
   
 
-        if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
-        {
-            int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
-			Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)UnityEngine.Random.Range(-1*tileSize,tileSize) ,0,(float)UnityEngine.Random.Range(-1*tileSize,tileSize));
+       // if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
+       //{
+           // int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
+			Vector3 landingPoint = playerTileLocation + new Vector3((float)UnityEngine.Random.Range(0,meteorFallingRadiusInTiles* tileSize) ,0,(float)UnityEngine.Random.Range(0, meteorFallingRadiusInTiles*tileSize));
             SendMetheor(landingPoint);
-        }
+       // }
 		if(repeat)
         Invoke("SendMetheorToRandomLocation", delayInSeconds);
     }
@@ -86,12 +94,12 @@ public class ObsticalManager : MonoBehaviour {
 
 	private void SendMetheorToRandomLocation(){
 
-	if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
-	{
-		int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
-		Vector3 landingPoint = (Vector3)roadScript.q_tileLocations[tileId] + new Vector3((float)UnityEngine.Random.Range(-1*tileSize,tileSize) ,0,(float)UnityEngine.Random.Range(-1*tileSize,tileSize));
-		SendMetheor(landingPoint);
-	}
+        //if (roadScript!=null && roadScript.q_tileLocations!=null && roadScript.q_tileLocations.Count > 0)
+        //{
+        //int tileId = UnityEngine.Random.Range(0, roadScript.q_tileLocations.Count - 1);
+        Vector3 landingPoint = playerTileLocation + new Vector3((float)UnityEngine.Random.Range(0, meteorFallingRadiusInTiles * tileSize), 0, (float)UnityEngine.Random.Range(0, meteorFallingRadiusInTiles * tileSize));
+        SendMetheor(landingPoint);
+	//}
 		if(!GameOver)
 		Invoke("SendMetheorToRandomLocation", delayInSeconds);
 }

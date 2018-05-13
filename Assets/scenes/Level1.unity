@@ -946,7 +946,7 @@ MonoBehaviour:
   droneRedrawSpeed: 60
   Drone: {fileID: 445284676}
   Level: 1
-  timeToSurviveSec: 10
+  timeToSurviveSec: 60
   MainModalPanel: {fileID: 1165868768}
   SuccessModalPanel: {fileID: 1425620496}
   SuccessModalOkButton: {fileID: 1105038357}
@@ -1285,6 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AmountOfObsticals: 50
+  meteorFallingRadiusInTiles: 2
 --- !u!4 &931916705
 Transform:
   m_ObjectHideFlags: 0

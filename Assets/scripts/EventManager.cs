@@ -13,6 +13,9 @@ public class EventManager : MonoBehaviour {
     public delegate void RestartLevelAction();
     public static event RestartLevelAction RestartLevel;
 
+    public delegate void PlayerTileAction(Vector3 location);
+    public static event PlayerTileAction ReportPlayerLocation;
+
     // Use this for initialization
     void Start () {
 		
@@ -22,6 +25,10 @@ public class EventManager : MonoBehaviour {
 	void Update () {
 		
 	}
+    public void FirePlayerLocationChange(Vector3 location)
+    {
+        ReportPlayerLocation(location);
+    }
 
     public void FireLevelWonEvent()
     {
