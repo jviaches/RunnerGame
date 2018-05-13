@@ -27,7 +27,7 @@ public class MainMenuScript : MonoBehaviour {
 
     private void MapMenuButtonClick()
     {
-        SceneManager.LoadScene("LevelMap");
+        SceneManager.LoadScene("Level1");
     }
 
     private void ExitMenuButtonClick()
