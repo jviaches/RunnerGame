@@ -103,7 +103,6 @@ public class LevelManagerScript : MonoBehaviour
         return scriptsDictionary[scriptName];
     }
 
-
     private void initTimer()
     {
         Debug.Log("initTimer");
@@ -205,17 +204,17 @@ public class LevelManagerScript : MonoBehaviour
 
         Dictionary<Button, UnityAction> failModalDictionary = new Dictionary<Button, UnityAction>();
         failModalDictionary.Add(FailModalRepeatLvlButton, repeatLevelFailModalDialog);
-        failModalDictionary.Add(FailModalOkButton, cancelAreYouSureDialog);
+        failModalDictionary.Add(FailModalOkButton, okAreYouSureDialog);
 
         ModalDialog failModalDialog = new ModalDialog(FailModalPanel, failModalDictionary, MainModalPanel);
         dialogManager.AddDialog(failModalDialog);
 
-        Dictionary<Button, UnityAction> areYouSureModalDictionary = new Dictionary<Button, UnityAction>();
-        areYouSureModalDictionary.Add(AreYouSureOkButton, okAreYouSureDialog);
-        areYouSureModalDictionary.Add(AreYouSureCancelButton, cancelAreYouSureDialog);
+        //Dictionary<Button, UnityAction> areYouSureModalDictionary = new Dictionary<Button, UnityAction>();
+        //areYouSureModalDictionary.Add(AreYouSureOkButton, okAreYouSureDialog);
+        //areYouSureModalDictionary.Add(AreYouSureCancelButton, cancelAreYouSureDialog);
 
-        ModalDialog areYouSureModalDialog = new ModalDialog(AreYouSureModalPanel, areYouSureModalDictionary, MainModalPanel);
-        dialogManager.AddDialog(areYouSureModalDialog);
+        //ModalDialog areYouSureModalDialog = new ModalDialog(AreYouSureModalPanel, areYouSureModalDictionary, MainModalPanel);
+        //dialogManager.AddDialog(areYouSureModalDialog);
 
         //Dictionary<Button, UnityAction> menuModalDictionary = new Dictionary<Button, UnityAction>();
         //menuModalDictionary.Add(MenuButton, menuButtonInvocation);
@@ -243,13 +242,14 @@ public class LevelManagerScript : MonoBehaviour
 
     private void repeatLevelFailModalDialog()
     {
-        dialogManager.CloseAllOpenedModalDialogs();
+        //temporary
+        loadNextLevelModalDialog();
     }
 
-    private void cancelAreYouSureDialog()
-    {
-        dialogManager.CloseAllOpenedModalDialogs();
-    }
+    //private void cancelAreYouSureDialog()
+    //{
+    //    dialogManager.CloseAllOpenedModalDialogs();
+    //}
 
     private void okAreYouSureDialog()
     {
