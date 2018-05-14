@@ -34,7 +34,7 @@ public class LevelManagerScript : MonoBehaviour
     public Button AreYouSureOkButton;          
     public Button AreYouSureCancelButton;   
 
-    public Button MenuButton;   
+    public Button PauseButton;   
 
     public Text LevelTimeText;
 
@@ -66,7 +66,7 @@ public class LevelManagerScript : MonoBehaviour
         Debug.Log("Start");
         OrganizeScripts();
 
-        
+        PauseButton.onClick.AddListener(PauseGame);
 
         InitAllPanelsAndDialogs();
         canvasButtons = MainModalPanel.GetComponentsInChildren<Button>(); // left and rightdirection buttons
@@ -266,5 +266,14 @@ public class LevelManagerScript : MonoBehaviour
     {
         CancelInvoke("spawnPlatform");
         dialogManager.ShowModalDialog(dialogManager.ModalsDialogList[1]);
+    }
+
+    public void PauseGame()
+    {
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
+        else
+            Time.timeScale = 0;
+
     }
 }

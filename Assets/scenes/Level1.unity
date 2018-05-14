@@ -656,7 +656,7 @@ MonoBehaviour:
   AreYouSureModalPanel: {fileID: 749695236}
   AreYouSureOkButton: {fileID: 421690319}
   AreYouSureCancelButton: {fileID: 1878372181}
-  MenuButton: {fileID: 1203242404}
+  PauseButton: {fileID: 1203242404}
   LevelTimeText: {fileID: 1320449686}
 --- !u!4 &651764411
 Transform:
@@ -1005,7 +1005,7 @@ RectTransform:
   m_GameObject: {fileID: 883161626}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 0}
   m_Children: []
   m_Father: {fileID: 1203242403}
   m_RootOrder: 0
@@ -1035,7 +1035,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4628c53c55aeb4fa69f30d6526815ea5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0adda4eeb38b84d18ac75a595c851ba1, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2226,7 +2226,7 @@ GameObject:
   - component: {fileID: 1203242405}
   - component: {fileID: 1203242404}
   m_Layer: 5
-  m_Name: Button_Home
+  m_Name: PauseBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2241,7 +2241,7 @@ RectTransform:
   m_GameObject: {fileID: 1203242402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.16330999, y: 0.16330999, z: 0.16330999}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0}
   m_Children:
   - {fileID: 883161627}
   m_Father: {fileID: 1165868772}
@@ -2249,7 +2249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16.901001, y: -18.591156}
+  m_AnchoredPosition: {x: 16.400024, y: -18.591156}
   m_SizeDelta: {x: 360, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1203242404
@@ -3910,7 +3910,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 152, y: -35.7}
+  m_AnchoredPosition: {x: 215.3, y: -35.7}
   m_SizeDelta: {x: 120, y: 24}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2049205023
