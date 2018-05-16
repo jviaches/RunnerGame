@@ -10,10 +10,11 @@ public class RoadGenerationScript : MonoBehaviour
     public int rightWallAmount = 4;
     public int tileSize = 10;
     public int turnsPerTwoSegments = 5;     //basicaly - frequency of turns
-
+   
     public Material RoadMaterial;
     public Material WallMaterial;
-
+    public float roadStraightMaterialScaleFactor = 30;
+    public float roadTurnMaterialScaleFactor = 100;
     public Vector3 newTileRotation;
     public int SimmultaniousRoadTileAmount = 30;
     public GameObject frontWall;
@@ -696,15 +697,16 @@ public class RoadGenerationScript : MonoBehaviour
 			bool s = false;
 			if (tag == tag_roadTile || tag == tag_roadTurnTile)
 				s = true;
-            AddMeshCollider(result, mat,s);
+            AddMeshCollider(result, mat,s,tag);
 
             result.transform.Rotate(rotation);
         }
+        
 
         return result;
     }
 
-    private void SetMaterial(GameObject obj, Material mat)
+    private void SetMaterial(GameObject obj, Material mat )
     {
         //Material[] temp = new Material[1];
         //temp [0] = mat;
@@ -713,8 +715,9 @@ public class RoadGenerationScript : MonoBehaviour
         obj.GetComponent<Renderer>().material = mat;
     }
 
-	private void AddMeshCollider(GameObject obj, Material mat, bool addScript)
+	private void AddMeshCollider(GameObject obj, Material mat, bool addScript, string tag)
     {
+        
         if (IsAMesh(obj))
         {
             obj.AddComponent<MeshCollider>();
@@ -725,10 +728,24 @@ public class RoadGenerationScript : MonoBehaviour
             obj.GetComponent<Rigidbody>().useGravity = false;
 
             SetMaterial(obj, mat);
+            Renderer r = obj.GetComponent<Renderer>();
+            if (r != null )
+            {
+               if( tag == tag_roadTile)
+                {
+                    r.material.mainTextureScale = new Vector2(transform.localScale.x / roadStraightMaterialScaleFactor, transform.localScale.z / roadStraightMaterialScaleFactor);
+                   
+                }
+               if(tag == tag_roadTurnTile)
+                {
+                   r.material.mainTextureScale = new Vector2(transform.localScale.x / roadTurnMaterialScaleFactor, transform.localScale.z / roadTurnMaterialScaleFactor);
+                   
+                }
+            }
         }
 
         for (int i = 0; i < obj.transform.childCount; i++)
-			AddMeshCollider(obj.transform.GetChild(i).gameObject, mat,addScript);
+			AddMeshCollider(obj.transform.GetChild(i).gameObject, mat,addScript,tag);
     }
 
     private bool IsAMesh(GameObject obj)

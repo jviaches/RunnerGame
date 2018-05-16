@@ -3289,6 +3289,8 @@ MonoBehaviour:
   turnsPerTwoSegments: 3
   RoadMaterial: {fileID: 2100000, guid: 1842f053636056244ae7f40fa51d0d76, type: 2}
   WallMaterial: {fileID: 2100000, guid: 01ae62f9948008540a5291e8b48f0fdd, type: 2}
+  roadStraightMaterialScaleFactor: 20
+  roadTurnMaterialScaleFactor: 1
   newTileRotation: {x: 0, y: 0, z: 0}
   SimmultaniousRoadTileAmount: 100
   frontWall: {fileID: 0}
