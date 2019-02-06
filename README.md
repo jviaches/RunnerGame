@@ -15,7 +15,8 @@ User controls car by clicking/taping on the screen. Any click or tap will change
 ![GitHub Logo](/media/MainMenu.png)
 ![GitHub Logo](/media/Settings.PNG)
 ![GitHub Logo](/media/LevelMap.PNG)
-![GitHub Logo](/media/LevelFailed.PNG)
+![GitHub Logo](/media/Screenshot_20190206-110255.jpg)
+![GitHub Logo](/media/Screenshot_20190206-110300.jpg)
 
 ###########################   Road Map for Ver 1.0    ###########################
 
@@ -50,5 +51,3 @@ User controls car by clicking/taping on the screen. Any click or tap will change
 7 Player hit:
   - On road obsticle hit reduces speed to complete stop
 
- 
-## Deadline: May 30.
